@@ -1,0 +1,140 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: saraphina
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: saraphina-config
+  namespace: saraphina
+data:
+  API_BASE_URL: "https://api.saraphina.local"
+  LOG_LEVEL: "INFO"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: saraphina-secrets
+  namespace: saraphina
+type: Opaque
+stringData:
+  JWT_SECRET: "change-this-in-production"
+  DATABASE_URL: "postgresql://user:pass@postgres:5432/saraphina"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: saraphina-api
+  namespace: saraphina
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: saraphina-api
+  template:
+    metadata:
+      labels:
+        app: saraphina-api
+    spec:
+      containers:
+      - name: api
+        image: saraphina/api:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: saraphina-config
+        - secretRef:
+            name: saraphina-secrets
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: saraphina-api-service
+  namespace: saraphina
+spec:
+  selector:
+    app: saraphina-api
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: LoadBalancer
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: saraphina-api-hpa
+  namespace: saraphina
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: saraphina-api
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: saraphina-ingress
+  namespace: saraphina
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.saraphina.local
+    secretName: saraphina-tls
+  rules:
+  - host: api.saraphina.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: saraphina-api-service
+            port:
+              number: 80

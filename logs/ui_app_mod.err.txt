@@ -1,0 +1,193 @@
+[2025-10-31 15:47:39,006] [INFO] Database connection re-established.
+[2025-10-31 15:47:39,137] [INFO] Imported existing <module 'comtypes.gen' from 'F:\\Anaconda\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+[2025-10-31 15:47:39,174] [INFO] Using writeable comtypes cache directory: 'F:\Anaconda\Lib\site-packages\comtypes\gen'
+[2025-10-31 15:47:39,685] [INFO] Starting Playwright and launching persistent browser context...
+[2025-10-31 15:47:41,650] [INFO] Browser context ready. You may log in / interact manually.
+[2025-10-31 15:47:41,792] [INFO] Status server running at http://localhost:6060
+[2025-10-31 15:47:41,882] [INFO] Saraphina v4.6 running.
+[2025-10-31 15:47:41,923] [INFO] Worker-1 started
+[2025-10-31 15:47:41,928] [INFO] Worker-2 started
+[2025-10-31 15:47:42,009] [INFO] Worker-3 started
+[2025-10-31 15:47:42,017] [INFO] Browser watchdog started
+[2025-10-31 15:47:43,274] [INFO] Playwright navigate -> https://datanodes.to/0usedv8t6x0j/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part12.rar
+[2025-10-31 15:47:43,518] [INFO] UI running at http://localhost:7070
+[2025-10-31 15:47:44,090] [INFO] Playwright navigate -> https://datanodes.to/w2dn9953trdm/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part13.rar
+[2025-10-31 15:47:54,416] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 6)
+[2025-10-31 15:47:54,749] [INFO] [Curriculum] Skill advancement: Technical is now level 2
+[2025-10-31 15:47:54,749] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 12)
+[2025-10-31 15:47:55,411] [INFO] Playwright navigate -> https://datanodes.to/yzb94d6xj5xi/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part14.rar
+[2025-10-31 15:47:56,197] [INFO] Playwright navigate -> https://datanodes.to/g1eo646x5gqg/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part15.rar
+[2025-10-31 15:48:00,370] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 18)
+[2025-10-31 15:48:01,049] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 24)
+[2025-10-31 15:48:01,302] [INFO] Playwright navigate -> https://datanodes.to/x6d33hd4dw80/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part16.rar
+[2025-10-31 15:48:02,121] [INFO] Playwright navigate -> https://datanodes.to/gc7a06niozct/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part17.rar
+[2025-10-31 15:48:05,284] [INFO] [Curriculum] Skill advancement: Technical is now level 3
+[2025-10-31 15:48:05,284] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 30)
+[2025-10-31 15:48:06,305] [INFO] Playwright navigate -> https://datanodes.to/elo5seqzn5fs/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part18.rar
+[2025-10-31 15:48:07,131] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 36)
+[2025-10-31 15:48:08,127] [INFO] Playwright navigate -> https://datanodes.to/o37p2qxqp855/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part19.rar
+[2025-10-31 15:48:11,016] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 42)
+[2025-10-31 15:48:11,920] [INFO] Playwright navigate -> https://datanodes.to/5w5yhow4ldqu/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part20.rar
+[2025-10-31 15:48:12,847] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 48)
+[2025-10-31 15:48:13,780] [INFO] Playwright navigate -> https://datanodes.to/tjhrqogolaxc/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part21.rar
+[2025-10-31 15:48:16,163] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 54)
+[2025-10-31 15:48:17,289] [INFO] Playwright navigate -> https://datanodes.to/7t2zcm9yr3bk/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part22.rar
+[2025-10-31 15:48:18,358] [INFO] [Curriculum] Skill advancement: Technical is now level 4
+[2025-10-31 15:48:18,358] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 60)
+[2025-10-31 15:48:19,384] [INFO] Playwright navigate -> https://datanodes.to/oeafof8u4f66/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part23.rar
+[2025-10-31 15:48:21,247] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 66)
+[2025-10-31 15:48:22,325] [INFO] Playwright navigate -> https://datanodes.to/1rdun29htcdy/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part24.rar
+[2025-10-31 15:48:23,606] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 72)
+[2025-10-31 15:48:24,551] [INFO] Playwright navigate -> https://datanodes.to/q4gbvu6enefn/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part25.rar
+[2025-10-31 15:48:26,523] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 78)
+[2025-10-31 15:48:27,468] [INFO] Playwright navigate -> https://datanodes.to/mcg412vbfdu5/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part26.rar
+[2025-10-31 15:48:29,021] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 84)
+[2025-10-31 15:48:29,630] [INFO] 127.0.0.1 [31/Oct/2025:15:48:29 +0200] "GET / HTTP/1.1" 200 3414 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+[2025-10-31 15:48:30,252] [INFO] 127.0.0.1 [31/Oct/2025:15:48:30 +0200] "GET /favicon.ico HTTP/1.1" 404 174 "http://localhost:7070/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"
+[2025-10-31 15:48:30,309] [INFO] Playwright navigate -> https://datanodes.to/clluf29q21bt/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part27.rar
+[2025-10-31 15:48:33,446] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 90)
+[2025-10-31 15:48:34,600] [INFO] Playwright navigate -> https://datanodes.to/h886av0c5p4o/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part28.rar
+[2025-10-31 15:48:34,757] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 96)
+[2025-10-31 15:48:35,891] [INFO] Playwright navigate -> https://datanodes.to/8e6hblg9pf94/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part29.rar
+[2025-10-31 15:48:41,671] [INFO] [Curriculum] Skill advancement: Technical is now level 5
+[2025-10-31 15:48:41,969] [INFO] [Curriculum] INTELLIGENCE ADVANCEMENT! Level 1 \u2192 2
+[2025-10-31 15:48:42,448] [INFO] [Curriculum] Unlocked capabilities: Advanced pattern recognition, Context-aware responses
+[2025-10-31 15:48:42,668] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 2)
+[2025-10-31 15:48:43,596] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 8)
+[2025-10-31 15:48:43,907] [INFO] Playwright navigate -> https://datanodes.to/bf7xa9hwe4p2/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part30.rar
+[2025-10-31 15:48:45,645] [INFO] Playwright navigate -> https://datanodes.to/21br42hgx3xm/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part31.rar
+[2025-10-31 15:48:50,204] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 14)
+[2025-10-31 15:48:51,248] [INFO] Playwright navigate -> https://datanodes.to/d0sq040eg80e/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part32.rar
+[2025-10-31 15:48:53,245] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 20)
+[2025-10-31 15:48:54,328] [INFO] Playwright navigate -> https://datanodes.to/99wxs5o140ht/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part33.rar
+[2025-10-31 15:48:56,918] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 26)
+[2025-10-31 15:48:58,174] [INFO] Playwright navigate -> https://datanodes.to/xncv3hgnd5uo/eFootball_PES_2020_--_fitgirl-repacks.site_--_.part34.rar
+[2025-10-31 15:49:00,373] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 32)
+[2025-10-31 15:49:01,570] [INFO] Playwright navigate -> https://datanodes.to/4zt7bnq0dwj6/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part01.rar
+[2025-10-31 15:49:02,814] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 38)
+[2025-10-31 15:49:03,861] [INFO] Playwright navigate -> https://datanodes.to/ont426xtslfk/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part02.rar
+[2025-10-31 15:49:05,603] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 44)
+[2025-10-31 15:49:06,430] [INFO] Playwright navigate -> https://datanodes.to/ulnc7bvles3e/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part03.rar
+[2025-10-31 15:49:08,787] [INFO] [Curriculum] Skill advancement: Technical is now level 6
+[2025-10-31 15:49:08,787] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 50)
+[2025-10-31 15:49:10,022] [INFO] Playwright navigate -> https://datanodes.to/9x8kmp3t6qv5/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part04.rar
+[2025-10-31 15:49:11,192] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 56)
+[2025-10-31 15:49:12,256] [INFO] Playwright navigate -> https://datanodes.to/hjbtbu2e0jbo/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part05.rar
+[2025-10-31 15:49:14,582] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 62)
+[2025-10-31 15:49:16,108] [INFO] Playwright navigate -> https://datanodes.to/8bl0ztjyvn9y/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part06.rar
+[2025-10-31 15:49:16,454] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 68)
+[2025-10-31 15:49:17,405] [INFO] Playwright navigate -> https://datanodes.to/4rmzzcstiklr/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part07.rar
+[2025-10-31 15:49:20,486] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 74)
+[2025-10-31 15:49:21,460] [INFO] Playwright navigate -> https://datanodes.to/1fqlsviwk7zo/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part08.rar
+[2025-10-31 15:49:21,926] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 80)
+[2025-10-31 15:49:23,232] [INFO] Playwright navigate -> https://datanodes.to/g5oddgegnxyc/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part09.rar
+[2025-10-31 15:49:25,768] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 86)
+[2025-10-31 15:49:26,609] [INFO] Playwright navigate -> https://datanodes.to/i5czccit6rou/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part10.rar
+[2025-10-31 15:49:27,410] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 92)
+[2025-10-31 15:49:28,596] [INFO] Playwright navigate -> https://datanodes.to/3xz8wc01e5st/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part11.rar
+[2025-10-31 15:49:31,243] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 98)
+[2025-10-31 15:49:32,279] [INFO] Playwright navigate -> https://datanodes.to/mo5q15tbj6so/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part12.rar
+[2025-10-31 15:49:33,009] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 104)
+[2025-10-31 15:49:34,264] [INFO] Playwright navigate -> https://datanodes.to/mi7pgzwlophu/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part13.rar
+[2025-10-31 15:49:36,310] [INFO] [Curriculum] Skill advancement: Technical is now level 7
+[2025-10-31 15:49:36,310] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 110)
+[2025-10-31 15:49:37,584] [INFO] Playwright navigate -> https://datanodes.to/6ba206qaly5t/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part14.rar
+[2025-10-31 15:49:39,561] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 116)
+[2025-10-31 15:49:40,547] [INFO] Playwright navigate -> https://datanodes.to/t0dv8ldnv3oh/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part15.rar
+[2025-10-31 15:49:42,629] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 122)
+[2025-10-31 15:49:43,899] [INFO] Playwright navigate -> https://datanodes.to/fs1ss9rgadex/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part16.rar
+[2025-10-31 15:49:46,132] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 128)
+[2025-10-31 15:49:47,399] [INFO] Playwright navigate -> https://datanodes.to/gv35k9yvoab1/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part17.rar
+[2025-10-31 15:49:47,999] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 134)
+[2025-10-31 15:49:49,355] [INFO] Playwright navigate -> https://datanodes.to/c6qv21fk0iar/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part18.rar
+[2025-10-31 15:49:52,424] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 140)
+[2025-10-31 15:49:53,311] [INFO] Playwright navigate -> https://datanodes.to/3d74p3xl63rs/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part19.rar
+[2025-10-31 15:49:53,482] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 146)
+[2025-10-31 15:49:54,588] [INFO] Playwright navigate -> https://datanodes.to/urs1j5bnp58p/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part20.rar
+[2025-10-31 15:49:57,981] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 152)
+[2025-10-31 15:49:59,198] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 158)
+[2025-10-31 15:49:59,199] [INFO] Playwright navigate -> https://datanodes.to/wsdmdpr169s3/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part21.rar
+[2025-10-31 15:50:00,204] [INFO] Playwright navigate -> https://datanodes.to/hipb3qsafil7/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part22.rar
+[2025-10-31 15:50:03,743] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 164)
+[2025-10-31 15:50:04,715] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 170)
+[2025-10-31 15:50:04,780] [INFO] Playwright navigate -> https://datanodes.to/slh7u6ssrqc5/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part23.rar
+[2025-10-31 15:50:05,836] [INFO] Playwright navigate -> https://datanodes.to/x3ya7o7aaqgi/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part24.rar
+[2025-10-31 15:50:09,273] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 176)
+[2025-10-31 15:50:09,731] [INFO] [Curriculum] Skill advancement: Technical is now level 8
+[2025-10-31 15:50:09,731] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 182)
+[2025-10-31 15:50:10,405] [INFO] Playwright navigate -> https://datanodes.to/7jtj97dyl9l5/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part25.rar
+[2025-10-31 15:50:11,225] [INFO] Playwright navigate -> https://datanodes.to/uflv0xtymh7c/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part26.rar
+[2025-10-31 15:50:15,590] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 188)
+[2025-10-31 15:50:16,715] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 194)
+[2025-10-31 15:50:16,922] [INFO] Playwright navigate -> https://datanodes.to/zn1jdee36vga/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part27.rar
+[2025-10-31 15:50:17,734] [INFO] Playwright navigate -> https://datanodes.to/ffcws6j0pnu6/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part28.rar
+[2025-10-31 15:50:22,264] [INFO] [Curriculum] INTELLIGENCE ADVANCEMENT! Level 2 \u2192 3
+[2025-10-31 15:50:22,290] [INFO] [Curriculum] Unlocked capabilities: Predictive analysis, Complex problem decomposition
+[2025-10-31 15:50:22,372] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 0)
+[2025-10-31 15:50:22,897] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 6)
+[2025-10-31 15:50:23,486] [INFO] Playwright navigate -> https://datanodes.to/qauioethg9vo/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part29.rar
+[2025-10-31 15:50:24,302] [INFO] Playwright navigate -> https://datanodes.to/ayshjr7rmxvt/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part30.rar
+[2025-10-31 15:50:27,858] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 12)
+[2025-10-31 15:50:29,090] [INFO] Playwright navigate -> https://datanodes.to/ol4qs2xg4y7c/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part31.rar
+[2025-10-31 15:50:29,724] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 18)
+[2025-10-31 15:50:30,774] [INFO] Playwright navigate -> https://datanodes.to/25bh7tbr4skt/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part32.rar
+[2025-10-31 15:50:33,830] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 24)
+[2025-10-31 15:50:34,818] [INFO] Playwright navigate -> https://datanodes.to/basqp22ny8sc/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part33.rar
+[2025-10-31 15:50:35,305] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 30)
+[2025-10-31 15:50:36,540] [INFO] Playwright navigate -> https://datanodes.to/jqfgte5yuzsk/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part34.rar
+[2025-10-31 15:50:39,155] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 36)
+[2025-10-31 15:50:40,242] [INFO] Playwright navigate -> https://datanodes.to/tbvwqbex2prj/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part35.rar
+[2025-10-31 15:50:41,070] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 42)
+[2025-10-31 15:50:42,181] [INFO] Playwright navigate -> https://datanodes.to/kl4zeq229x4i/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part36.rar
+[2025-10-31 15:50:44,828] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 48)
+[2025-10-31 15:50:45,867] [INFO] Playwright navigate -> https://datanodes.to/wbzt5r9g8zva/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part37.rar
+[2025-10-31 15:50:46,213] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 54)
+[2025-10-31 15:50:47,046] [INFO] Playwright navigate -> https://datanodes.to/bwmhd9dwulws/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part38.rar
+[2025-10-31 15:50:50,820] [INFO] [Curriculum] Skill advancement: Technical is now level 9
+[2025-10-31 15:50:50,828] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 60)
+[2025-10-31 15:50:52,220] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 66)
+[2025-10-31 15:50:52,259] [INFO] Playwright navigate -> https://datanodes.to/w65r5e597ur9/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part39.rar
+[2025-10-31 15:50:53,456] [INFO] Playwright navigate -> https://datanodes.to/eww6m7r5k3he/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part40.rar
+[2025-10-31 15:50:56,453] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 72)
+[2025-10-31 15:50:57,324] [INFO] Playwright navigate -> https://datanodes.to/i3c6pw652f6s/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part41.rar
+[2025-10-31 15:50:57,862] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 78)
+[2025-10-31 15:50:59,079] [INFO] Playwright navigate -> https://datanodes.to/btjwccrfofgy/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part42.rar
+[2025-10-31 15:51:02,040] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 84)
+[2025-10-31 15:51:02,965] [INFO] Playwright navigate -> https://datanodes.to/ex43myvirju2/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part43.rar
+[2025-10-31 15:51:03,771] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 90)
+[2025-10-31 15:51:05,181] [INFO] Playwright navigate -> https://datanodes.to/bqeu4l8hfja4/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part44.rar
+[2025-10-31 15:51:07,193] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 96)
+[2025-10-31 15:51:08,430] [INFO] Playwright navigate -> https://datanodes.to/7mlrtnqyircg/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part45.rar
+[2025-10-31 15:51:09,236] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 102)
+[2025-10-31 15:51:10,509] [INFO] Playwright navigate -> https://datanodes.to/x0qagd608uss/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part46.rar
+[2025-10-31 15:51:12,718] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 108)
+[2025-10-31 15:51:13,850] [INFO] Playwright navigate -> https://datanodes.to/rcm6sdvs8w3z/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part47.rar
+[2025-10-31 15:51:15,829] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 114)
+[2025-10-31 15:51:16,820] [INFO] Playwright navigate -> https://datanodes.to/cshr7ao3031q/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part48.rar
+[2025-10-31 15:51:18,751] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 120)
+[2025-10-31 15:51:19,952] [INFO] Playwright navigate -> https://datanodes.to/epcj5ghe9ko5/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part49.rar
+[2025-10-31 15:51:21,137] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 126)
+[2025-10-31 15:51:22,310] [INFO] Playwright navigate -> https://datanodes.to/0938zbqt9rzr/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part50.rar
+[2025-10-31 15:51:24,542] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 132)
+[2025-10-31 15:51:25,716] [INFO] Playwright navigate -> https://datanodes.to/haurd5i0uhdc/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part51.rar
+[2025-10-31 15:51:26,493] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 138)
+[2025-10-31 15:51:27,744] [INFO] Playwright navigate -> https://datanodes.to/d1nyskisjl9e/BLEACH_Rebirth_of_Souls_--_fitgirl-repacks.site_--_.part52.rar
+[2025-10-31 15:51:30,093] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 144)
+[2025-10-31 15:51:31,022] [INFO] Playwright navigate -> https://datanodes.to/2yfamyvvcrgc/fg-optional-credits.part1.rar
+[2025-10-31 15:51:32,569] [INFO] [Curriculum] Skill advancement: Technical is now level 10
+[2025-10-31 15:51:32,569] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 150)
+[2025-10-31 15:51:33,528] [INFO] Playwright navigate -> https://datanodes.to/396rjsx8q26j/fg-optional-credits.part2.rar
+[2025-10-31 15:51:35,428] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 156)
+[2025-10-31 15:51:36,536] [INFO] Playwright navigate -> https://datanodes.to/4uzrzudg8288/fg-optional-credits.part3.rar
+[2025-10-31 15:51:38,435] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 162)
+[2025-10-31 15:51:39,619] [INFO] Playwright navigate -> https://datanodes.to/cinxbymwlc9h/fg-optional-credits.part4.rar
+[2025-10-31 15:51:41,559] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 168)
+[2025-10-31 15:51:42,441] [INFO] Playwright navigate -> https://datanodes.to/ccu0p10hhtx7/fg-optional-credits.part5.rar
+[2025-10-31 15:51:44,136] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 174)
+[2025-10-31 15:51:45,130] [INFO] Playwright navigate -> https://datanodes.to/2yzwfm64h2y5/fg-optional-credits.part6.rar
+[2025-10-31 15:51:46,909] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 180)
+[2025-10-31 15:51:48,165] [INFO] Playwright navigate -> https://datanodes.to/fxibzga971rg/fg-optional-credits.part7.rar
+[2025-10-31 15:51:50,000] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 186)
+[2025-10-31 15:51:51,142] [INFO] Playwright navigate -> https://datanodes.to/5zr1d1vj1z6d/fg-optional-credits.part8.rar
+[2025-10-31 15:51:52,649] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 192)
+[2025-10-31 15:51:55,376] [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 198)

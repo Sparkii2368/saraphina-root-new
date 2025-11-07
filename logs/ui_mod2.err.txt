@@ -1,0 +1,13 @@
+[2025-10-31 15:56:50,874] [INFO] Database connection re-established.
+[2025-10-31 15:56:50,963] [INFO] Imported existing <module 'comtypes.gen' from 'F:\\Anaconda\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+[2025-10-31 15:56:50,986] [INFO] Using writeable comtypes cache directory: 'F:\Anaconda\Lib\site-packages\comtypes\gen'
+[2025-10-31 15:56:51,233] [INFO] Starting Playwright and launching persistent browser context...
+[2025-10-31 15:56:52,895] [INFO] Browser context ready. You may log in / interact manually.
+[2025-10-31 15:56:52,954] [INFO] Status server running at http://localhost:6060
+[2025-10-31 15:56:53,046] [INFO] Saraphina v4.6 running.
+[2025-10-31 15:56:53,078] [INFO] Worker-1 started
+[2025-10-31 15:56:53,124] [INFO] Worker-2 started
+[2025-10-31 15:56:53,290] [INFO] Worker-3 started
+[2025-10-31 15:56:53,374] [INFO] Browser watchdog started
+[2025-10-31 15:56:54,527] [INFO] UI running at http://localhost:7070
+[2025-10-31 15:57:39,648] [INFO] 127.0.0.1 [31/Oct/2025:15:57:39 +0200] "GET / HTTP/1.1" 200 3414 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0"

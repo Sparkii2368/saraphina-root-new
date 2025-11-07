@@ -1,0 +1,1500 @@
+2025-10-27 09:05:12,332 [INFO] Booting Saraphina v0.1...
+2025-10-27 10:02:06,032 [INFO] Boot sequence started at 2025-10-27 10:02:06
+2025-10-27 10:02:06,033 [INFO] Verifying directories...
+2025-10-27 10:02:06,034 [INFO] Loading configuration...
+2025-10-27 10:02:06,035 [INFO] Initializing terminal interface...
+2025-10-27 10:02:06,036 [INFO] Starting system services...
+2025-10-27 10:02:06,036 [INFO] System check: OK
+2025-10-27 10:02:06,037 [INFO] Saraphina v0.1 is now active.
+2025-10-27 10:02:06,042 [INFO] Terminal online. Awaiting input...
+2025-10-27 12:20:43,495 [INFO] Boot sequence started at 2025-10-27 12:20:43
+2025-10-27 12:20:43,496 [INFO] Verifying directories...
+2025-10-27 12:20:43,497 [INFO] Loading configuration...
+2025-10-27 12:20:43,498 [INFO] Initializing terminal interface...
+2025-10-27 12:20:43,499 [INFO] Starting system services...
+2025-10-27 12:20:43,500 [INFO] System check: OK
+2025-10-27 12:20:43,500 [INFO] Saraphina v0.1 is now active.
+2025-10-27 12:20:43,501 [INFO] Terminal online. Awaiting input...
+2025-10-27 12:48:49,917 [INFO] Boot sequence started at 2025-10-27 12:48:49
+2025-10-27 12:48:49,939 [INFO] Verifying directories...
+2025-10-27 12:48:49,940 [INFO] Loading configuration...
+2025-10-27 12:48:49,941 [INFO] Initializing terminal interface...
+2025-10-27 12:48:49,943 [INFO] Starting system services...
+2025-10-27 12:48:49,945 [INFO] System check: OK
+2025-10-27 12:48:49,946 [INFO] Saraphina v0.1 is now active.
+2025-10-27 12:48:49,947 [INFO] Terminal online. Awaiting input...
+2025-10-27 12:52:13,478 [INFO] Boot sequence started at 2025-10-27 12:52:13
+2025-10-27 12:52:13,500 [INFO] Verifying directories...
+2025-10-27 12:52:13,501 [INFO] Loading configuration...
+2025-10-27 12:52:13,502 [INFO] Initializing terminal interface...
+2025-10-27 12:52:13,502 [INFO] Starting system services...
+2025-10-27 12:52:13,503 [INFO] System check: OK
+2025-10-27 12:52:13,504 [INFO] Saraphina v0.1 is now active.
+2025-10-27 12:52:13,505 [INFO] Terminal online. Awaiting input...
+2025-10-27 14:24:27,724 [INFO] Boot sequence started at 2025-10-27 14:24:27
+2025-10-27 14:24:27,762 [INFO] Verifying directories...
+2025-10-27 14:24:27,763 [INFO] Loading configuration...
+2025-10-27 14:24:27,763 [INFO] Initializing terminal interface...
+2025-10-27 14:24:27,763 [INFO] Starting system services...
+2025-10-27 14:24:27,764 [INFO] System check: OK
+2025-10-27 14:24:27,764 [INFO] Saraphina v0.1 is now active.
+2025-10-27 14:24:27,764 [INFO] Terminal online. Awaiting input...
+2025-10-27 14:24:28,284 [INFO] Mock systems initialized.
+2025-10-27 14:24:28,285 [INFO] [SYSTEMS] All 30 systems initialized - Session: systems_20251027_142427
+2025-10-27 14:24:28,286 [INFO] [AI] Saraphina AI Core initialized - Session: ai_20251027_142428
+2025-10-27 14:24:42,520 [INFO] [Curriculum] Learned from interaction: +3 XP (Total: 3)
+2025-10-27 14:24:51,426 [INFO] [Curriculum] Learned from interaction: +6 XP (Total: 9)
+2025-10-27 14:24:59,896 [INFO] [Curriculum] Learned from interaction: +3 XP (Total: 12)
+2025-10-27 14:26:27,670 [ERROR] Terminal loop error: Cannot operate on a closed database.
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 246, in run
+    response = self.process_input(user_input)
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 230, in process_input
+    return self.commands[command](args)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 281, in cmd_status
+    sys_status = self.systems.get_system_status()
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 173, in get_system_status
+    with self.db:
+         ^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+2025-10-27 14:44:35,699 [ERROR] Terminal loop error: Cannot operate on a closed database.
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 246, in run
+    user_input = input(f"{self.current_user}: ").strip()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 230, in process_input
+    if command in self.commands:
+               ^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 281, in cmd_status
+    def cmd_status(self, args: List[str]) -> str:
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 173, in get_system_status
+    """Get comprehensive system status."""
+         ^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+2025-10-27 14:51:53,552 [ERROR] Terminal loop error: Cannot operate on a closed database.
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 246, in run
+    user_input = input(f"{self.current_user}: ").strip()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 230, in process_input
+    if command in self.commands:
+               ^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 281, in cmd_status
+    def cmd_status(self, args: List[str]) -> str:
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 173, in get_system_status
+    """Get comprehensive system status."""
+         ^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+2025-10-27 14:57:06,502 [ERROR] Terminal loop error: Cannot operate on a closed database.
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 246, in run
+    user_input = input(f"{self.current_user}: ").strip()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 230, in process_input
+    if command in self.commands:
+               ^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 281, in cmd_status
+    def cmd_status(self, args: List[str]) -> str:
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 173, in get_system_status
+    """Get comprehensive system status."""
+         ^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+2025-10-27 14:57:08,188 [ERROR] Terminal loop error: Cannot operate on a closed database.
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 246, in run
+    user_input = input(f"{self.current_user}: ").strip()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 230, in process_input
+    if command in self.commands:
+               ^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 281, in cmd_status
+    def cmd_status(self, args: List[str]) -> str:
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 173, in get_system_status
+    """Get comprehensive system status."""
+         ^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+2025-10-27 14:57:09,022 [ERROR] Terminal loop error: Cannot operate on a closed database.
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 246, in run
+    user_input = input(f"{self.current_user}: ").strip()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 230, in process_input
+    if command in self.commands:
+               ^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 281, in cmd_status
+    def cmd_status(self, args: List[str]) -> str:
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 173, in get_system_status
+    """Get comprehensive system status."""
+         ^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+2025-10-27 15:03:23,507 [ERROR] Terminal loop error: Cannot operate on a closed database.
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 246, in run
+    user_input = input(f"{self.current_user}: ").strip()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 230, in process_input
+    if command in self.commands:
+               ^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 281, in cmd_status
+    def cmd_status(self, args: List[str]) -> str:
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 173, in get_system_status
+    """Get comprehensive system status."""
+         ^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+2025-10-27 16:52:53,017 [ERROR] Terminal loop error: Cannot operate on a closed database.
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 246, in run
+    except (KeyboardInterrupt, EOFError):
+                       ^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 230, in process_input
+    return self.ai.process_query(user_input)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 281, in cmd_status
+    with self.knowledge_engine.get_connection() as conn:
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Saraphina Root\src\saraphina\terminal.py", line 173, in get_system_status
+    user_count = conn.execute("SELECT COUNT(*) FROM system_users").fetchone()[0]
+     ^^^^^^^
+sqlite3.ProgrammingError: Cannot operate on a closed database.
+2025-10-27 18:16:02,455 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 13)
+2025-10-27 18:16:07,728 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 14)
+2025-10-27 18:24:15,635 [INFO] Boot sequence started at 2025-10-27 18:24:15
+2025-10-27 18:24:15,636 [INFO] Verifying directories...
+2025-10-27 18:24:15,637 [INFO] Loading configuration...
+2025-10-27 18:24:15,638 [INFO] Initializing terminal interface...
+2025-10-27 18:24:15,638 [INFO] Starting system services...
+2025-10-27 18:24:15,640 [INFO] System check: OK
+2025-10-27 18:24:15,641 [INFO] Saraphina v0.1 is now active.
+2025-10-27 18:24:15,642 [INFO] Terminal online. Awaiting input...
+2025-10-27 18:24:15,742 [INFO] Database connection (re)established.
+2025-10-27 18:24:15,791 [INFO] Mock systems initialized.
+2025-10-27 18:24:15,791 [INFO] [SYSTEMS] All 30 systems initialized - Session: systems_20251027_182415
+2025-10-27 18:24:15,792 [INFO] [AI] Saraphina AI Core initialized - Session: ai_20251027_182415
+2025-10-27 18:24:38,796 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 1)
+2025-10-27 18:24:47,319 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 2)
+2025-10-27 18:24:57,607 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 3)
+2025-10-27 18:25:08,124 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 4)
+2025-10-27 18:25:19,143 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 5)
+2025-10-27 18:25:19,147 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 6)
+2025-10-27 18:25:29,879 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 7)
+2025-10-27 18:25:29,882 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 8)
+2025-10-27 18:25:42,757 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 9)
+2025-10-27 18:25:53,552 [INFO] [Curriculum] Skill advancement: Conversation is now level 2
+2025-10-27 18:25:53,552 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 10)
+2025-10-27 18:36:02,607 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 11)
+2025-10-27 18:45:03,042 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 12)
+2025-10-27 20:56:23,114 [INFO] Boot sequence started at 2025-10-27 20:56:23
+2025-10-27 20:56:23,115 [INFO] Verifying directories...
+2025-10-27 20:56:23,117 [INFO] Loading configuration...
+2025-10-27 20:56:23,118 [INFO] Initializing terminal interface...
+2025-10-27 20:56:23,119 [INFO] Starting system services...
+2025-10-27 20:56:23,120 [INFO] System check: OK
+2025-10-27 20:56:23,121 [INFO] Saraphina v0.1 is now active.
+2025-10-27 20:56:23,122 [INFO] Terminal online. Awaiting input...
+2025-10-27 20:56:23,123 [INFO] Database connection re-established.
+2025-10-27 20:56:23,126 [INFO] Mock systems initialized.
+2025-10-27 20:56:23,126 [INFO] [SYSTEMS] All 30 systems initialized - Session: systems_20251027_205623
+2025-10-27 20:56:23,127 [INFO] [AI] Saraphina AI Core initialized - Session: ai_20251027_205623
+2025-10-27 20:57:07,568 [INFO] [Scraper] Fetching page: https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 21:02:02,802 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 1)
+2025-10-27 21:02:04,469 [INFO] [Downloader] Stop signal received. Finishing active downloads...
+2025-10-27 21:02:04,586 [INFO] Database connection closed on shutdown.
+2025-10-27 21:19:33,964 [INFO] Boot sequence started at 2025-10-27 21:19:33
+2025-10-27 21:19:33,966 [INFO] Verifying directories...
+2025-10-27 21:19:33,968 [INFO] Loading configuration...
+2025-10-27 21:19:33,969 [INFO] Initializing terminal interface...
+2025-10-27 21:19:33,970 [INFO] Starting system services...
+2025-10-27 21:19:33,971 [INFO] System check: OK
+2025-10-27 21:19:33,971 [INFO] Saraphina v0.1 is now active.
+2025-10-27 21:19:33,972 [INFO] Terminal online. Awaiting input...
+2025-10-27 21:19:33,975 [INFO] Database connection re-established.
+2025-10-27 21:19:33,976 [INFO] Mock systems initialized.
+2025-10-27 21:19:33,976 [INFO] [SYSTEMS] All 30 systems initialized - Session: systems_20251027_211933
+2025-10-27 21:19:33,977 [INFO] [AI] Saraphina AI Core initialized - Session: ai_20251027_211933
+2025-10-27 21:19:51,771 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 1)
+2025-10-27 21:20:26,875 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 2)
+2025-10-27 21:20:29,787 [INFO] [Curriculum] Learned from interaction: +1 XP (Total: 3)
+2025-10-27 21:21:20,104 [INFO] [ScraperJS] Initializing headless browser for https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 21:21:20,104 [INFO] ====== WebDriver manager ======
+2025-10-27 21:21:25,534 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:21:26,893 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:21:27,961 [INFO] There is no [win64] chromedriver "141.0.7390.122" for browser google-chrome "141.0.7390" in cache
+2025-10-27 21:21:27,961 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:21:30,642 [INFO] WebDriver version 141.0.7390.122 selected
+2025-10-27 21:21:30,648 [INFO] Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/141.0.7390.122/win32/chromedriver-win32.zip
+2025-10-27 21:21:30,648 [INFO] About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/141.0.7390.122/win32/chromedriver-win32.zip
+2025-10-27 21:21:31,828 [INFO] Driver downloading response is 200
+2025-10-27 21:21:47,523 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:21:48,721 [INFO] Driver has been saved in cache [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122]
+2025-10-27 21:22:23,990 [ERROR] [ScraperJS] An error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 58, in scrape_js_page
+    WebDriverWait(driver, 20).until(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        EC.visibility_of_element_located((By.ID, "decrpyted-paste"))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 21:40:02,002 [INFO] [ScraperJS] Initializing headless browser for https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 21:40:02,003 [INFO] ====== WebDriver manager ======
+2025-10-27 21:40:02,947 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:40:03,985 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:40:05,066 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 21:40:36,990 [ERROR] [ScraperJS] An error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 58, in scrape_js_page
+        EC.visibility_of_element_located((By.ID, "decrypted-paste"))
+    )
+    
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 21:43:46,166 [INFO] [ScraperJS] Initializing headless browser for https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 21:43:46,167 [INFO] ====== WebDriver manager ======
+2025-10-27 21:43:47,138 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:43:48,155 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:43:49,225 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 21:44:18,908 [ERROR] [ScraperJS] An error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 58, in scrape_js_page
+    # --- NEW LOGIC: CLICK THE BUTTON FIRST ---
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    try:
+    ^^^^
+        logger.info("[ScraperJS] Looking for the 'View this paste' button...")
+    
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 21:46:14,891 [INFO] [ScraperJS] Initializing headless browser for https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 21:46:14,891 [INFO] ====== WebDriver manager ======
+2025-10-27 21:46:15,800 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:46:16,802 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:46:17,802 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 21:46:45,831 [ERROR] [ScraperJS] An error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 58, in scrape_js_page
+    # --- STEP 1: CLICK THE "VIEW THIS PASTE" BUTTON ---
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    try:
+    ^^^^
+        logger.info("[ScraperJS] Looking for the 'View this paste' button...")
+    
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 21:48:50,074 [INFO] [Downloader] Stop signal received. Finishing active downloads...
+2025-10-27 21:48:50,075 [INFO] Database connection closed on shutdown.
+2025-10-27 21:49:44,275 [INFO] Boot sequence started at 2025-10-27 21:49:44
+2025-10-27 21:49:44,276 [INFO] Verifying directories...
+2025-10-27 21:49:44,277 [INFO] Loading configuration...
+2025-10-27 21:49:44,278 [INFO] Initializing terminal interface...
+2025-10-27 21:49:44,279 [INFO] Starting system services...
+2025-10-27 21:49:44,279 [INFO] System check: OK
+2025-10-27 21:49:44,280 [INFO] Saraphina v0.1 is now active.
+2025-10-27 21:49:44,281 [INFO] Terminal online. Awaiting input...
+2025-10-27 21:49:44,283 [INFO] Database connection re-established.
+2025-10-27 21:49:44,285 [INFO] Mock systems initialized.
+2025-10-27 21:49:44,285 [INFO] [SYSTEMS] All 30 systems initialized - Session: systems_20251027_214944
+2025-10-27 21:49:44,286 [INFO] [AI] Saraphina AI Core initialized - Session: ai_20251027_214944
+2025-10-27 21:49:49,111 [INFO] [ScraperUltimate] Initializing undetected browser...
+2025-10-27 21:50:00,771 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 21:51:04,176 [ERROR] [ScraperUltimate] A critical error occurred: Message: unknown error: cannot connect to chrome at 127.0.0.1:58359
+from chrome not reachable
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x00EDA813+48355]
+	(No symbol) [0x00E6C4B1]
+	(No symbol) [0x00D75220]
+	(No symbol) [0x00D6B355]
+	(No symbol) [0x00D95C68]
+	(No symbol) [0x00D906B4]
+	(No symbol) [0x00D90491]
+	(No symbol) [0x00DC0C55]
+	(No symbol) [0x00DC093C]
+	(No symbol) [0x00DBA536]
+	(No symbol) [0x00D982DC]
+	(No symbol) [0x00D993DD]
+	GetHandleVerifier [0x0113AABD+2539405]
+	GetHandleVerifier [0x0117A78F+2800735]
+	GetHandleVerifier [0x0117456C+2775612]
+	GetHandleVerifier [0x00F651E0+616112]
+	(No symbol) [0x00E75F8C]
+	(No symbol) [0x00E72328]
+	(No symbol) [0x00E7240B]
+	(No symbol) [0x00E64FF7]
+	BaseThreadInitThunk [0x7608FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x77E882AE+286]
+	RtlGetAppContainerNamedObjectPath [0x77E8827E+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 56, in scrape_js_page
+    driver = uc.Chrome(options=options, version_main=114) # Use a common Chrome version
+  File "C:\Python313\Lib\site-packages\undetected_chromedriver\__init__.py", line 466, in __init__
+    super(Chrome, self).__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        service=service,
+        ^^^^^^^^^^^^^^^^
+        options=options,
+        ^^^^^^^^^^^^^^^^
+        keep_alive=keep_alive,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\chrome\webdriver.py", line 47, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        browser_name=DesiredCapabilities.CHROME["browserName"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        keep_alive=keep_alive,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\chromium\webdriver.py", line 71, in __init__
+    super().__init__(command_executor=executor, options=options)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 263, in __init__
+    self.start_session(capabilities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\undetected_chromedriver\__init__.py", line 724, in start_session
+    super(selenium.webdriver.chrome.webdriver.WebDriver, self).start_session(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        capabilities
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 366, in start_session
+    response = self.execute(Command.NEW_SESSION, caps)["value"]
+               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 458, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 233, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: cannot connect to chrome at 127.0.0.1:58359
+from chrome not reachable
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x00EDA813+48355]
+	(No symbol) [0x00E6C4B1]
+	(No symbol) [0x00D75220]
+	(No symbol) [0x00D6B355]
+	(No symbol) [0x00D95C68]
+	(No symbol) [0x00D906B4]
+	(No symbol) [0x00D90491]
+	(No symbol) [0x00DC0C55]
+	(No symbol) [0x00DC093C]
+	(No symbol) [0x00DBA536]
+	(No symbol) [0x00D982DC]
+	(No symbol) [0x00D993DD]
+	GetHandleVerifier [0x0113AABD+2539405]
+	GetHandleVerifier [0x0117A78F+2800735]
+	GetHandleVerifier [0x0117456C+2775612]
+	GetHandleVerifier [0x00F651E0+616112]
+	(No symbol) [0x00E75F8C]
+	(No symbol) [0x00E72328]
+	(No symbol) [0x00E7240B]
+	(No symbol) [0x00E64FF7]
+	BaseThreadInitThunk [0x7608FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x77E882AE+286]
+	RtlGetAppContainerNamedObjectPath [0x77E8827E+238]
+
+2025-10-27 21:53:34,778 [INFO] [ScraperUltimate] Initializing undetected browser...
+2025-10-27 21:53:44,005 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 21:54:46,841 [ERROR] [ScraperUltimate] A critical error occurred: Message: unknown error: cannot connect to chrome at 127.0.0.1:64553
+from chrome not reachable
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x006AA813+48355]
+	(No symbol) [0x0063C4B1]
+	(No symbol) [0x00545220]
+	(No symbol) [0x0053B355]
+	(No symbol) [0x00565C68]
+	(No symbol) [0x005606B4]
+	(No symbol) [0x00560491]
+	(No symbol) [0x00590C55]
+	(No symbol) [0x0059093C]
+	(No symbol) [0x0058A536]
+	(No symbol) [0x005682DC]
+	(No symbol) [0x005693DD]
+	GetHandleVerifier [0x0090AABD+2539405]
+	GetHandleVerifier [0x0094A78F+2800735]
+	GetHandleVerifier [0x0094456C+2775612]
+	GetHandleVerifier [0x007351E0+616112]
+	(No symbol) [0x00645F8C]
+	(No symbol) [0x00642328]
+	(No symbol) [0x0064240B]
+	(No symbol) [0x00634FF7]
+	BaseThreadInitThunk [0x7608FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x77E882AE+286]
+	RtlGetAppContainerNamedObjectPath [0x77E8827E+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 56, in scrape_js_page
+    logger.info(f"[TitanScraper] Navigating to target: {page_url}")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\undetected_chromedriver\__init__.py", line 466, in __init__
+    super(Chrome, self).__init__(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        service=service,
+        ^^^^^^^^^^^^^^^^
+        options=options,
+        ^^^^^^^^^^^^^^^^
+        keep_alive=keep_alive,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\chrome\webdriver.py", line 47, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        browser_name=DesiredCapabilities.CHROME["browserName"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        keep_alive=keep_alive,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\chromium\webdriver.py", line 71, in __init__
+    super().__init__(command_executor=executor, options=options)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 263, in __init__
+    self.start_session(capabilities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\undetected_chromedriver\__init__.py", line 724, in start_session
+    super(selenium.webdriver.chrome.webdriver.WebDriver, self).start_session(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        capabilities
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 366, in start_session
+    response = self.execute(Command.NEW_SESSION, caps)["value"]
+               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 458, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 233, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: cannot connect to chrome at 127.0.0.1:64553
+from chrome not reachable
+Stacktrace:
+Backtrace:
+	GetHandleVerifier [0x006AA813+48355]
+	(No symbol) [0x0063C4B1]
+	(No symbol) [0x00545220]
+	(No symbol) [0x0053B355]
+	(No symbol) [0x00565C68]
+	(No symbol) [0x005606B4]
+	(No symbol) [0x00560491]
+	(No symbol) [0x00590C55]
+	(No symbol) [0x0059093C]
+	(No symbol) [0x0058A536]
+	(No symbol) [0x005682DC]
+	(No symbol) [0x005693DD]
+	GetHandleVerifier [0x0090AABD+2539405]
+	GetHandleVerifier [0x0094A78F+2800735]
+	GetHandleVerifier [0x0094456C+2775612]
+	GetHandleVerifier [0x007351E0+616112]
+	(No symbol) [0x00645F8C]
+	(No symbol) [0x00642328]
+	(No symbol) [0x0064240B]
+	(No symbol) [0x00634FF7]
+	BaseThreadInitThunk [0x7608FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x77E882AE+286]
+	RtlGetAppContainerNamedObjectPath [0x77E8827E+238]
+
+2025-10-27 21:56:33,102 [INFO] [Downloader] Stop signal received. Finishing active downloads...
+2025-10-27 21:56:33,103 [INFO] Database connection closed on shutdown.
+2025-10-27 21:57:01,265 [INFO] Boot sequence started at 2025-10-27 21:57:01
+2025-10-27 21:57:01,266 [INFO] Verifying directories...
+2025-10-27 21:57:01,267 [INFO] Loading configuration...
+2025-10-27 21:57:01,268 [INFO] Initializing terminal interface...
+2025-10-27 21:57:01,270 [INFO] Starting system services...
+2025-10-27 21:57:01,270 [INFO] System check: OK
+2025-10-27 21:57:01,271 [INFO] Saraphina v0.1 is now active.
+2025-10-27 21:57:01,273 [INFO] Terminal online. Awaiting input...
+2025-10-27 21:57:01,274 [INFO] Database connection re-established.
+2025-10-27 21:57:01,275 [INFO] Mock systems initialized.
+2025-10-27 21:57:01,275 [INFO] [SYSTEMS] All 30 systems initialized - Session: systems_20251027_215701
+2025-10-27 21:57:01,275 [INFO] [AI] Saraphina AI Core initialized - Session: ai_20251027_215701
+2025-10-27 21:57:14,959 [INFO] [TitanScraper] Deploying advanced scraping agent...
+2025-10-27 21:57:14,998 [INFO] [TitanScraper] Attempting initialization with undetected_chromedriver (Primary Method)...
+2025-10-27 21:57:27,722 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 21:58:31,258 [WARNING] [TitanScraper] Primary method failed: Message: session not created: cannot connect to chrome at 127.0.0.1:54478
+from chrome not reachable; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0xedfe43+66515]
+	GetHandleVerifier [0x0xedfe84+66580]
+	(No symbol) [0x0xccda6b]
+	(No symbol) [0x0xcc13fa]
+	(No symbol) [0x0xd086a6]
+	(No symbol) [0x0xcfeb1f]
+	(No symbol) [0x0xcfe946]
+	(No symbol) [0x0xd46ffc]
+	(No symbol) [0x0xd468fa]
+	(No symbol) [0x0xd3afc6]
+	(No symbol) [0x0xd0c2ca]
+	(No symbol) [0x0xd0d154]
+	GetHandleVerifier [0x0x1137353+2521315]
+	GetHandleVerifier [0x0x11322d3+2500707]
+	GetHandleVerifier [0x0xf07c94+229924]
+	GetHandleVerifier [0x0xef81f8+165768]
+	GetHandleVerifier [0x0xefecad+193085]
+	GetHandleVerifier [0x0xee8158+100072]
+	GetHandleVerifier [0x0xee82f0+100480]
+	GetHandleVerifier [0x0xed25aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+. This can be normal.
+2025-10-27 21:58:31,259 [INFO] [TitanScraper] Falling back to standard webdriver_manager (Backup Method)...
+2025-10-27 21:58:31,262 [INFO] ====== WebDriver manager ======
+2025-10-27 21:58:32,194 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:58:33,243 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 21:58:34,235 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 21:58:35,868 [INFO] [TitanScraper] Backup method successful. Driver is live.
+2025-10-27 21:58:36,006 [INFO] [TitanScraper] Navigating to target: https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 21:58:41,735 [INFO] [TitanScraper] Searching for Cloudflare challenge...
+2025-10-27 21:58:56,970 [INFO] [TitanScraper] No active Cloudflare challenge found. Proceeding.
+2025-10-27 21:58:56,974 [INFO] [TitanScraper] Searching for 'View this paste' button...
+2025-10-27 21:59:07,021 [INFO] [TitanScraper] 'View this paste' button not found. Assuming content is visible.
+2025-10-27 21:59:07,021 [INFO] [TitanScraper] Awaiting final content visibility...
+2025-10-27 21:59:27,654 [ERROR] [TitanScraper] A critical, unrecoverable error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 133, in scrape_js_page
+    paste_content_div = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.ID, "paste-content")))
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 21:59:28,012 [INFO] Saved a debug screenshot to: D:\Saraphina Root\src\debug_screenshot.png
+2025-10-27 21:59:30,915 [INFO] [TitanScraper] Browser has been shut down.
+2025-10-27 22:03:34,046 [INFO] [TitanScraper] Deploying advanced scraping agent...
+2025-10-27 22:03:34,055 [INFO] [TitanScraper] Attempting initialization with undetected_chromedriver (Primary Method)...
+2025-10-27 22:03:44,971 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 22:04:48,055 [WARNING] [TitanScraper] Primary method failed: Message: session not created: cannot connect to chrome at 127.0.0.1:60629
+from chrome not reachable; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0xa5fe43+66515]
+	GetHandleVerifier [0x0xa5fe84+66580]
+	(No symbol) [0x0x84da6b]
+	(No symbol) [0x0x8413fa]
+	(No symbol) [0x0x8886a6]
+	(No symbol) [0x0x87eb1f]
+	(No symbol) [0x0x87e946]
+	(No symbol) [0x0x8c6ffc]
+	(No symbol) [0x0x8c68fa]
+	(No symbol) [0x0x8bafc6]
+	(No symbol) [0x0x88c2ca]
+	(No symbol) [0x0x88d154]
+	GetHandleVerifier [0x0xcb7353+2521315]
+	GetHandleVerifier [0x0xcb22d3+2500707]
+	GetHandleVerifier [0x0xa87c94+229924]
+	GetHandleVerifier [0x0xa781f8+165768]
+	GetHandleVerifier [0x0xa7ecad+193085]
+	GetHandleVerifier [0x0xa68158+100072]
+	GetHandleVerifier [0x0xa682f0+100480]
+	GetHandleVerifier [0x0xa525aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+. This can be normal.
+2025-10-27 22:04:48,056 [INFO] [TitanScraper] Falling back to standard webdriver_manager (Backup Method)...
+2025-10-27 22:04:48,060 [INFO] ====== WebDriver manager ======
+2025-10-27 22:04:49,055 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:04:50,074 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:04:51,175 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 22:04:52,366 [INFO] [TitanScraper] Backup method successful. Driver is live.
+2025-10-27 22:04:52,373 [INFO] [TitanScraper] Navigating to target: https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 22:04:58,630 [INFO] [TitanScraper] Searching for Cloudflare challenge...
+2025-10-27 22:05:13,972 [INFO] [TitanScraper] No active Cloudflare challenge found. Proceeding.
+2025-10-27 22:05:13,977 [INFO] [TitanScraper] Searching for 'View this paste' button...
+2025-10-27 22:05:24,207 [INFO] [TitanScraper] 'View this paste' button not found. Assuming content is visible.
+2025-10-27 22:05:24,208 [INFO] [TitanScraper] Awaiting final content visibility...
+2025-10-27 22:05:44,645 [ERROR] [TitanScraper] A critical, unrecoverable error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 133, in scrape_js_page
+    if href and "http" in href:
+                    ^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 22:05:44,767 [INFO] Saved a debug screenshot to: D:\Saraphina Root\src\debug_screenshot.png
+2025-10-27 22:05:46,941 [INFO] [TitanScraper] Browser has been shut down.
+2025-10-27 22:11:57,652 [INFO] [TitanScraper] Deploying advanced scraping agent...
+2025-10-27 22:11:57,661 [INFO] [TitanScraper] Attempting initialization with undetected_chromedriver (Primary Method)...
+2025-10-27 22:12:08,637 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 22:13:11,949 [WARNING] [TitanScraper] Primary method failed: Message: session not created: cannot connect to chrome at 127.0.0.1:61598
+from chrome not reachable; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0xeafe43+66515]
+	GetHandleVerifier [0x0xeafe84+66580]
+	(No symbol) [0x0xc9da6b]
+	(No symbol) [0x0xc913fa]
+	(No symbol) [0x0xcd86a6]
+	(No symbol) [0x0xcceb1f]
+	(No symbol) [0x0xcce946]
+	(No symbol) [0x0xd16ffc]
+	(No symbol) [0x0xd168fa]
+	(No symbol) [0x0xd0afc6]
+	(No symbol) [0x0xcdc2ca]
+	(No symbol) [0x0xcdd154]
+	GetHandleVerifier [0x0x1107353+2521315]
+	GetHandleVerifier [0x0x11022d3+2500707]
+	GetHandleVerifier [0x0xed7c94+229924]
+	GetHandleVerifier [0x0xec81f8+165768]
+	GetHandleVerifier [0x0xececad+193085]
+	GetHandleVerifier [0x0xeb8158+100072]
+	GetHandleVerifier [0x0xeb82f0+100480]
+	GetHandleVerifier [0x0xea25aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+. This can be normal.
+2025-10-27 22:13:11,949 [INFO] [TitanScraper] Falling back to standard webdriver_manager (Backup Method)...
+2025-10-27 22:13:11,952 [INFO] ====== WebDriver manager ======
+2025-10-27 22:13:12,917 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:13:13,929 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:13:14,936 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 22:13:16,083 [INFO] [TitanScraper] Backup method successful. Driver is live.
+2025-10-27 22:13:16,084 [INFO] [TitanScraper] Navigating to target: https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 22:13:22,079 [INFO] [TitanScraper] Searching for Cloudflare challenge...
+2025-10-27 22:13:37,406 [INFO] [TitanScraper] No active Cloudflare challenge found. Proceeding.
+2025-10-27 22:13:37,410 [INFO] [TitanScraper] Searching for 'View this paste' button...
+2025-10-27 22:13:47,639 [INFO] [TitanScraper] 'View this paste' button not found. Assuming content is visible.
+2025-10-27 22:13:47,639 [INFO] [TitanScraper] Awaiting final content visibility...
+2025-10-27 22:14:08,067 [ERROR] [TitanScraper] A critical, unrecoverable error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 133, in scrape_js_page
+    if href and "http" in href:
+                    ^^^^^^^^^^^
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 22:14:08,188 [INFO] Saved a debug screenshot to: D:\Saraphina Root\src\debug_screenshot.png
+2025-10-27 22:14:10,359 [INFO] [TitanScraper] Browser has been shut down.
+2025-10-27 22:20:06,078 [INFO] [TitanScraper] Deploying advanced scraping agent...
+2025-10-27 22:20:06,086 [INFO] [TitanScraper] Attempting initialization with undetected_chromedriver (Primary Method)...
+2025-10-27 22:20:19,550 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 22:21:22,469 [WARNING] [TitanScraper] Primary method failed: Message: session not created: cannot connect to chrome at 127.0.0.1:62353
+from chrome not reachable; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0x7bfe43+66515]
+	GetHandleVerifier [0x0x7bfe84+66580]
+	(No symbol) [0x0x5ada6b]
+	(No symbol) [0x0x5a13fa]
+	(No symbol) [0x0x5e86a6]
+	(No symbol) [0x0x5deb1f]
+	(No symbol) [0x0x5de946]
+	(No symbol) [0x0x626ffc]
+	(No symbol) [0x0x6268fa]
+	(No symbol) [0x0x61afc6]
+	(No symbol) [0x0x5ec2ca]
+	(No symbol) [0x0x5ed154]
+	GetHandleVerifier [0x0xa17353+2521315]
+	GetHandleVerifier [0x0xa122d3+2500707]
+	GetHandleVerifier [0x0x7e7c94+229924]
+	GetHandleVerifier [0x0x7d81f8+165768]
+	GetHandleVerifier [0x0x7decad+193085]
+	GetHandleVerifier [0x0x7c8158+100072]
+	GetHandleVerifier [0x0x7c82f0+100480]
+	GetHandleVerifier [0x0x7b25aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+. This can be normal.
+2025-10-27 22:21:22,470 [INFO] [TitanScraper] Falling back to standard webdriver_manager (Backup Method)...
+2025-10-27 22:21:22,474 [INFO] ====== WebDriver manager ======
+2025-10-27 22:21:23,427 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:21:24,453 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:21:25,467 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 22:21:26,719 [INFO] [TitanScraper] Backup method successful. Driver is live.
+2025-10-27 22:21:26,721 [INFO] [TitanScraper] Navigating to target: https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 22:21:31,938 [INFO] [TitanScraper] Searching for Cloudflare challenge...
+2025-10-27 22:21:47,249 [INFO] [TitanScraper] No active Cloudflare challenge found. Proceeding.
+2025-10-27 22:21:47,252 [INFO] [TitanScraper] Searching for 'View this paste' button...
+2025-10-27 22:21:57,484 [INFO] [TitanScraper] 'View this paste' button not found. Assuming content is visible.
+2025-10-27 22:21:57,485 [INFO] [TitanScraper] Awaiting final content visibility...
+2025-10-27 22:22:17,947 [ERROR] [TitanScraper] A critical, unrecoverable error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 133, in scrape_js_page
+    # --- FINAL CHECK ---
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 22:22:18,077 [INFO] Saved a debug screenshot to: D:\Saraphina Root\src\debug_screenshot.png
+2025-10-27 22:22:20,270 [INFO] [TitanScraper] Browser has been shut down.
+2025-10-27 22:30:16,388 [INFO] [TitanScraper] Deploying advanced scraping agent...
+2025-10-27 22:30:16,398 [INFO] [TitanScraper] Attempting initialization with undetected_chromedriver (Primary Method)...
+2025-10-27 22:30:29,905 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 22:31:33,906 [WARNING] [TitanScraper] Primary method failed: Message: session not created: cannot connect to chrome at 127.0.0.1:63285
+from chrome not reachable; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0x98fe43+66515]
+	GetHandleVerifier [0x0x98fe84+66580]
+	(No symbol) [0x0x77da6b]
+	(No symbol) [0x0x7713fa]
+	(No symbol) [0x0x7b86a6]
+	(No symbol) [0x0x7aeb1f]
+	(No symbol) [0x0x7ae946]
+	(No symbol) [0x0x7f6ffc]
+	(No symbol) [0x0x7f68fa]
+	(No symbol) [0x0x7eafc6]
+	(No symbol) [0x0x7bc2ca]
+	(No symbol) [0x0x7bd154]
+	GetHandleVerifier [0x0xbe7353+2521315]
+	GetHandleVerifier [0x0xbe22d3+2500707]
+	GetHandleVerifier [0x0x9b7c94+229924]
+	GetHandleVerifier [0x0x9a81f8+165768]
+	GetHandleVerifier [0x0x9aecad+193085]
+	GetHandleVerifier [0x0x998158+100072]
+	GetHandleVerifier [0x0x9982f0+100480]
+	GetHandleVerifier [0x0x9825aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+. This can be normal.
+2025-10-27 22:31:33,907 [INFO] [TitanScraper] Falling back to standard webdriver_manager (Backup Method)...
+2025-10-27 22:31:33,910 [INFO] ====== WebDriver manager ======
+2025-10-27 22:31:34,896 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:31:35,991 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:31:37,037 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 22:31:38,249 [INFO] [TitanScraper] Backup method successful. Driver is live.
+2025-10-27 22:31:38,252 [INFO] [TitanScraper] Navigating to target: https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 22:31:44,709 [INFO] [TitanScraper] Searching for Cloudflare challenge...
+2025-10-27 22:32:00,047 [INFO] [TitanScraper] No active Cloudflare challenge found. Proceeding.
+2025-10-27 22:32:00,051 [INFO] [TitanScraper] Searching for 'View this paste' button...
+2025-10-27 22:32:10,323 [INFO] [TitanScraper] 'View this paste' button not found. Assuming content is visible.
+2025-10-27 22:32:10,324 [INFO] [TitanScraper] Awaiting final content visibility...
+2025-10-27 22:32:30,761 [ERROR] [TitanScraper] A critical, unrecoverable error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 133, in scrape_js_page
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 22:32:30,885 [INFO] Saved a debug screenshot to: D:\Saraphina Root\src\debug_screenshot.png
+2025-10-27 22:32:33,253 [INFO] [TitanScraper] Browser has been shut down.
+2025-10-27 22:36:13,091 [INFO] [TitanScraper] Deploying advanced scraping agent...
+2025-10-27 22:36:13,100 [INFO] [TitanScraper] Attempting initialization with undetected_chromedriver (Primary Method)...
+2025-10-27 22:36:26,514 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 22:37:29,494 [WARNING] [TitanScraper] Primary method failed: Message: session not created: cannot connect to chrome at 127.0.0.1:63939
+from chrome not reachable; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0xc5fe43+66515]
+	GetHandleVerifier [0x0xc5fe84+66580]
+	(No symbol) [0x0xa4da6b]
+	(No symbol) [0x0xa413fa]
+	(No symbol) [0x0xa886a6]
+	(No symbol) [0x0xa7eb1f]
+	(No symbol) [0x0xa7e946]
+	(No symbol) [0x0xac6ffc]
+	(No symbol) [0x0xac68fa]
+	(No symbol) [0x0xabafc6]
+	(No symbol) [0x0xa8c2ca]
+	(No symbol) [0x0xa8d154]
+	GetHandleVerifier [0x0xeb7353+2521315]
+	GetHandleVerifier [0x0xeb22d3+2500707]
+	GetHandleVerifier [0x0xc87c94+229924]
+	GetHandleVerifier [0x0xc781f8+165768]
+	GetHandleVerifier [0x0xc7ecad+193085]
+	GetHandleVerifier [0x0xc68158+100072]
+	GetHandleVerifier [0x0xc682f0+100480]
+	GetHandleVerifier [0x0xc525aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+. This can be normal.
+2025-10-27 22:37:29,495 [INFO] [TitanScraper] Falling back to standard webdriver_manager (Backup Method)...
+2025-10-27 22:37:29,499 [INFO] ====== WebDriver manager ======
+2025-10-27 22:37:30,522 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:37:31,611 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:37:32,670 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 22:37:33,775 [INFO] [TitanScraper] Backup method successful. Driver is live.
+2025-10-27 22:37:33,776 [INFO] [TitanScraper] Navigating to target: https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 22:37:40,590 [INFO] [TitanScraper] Searching for Cloudflare challenge...
+2025-10-27 22:37:55,912 [INFO] [TitanScraper] No active Cloudflare challenge found. Proceeding.
+2025-10-27 22:37:55,915 [INFO] [TitanScraper] Searching for 'View this paste' button...
+2025-10-27 22:38:06,148 [INFO] [TitanScraper] 'View this paste' button not found. Assuming content is visible.
+2025-10-27 22:38:06,149 [INFO] [TitanScraper] Awaiting final content visibility...
+2025-10-27 22:38:26,593 [ERROR] [TitanScraper] A critical, unrecoverable error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 133, in scrape_js_page
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 22:38:26,708 [INFO] Saved a debug screenshot to: D:\Saraphina Root\src\debug_screenshot.png
+2025-10-27 22:38:28,870 [INFO] [TitanScraper] Browser has been shut down.
+2025-10-27 22:41:32,816 [INFO] [TitanScraper] Deploying advanced scraping agent...
+2025-10-27 22:41:32,825 [INFO] [TitanScraper] Attempting initialization with undetected_chromedriver (Primary Method)...
+2025-10-27 22:41:43,309 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 22:42:46,493 [WARNING] [TitanScraper] Primary method failed: Message: session not created: cannot connect to chrome at 127.0.0.1:64583
+from chrome not reachable; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0xb5fe43+66515]
+	GetHandleVerifier [0x0xb5fe84+66580]
+	(No symbol) [0x0x94da6b]
+	(No symbol) [0x0x9413fa]
+	(No symbol) [0x0x9886a6]
+	(No symbol) [0x0x97eb1f]
+	(No symbol) [0x0x97e946]
+	(No symbol) [0x0x9c6ffc]
+	(No symbol) [0x0x9c68fa]
+	(No symbol) [0x0x9bafc6]
+	(No symbol) [0x0x98c2ca]
+	(No symbol) [0x0x98d154]
+	GetHandleVerifier [0x0xdb7353+2521315]
+	GetHandleVerifier [0x0xdb22d3+2500707]
+	GetHandleVerifier [0x0xb87c94+229924]
+	GetHandleVerifier [0x0xb781f8+165768]
+	GetHandleVerifier [0x0xb7ecad+193085]
+	GetHandleVerifier [0x0xb68158+100072]
+	GetHandleVerifier [0x0xb682f0+100480]
+	GetHandleVerifier [0x0xb525aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+. This can be normal.
+2025-10-27 22:42:46,513 [INFO] [TitanScraper] Falling back to standard webdriver_manager (Backup Method)...
+2025-10-27 22:42:46,514 [INFO] ====== WebDriver manager ======
+2025-10-27 22:42:47,445 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:42:48,445 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:42:49,467 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 22:42:50,770 [INFO] [TitanScraper] Backup method successful. Driver is live.
+2025-10-27 22:42:50,772 [INFO] [TitanScraper] Navigating to target: https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 22:42:57,636 [INFO] [TitanScraper] Searching for Cloudflare challenge...
+2025-10-27 22:43:12,966 [INFO] [TitanScraper] No active Cloudflare challenge found. Proceeding.
+2025-10-27 22:43:12,969 [INFO] [TitanScraper] Searching for 'View this paste' button...
+2025-10-27 22:43:23,193 [INFO] [TitanScraper] 'View this paste' button not found. Assuming content is visible.
+2025-10-27 22:43:23,193 [INFO] [TitanScraper] Awaiting final content visibility...
+2025-10-27 22:43:43,640 [ERROR] [TitanScraper] A critical, unrecoverable error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 133, in scrape_js_page
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 22:43:43,771 [INFO] Saved a debug screenshot to: D:\Saraphina Root\src\debug_screenshot.png
+2025-10-27 22:43:45,917 [INFO] [TitanScraper] Browser has been shut down.
+2025-10-27 22:53:07,500 [INFO] [TitanScraper] Deploying advanced scraping agent...
+2025-10-27 22:53:07,508 [INFO] [TitanScraper] Attempting initialization with undetected_chromedriver (Primary Method)...
+2025-10-27 22:53:18,258 [INFO] patching driver executable C:\Users\Jacques\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-10-27 22:54:21,272 [WARNING] [TitanScraper] Primary method failed: Message: session not created: cannot connect to chrome at 127.0.0.1:49326
+from chrome not reachable; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0xd1fe43+66515]
+	GetHandleVerifier [0x0xd1fe84+66580]
+	(No symbol) [0x0xb0da6b]
+	(No symbol) [0x0xb013fa]
+	(No symbol) [0x0xb486a6]
+	(No symbol) [0x0xb3eb1f]
+	(No symbol) [0x0xb3e946]
+	(No symbol) [0x0xb86ffc]
+	(No symbol) [0x0xb868fa]
+	(No symbol) [0x0xb7afc6]
+	(No symbol) [0x0xb4c2ca]
+	(No symbol) [0x0xb4d154]
+	GetHandleVerifier [0x0xf77353+2521315]
+	GetHandleVerifier [0x0xf722d3+2500707]
+	GetHandleVerifier [0x0xd47c94+229924]
+	GetHandleVerifier [0x0xd381f8+165768]
+	GetHandleVerifier [0x0xd3ecad+193085]
+	GetHandleVerifier [0x0xd28158+100072]
+	GetHandleVerifier [0x0xd282f0+100480]
+	GetHandleVerifier [0x0xd125aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+. This can be normal.
+2025-10-27 22:54:21,273 [INFO] [TitanScraper] Falling back to standard webdriver_manager (Backup Method)...
+2025-10-27 22:54:21,276 [INFO] ====== WebDriver manager ======
+2025-10-27 22:54:22,243 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:54:23,270 [INFO] Get LATEST chromedriver version for google-chrome
+2025-10-27 22:54:24,284 [INFO] Driver [C:\Users\Jacques\.wdm\drivers\chromedriver\win64\141.0.7390.122\chromedriver-win32/chromedriver.exe] found in cache
+2025-10-27 22:54:25,533 [INFO] [TitanScraper] Backup method successful. Driver is live.
+2025-10-27 22:54:25,535 [INFO] [TitanScraper] Navigating to target: https://paste.fitgirl-repacks.site/?e0ab02602a1867ce#CktPwihCzR5jYLUFTfTo6DhbYj7q3W9wwiPhqV7ToCM5
+2025-10-27 22:54:32,300 [INFO] [TitanScraper] Searching for Cloudflare challenge...
+2025-10-27 22:54:47,636 [INFO] [TitanScraper] No active Cloudflare challenge found. Proceeding.
+2025-10-27 22:54:47,640 [INFO] [TitanScraper] Searching for 'View this paste' button...
+2025-10-27 22:54:57,873 [INFO] [TitanScraper] 'View this paste' button not found. Assuming content is visible.
+2025-10-27 22:54:57,874 [INFO] [TitanScraper] Awaiting final content visibility...
+2025-10-27 22:55:18,315 [ERROR] [TitanScraper] A critical, unrecoverable error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\downloader_engine.py", line 133, in scrape_js_page
+    try:
+    
+  File "C:\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0xb3fe43+66515]
+	GetHandleVerifier [0x0xb3fe84+66580]
+	(No symbol) [0x0x92dc48]
+	(No symbol) [0x0x978704]
+	(No symbol) [0x0x978aab]
+	(No symbol) [0x0x9bf482]
+	(No symbol) [0x0x99b214]
+	(No symbol) [0x0x9bcba7]
+	(No symbol) [0x0x99afc6]
+	(No symbol) [0x0x96c2ca]
+	(No symbol) [0x0x96d154]
+	GetHandleVerifier [0x0xd97353+2521315]
+	GetHandleVerifier [0x0xd922d3+2500707]
+	GetHandleVerifier [0x0xb67c94+229924]
+	GetHandleVerifier [0x0xb581f8+165768]
+	GetHandleVerifier [0x0xb5ecad+193085]
+	GetHandleVerifier [0x0xb48158+100072]
+	GetHandleVerifier [0x0xb482f0+100480]
+	GetHandleVerifier [0x0xb325aa+11066]
+	BaseThreadInitThunk [0x0x7608fcc9+25]
+	RtlGetAppContainerNamedObjectPath [0x0x77e882ae+286]
+	RtlGetAppContainerNamedObjectPath [0x0x77e8827e+238]
+
+2025-10-27 22:55:18,437 [INFO] Saved a debug screenshot to: D:\Saraphina Root\src\debug_screenshot.png
+2025-10-27 22:55:20,622 [INFO] [TitanScraper] Browser has been shut down.

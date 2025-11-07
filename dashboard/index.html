@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Saraphina Telemetry</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 24px; background:#0b1020; color:#e8eefc; }
+      .card { background:#121a33; border-radius:12px; padding:16px; margin-bottom:12px; box-shadow:0 2px 10px rgba(0,0,0,0.3);} 
+      .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:12px; }
+      h1 { margin-top:0; }
+      .muted { color:#9db0d1; font-size: 13px; }
+      .ok { color:#65d27a; }
+      .warn { color:#f5c063; }
+      .bad { color:#f08a8a; }
+      code { background:#0f1530; padding:2px 6px; border-radius:6px; }
+      a { color:#9ac7ff; }
+    </style>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <h1>📊 Saraphina Telemetry</h1>
+    <div id="root"></div>
+    <script type="text/javascript">
+      const e = React.createElement;
+      function useInterval(callback, delay) {
+        const savedCallback = React.useRef();
+        React.useEffect(() => { savedCallback.current = callback; }, [callback]);
+        React.useEffect(() => {
+          if (delay === null) return;
+          const id = setInterval(() => savedCallback.current(), delay);
+          return () => clearInterval(id);
+        }, [delay]);
+      }
+      function Health() {
+        const [data, setData] = React.useState(null);
+        const [err, setErr] = React.useState(null);
+        const fetchIt = React.useCallback(async () => {
+          try {
+            const res = await fetch('http://127.0.0.1:8000/metrics/health');
+            const j = await res.json();
+            setData(j); setErr(null);
+          } catch (e) { setErr(String(e)); }
+        }, []);
+        React.useEffect(() => { fetchIt(); }, [fetchIt]);
+        useInterval(fetchIt, 5000);
+        const approve = async (id) => {
+          try { await fetch('http://127.0.0.1:8000/reviews/'+id+'/approve', { method:'POST' }); fetchIt(); }
+          catch(e){ setErr(String(e)); }
+        };
+        const reject = async (id) => {
+          try { await fetch('http://127.0.0.1:8000/reviews/'+id+'/reject', { method:'POST' }); fetchIt(); }
+          catch(e){ setErr(String(e)); }
+        };
+        const [reviews, setReviews] = React.useState([]);
+        const fetchReviews = React.useCallback(async () => {
+          try { const r = await fetch('http://127.0.0.1:8000/reviews?status=pending'); const j = await r.json(); setReviews(j); }
+          catch(e){ /* ignore */ }
+        }, []);
+        React.useEffect(() => { fetchReviews(); }, [fetchReviews]);
+        useInterval(fetchReviews, 7000);
+        const [graph, setGraph] = React.useState({nodes:[], links:[]});
+        const fetchGraph = React.useCallback(async (topic) => {
+          try {
+            const url = new URL('http://127.0.0.1:8000/graph');
+            if (topic) url.searchParams.set('topic', topic);
+            const res = await fetch(url);
+            const j = await res.json();
+            setGraph(j);
+          } catch (e) { /* ignore */ }
+        }, []);
+        React.useEffect(() => { fetchGraph(); }, [fetchGraph]);
+
+        React.useEffect(() => {
+          // Render force graph into #graph
+          const el = document.getElementById('graph');
+          if (!el) return;
+          el.innerHTML = '';
+          const width = el.clientWidth || 800;
+          const height = 360;
+          const svg = d3.select(el).append('svg').attr('width', width).attr('height', height);
+          const color = d3.scaleOrdinal(d3.schemeTableau10);
+          const sim = d3.forceSimulation(graph.nodes)
+            .force('charge', d3.forceManyBody().strength(-80))
+            .force('link', d3.forceLink(graph.links).id(d => d.id).distance(60))
+            .force('center', d3.forceCenter(width/2, height/2));
+          const link = svg.append('g').attr('stroke','#445').selectAll('line').data(graph.links).enter().append('line').attr('stroke-width', 1);
+          const node = svg.append('g').selectAll('circle').data(graph.nodes).enter().append('circle')
+              .attr('r', 4).attr('fill', d => color(d.topic || ''))
+              .call(d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended));
+          const label = svg.append('g').selectAll('text').data(graph.nodes).enter().append('text')
+              .text(d => (d.label||'').slice(0,24)).attr('fill','#ccd').attr('font-size','10px');
+          node.append('title').text(d => d.label);
+          sim.on('tick', () => {
+            link.attr('x1', d => d.source.x).attr('y1', d => d.source.y).attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+            node.attr('cx', d => d.x).attr('cy', d => d.y);
+            label.attr('x', d => d.x+6).attr('y', d => d.y+3);
+          });
+          function dragstarted(event, d){ if(!event.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
+          function dragged(event, d){ d.fx = event.x; d.fy = event.y; }
+          function dragended(event, d){ if(!event.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }
+        }, [graph]);
+
+        return e('div', null, [
+          e('div', { className:'grid' }, [
+          e('div', { key:'agents', className:'card' }, [
+            e('div', { className:'muted' }, 'Active Agents'),
+            e('div', { style:{ fontSize:28, fontWeight:700 } }, data?.active_agents_count ?? '—')
+          ]),
+          e('div', { key:'db', className:'card' }, [
+            e('div', { className:'muted' }, 'DB Size (MB)'),
+            e('div', { style:{ fontSize:28, fontWeight:700 } }, data?.db_size_bytes ? (data.db_size_bytes/1048576).toFixed(2) : '—')
+          ]),
+          e('div', { key:'fail', className:'card' }, [
+            e('div', { className:'muted' }, 'Failed Actions'),
+            e('div', { className: (data?.failed_actions_count||0) === 0 ? 'ok' : 'bad', style:{ fontSize:28, fontWeight:700 } }, data?.failed_actions_count ?? '—')
+          ]),
+          e('div', { key:'backup', className:'card' }, [
+            e('div', { className:'muted' }, 'Last Backup'),
+            e('div', null, data?.last_backup_ts ?? '—')
+          ]),
+          e('div', { key:'path', className:'card' }, [
+            e('div', { className:'muted' }, 'Database Path'),
+            e('div', null, e('code', null, data?.db_path ?? '—'))
+          ]),
+          err ? e('div', { key:'err', className:'card bad' }, 'Error: ' + err) : null,
+          e('div', { key:'graph', className:'card' }, [
+            e('div', { className:'muted' }, 'Knowledge Constellations'),
+            e('div', { id:'graph', style:{ width:'100%', height: 360 } }),
+            e('div', { className:'muted' }, 'Colors by topic; drag to explore. Uses /graph API.')
+          ]),
+          e('div', { key:'reviews', className:'card' }, [
+            e('div', { className:'muted' }, 'Review Queue (pending)'),
+            e('div', null, reviews && reviews.length ? reviews.map(it => (
+              e('div', { key: it.id, style:{ display:'flex', alignItems:'center', gap:8, margin:'6px 0' } }, [
+                e('code', { key:'id' }, it.id),
+                e('span', { key:'type', className:'muted' }, it.item_type + ' • ' + it.reason),
+                e('button', { key:'a', onClick: () => approve(it.id) }, 'Approve'),
+                e('button', { key:'r', onClick: () => reject(it.id) }, 'Reject')
+              ])
+            )) : e('div', { className:'muted' }, 'No pending items'))
+          ]),
+          e('div', { key:'chart', className:'card' }, [
+            e('div', { className:'muted' }, 'Ethics Alignment Trend (last 10 evals)'),
+            e('canvas', { id:'ethicsChart', style:{ height: 200 } })
+          ]),
+          e('div', { key:'help', className:'card' }, [
+            e('div', null, 'Start API server in the terminal:'),
+            e('pre', null, '/api enable local\n/api start'),
+            e('div', { className:'muted' }, 'This page auto-refreshes every few seconds.')
+          ]),
+        ]);
+      }
+      // Render ethics chart
+      React.useEffect(() => {
+        (async () => {
+          try {
+            const r = await fetch('http://127.0.0.1:8000/metrics/ethics');
+            const j = await r.json();
+            const ctx = document.getElementById('ethicsChart');
+            if (ctx && j.length) {
+              new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: j.map((d,i) => `#${i+1}`),
+                  datasets: [{ label: 'Alignment', data: j.map(d => d.score_alignment), borderColor: '#65d27a', tension: 0.3 }]
+                },
+                options: { scales: { y: { beginAtZero: true, max: 1 } } }
+              });
+            }
+          } catch(e){}
+        })();
+      }, []);
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(e(Health));
+    </script>
+  </body>
+</html>

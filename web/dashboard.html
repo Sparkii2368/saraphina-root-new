@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Saraphina Dashboard</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    html, body, #map { height: 100%; margin: 0; }
+    .panel { position:absolute; top:10px; left:10px; background:#fff; padding:10px; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,.15); z-index:1000; }
+    .panel input { width: 180px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class="panel">
+    <div>
+      <label>Device:</label>
+      <input id="deviceId" value="test-device-001"/>
+      <button onclick="refresh()">Locate</button>
+      <button onclick="startRecovery()">Start Recovery</button>
+    </div>
+    <div id="info" style="margin-top:8px;font-family:monospace;font-size:12px;"></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([37.7749, -122.4194], 16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+    let marker = null, circle = null;
+
+    async function api(path) {
+      const r = await fetch(path);
+      if (!r.ok) throw new Error('API error');
+      return await r.json();
+    }
+
+    function showLocation(lat, lon, radius, info) {
+      if (marker) map.removeLayer(marker);
+      if (circle) map.removeLayer(circle);
+      marker = L.marker([lat, lon]).addTo(map);
+      circle = L.circle([lat, lon], { radius: radius || 25, color: '#0a84ff' }).addTo(map);
+      map.fitBounds(circle.getBounds(), { padding: [40, 40] });
+      document.getElementById('info').textContent = JSON.stringify(info, null, 2);
+    }
+
+    async function refresh() {
+      const id = document.getElementById('deviceId').value;
+      const j = await api(`/api/location/last?device_id=${encodeURIComponent(id)}`);
+      if (j && j.center) {
+        showLocation(j.center.lat, j.center.lon, j.radius_meters, j);
+      }
+    }
+
+    async function startRecovery() {
+      const id = document.getElementById('deviceId').value;
+      try {
+        const j = await api(`/api/recovery/start?device_id=${encodeURIComponent(id)}`);
+        alert('Recovery started: ' + (j.session_id || 'ok'));
+      } catch (e) { alert('Failed to start recovery'); }
+    }
+
+    refresh();
+  </script>
+</body>
+</html>

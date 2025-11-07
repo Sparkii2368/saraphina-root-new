@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "D:\Saraphina Root\src\saraphina\ui_app.py", line 21, in <module>
+    from .knowledge_engine import KnowledgeEngine
+ImportError: attempted relative import with no known parent package

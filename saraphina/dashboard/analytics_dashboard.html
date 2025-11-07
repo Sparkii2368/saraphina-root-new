@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saraphina Analytics Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { font-size: 1.1em; opacity: 0.9; }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        .metric-label {
+            font-size: 0.85em;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #667eea;
+        }
+        .metric-change {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        .metric-change.positive { color: #10b981; }
+        .metric-change.negative { color: #ef4444; }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .chart-title {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .alert-list {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .alert-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+        .alert-critical { background: rgba(239, 68, 68, 0.1); border-color: #ef4444; }
+        .alert-warning { background: rgba(251, 146, 60, 0.1); border-color: #fb923c; }
+        .alert-info { background: rgba(59, 130, 246, 0.1); border-color: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Saraphina Analytics</h1>
+        <div class="subtitle">Real-time system metrics and insights</div>
+    </div>
+    
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-label">Active Devices</div>
+            <div class="metric-value" id="metric-devices">147</div>
+            <div class="metric-change positive">↑ 12% from last week</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Recovery Success Rate</div>
+            <div class="metric-value" id="metric-success">94.2%</div>
+            <div class="metric-change positive">↑ 2.1% this month</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Avg Recovery Time</div>
+            <div class="metric-value" id="metric-time">8.3<span style="font-size:0.5em">min</span></div>
+            <div class="metric-change positive">↓ 15% faster</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Battery Efficiency</div>
+            <div class="metric-value" id="metric-battery">87%</div>
+            <div class="metric-change negative">↓ 3% (investigating)</div>
+        </div>
+    </div>
+    
+    <div class="charts-grid">
+        <div class="chart-container">
+            <div class="chart-title">Recovery Sessions (24h)</div>
+            <div id="chart-sessions"></div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">Success Rate by Method</div>
+            <div id="chart-methods"></div>
+        </div>
+        
+        <div class="chart-container full-width">
+            <div class="chart-title">Device Location Heatmap</div>
+            <div id="chart-heatmap"></div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">Cost Analysis</div>
+            <div id="chart-costs"></div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-title">Predictive Maintenance Alerts</div>
+            <div id="chart-maintenance"></div>
+        </div>
+    </div>
+    
+    <div class="alert-list">
+        <div class="chart-title">System Alerts</div>
+        <div class="alert-item alert-critical">
+            <strong>Critical:</strong> Device #4521 battery critically low (3%). Immediate recovery recommended.
+            <span style="float:right;opacity:0.5">2 min ago</span>
+        </div>
+        <div class="alert-item alert-warning">
+            <strong>Warning:</strong> Unusual movement pattern detected for Device #3829. Possible theft scenario.
+            <span style="float:right;opacity:0.5">15 min ago</span>
+        </div>
+        <div class="alert-item alert-info">
+            <strong>Info:</strong> Scheduled maintenance for GPS service in 2 hours. Minimal disruption expected.
+            <span style="float:right;opacity:0.5">1 hour ago</span>
+        </div>
+    </div>
+
+    <script>
+        // Configure Plotly for dark theme
+        const layout_base = {
+            paper_bgcolor: '#1e293b',
+            plot_bgcolor: '#0f172a',
+            font: { color: '#e2e8f0' },
+            margin: { t: 30, r: 20, b: 40, l: 50 }
+        };
+        
+        // 1. Recovery Sessions Time Series
+        const now = Date.now();
+        const hours = Array.from({length: 24}, (_, i) => new Date(now - (23-i) * 3600000));
+        const sessions = Array.from({length: 24}, () => Math.floor(Math.random() * 20) + 5);
+        
+        Plotly.newPlot('chart-sessions', [{
+            x: hours,
+            y: sessions,
+            type: 'scatter',
+            mode: 'lines+markers',
+            fill: 'tozeroy',
+            line: { color: '#667eea', width: 3 },
+            marker: { size: 8, color: '#764ba2' }
+        }], {
+            ...layout_base,
+            xaxis: { title: 'Time' },
+            yaxis: { title: 'Sessions' }
+        }, {responsive: true});
+        
+        // 2. Success Rate by Method
+        Plotly.newPlot('chart-methods', [{
+            x: ['GPS', 'WiFi', 'BLE', 'Last Known', 'Sound', 'Manual'],
+            y: [95, 88, 92, 75, 65, 98],
+            type: 'bar',
+            marker: {
+                color: ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#06b6d4']
+            }
+        }], {
+            ...layout_base,
+            xaxis: { title: 'Method' },
+            yaxis: { title: 'Success Rate (%)' }
+        }, {responsive: true});
+        
+        // 3. Location Heatmap
+        const lat = Array.from({length: 100}, () => 37.7749 + (Math.random() - 0.5) * 0.1);
+        const lon = Array.from({length: 100}, () => -122.4194 + (Math.random() - 0.5) * 0.1);
+        
+        Plotly.newPlot('chart-heatmap', [{
+            type: 'densitymapbox',
+            lat: lat,
+            lon: lon,
+            radius: 15,
+            colorscale: [
+                [0, '#0f172a'],
+                [0.5, '#667eea'],
+                [1, '#764ba2']
+            ],
+            showscale: false
+        }], {
+            ...layout_base,
+            mapbox: {
+                style: 'dark',
+                center: { lat: 37.7749, lon: -122.4194 },
+                zoom: 11
+            },
+            height: 400
+        }, {responsive: true});
+        
+        // 4. Cost Analysis
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+        Plotly.newPlot('chart-costs', [{
+            name: 'GPS',
+            x: months,
+            y: [120, 135, 140, 155, 150, 165],
+            type: 'bar',
+            marker: { color: '#10b981' }
+        }, {
+            name: 'Network',
+            x: months,
+            y: [80, 75, 85, 90, 88, 95],
+            type: 'bar',
+            marker: { color: '#3b82f6' }
+        }, {
+            name: 'Cloud',
+            x: months,
+            y: [200, 210, 205, 220, 215, 230],
+            type: 'bar',
+            marker: { color: '#8b5cf6' }
+        }], {
+            ...layout_base,
+            barmode: 'stack',
+            xaxis: { title: 'Month' },
+            yaxis: { title: 'Cost ($)' }
+        }, {responsive: true});
+        
+        // 5. Predictive Maintenance
+        const devices = ['Device #1', 'Device #2', 'Device #3', 'Device #4', 'Device #5'];
+        const risk_scores = [85, 65, 92, 40, 78];
+        
+        Plotly.newPlot('chart-maintenance', [{
+            y: devices,
+            x: risk_scores,
+            type: 'bar',
+            orientation: 'h',
+            marker: {
+                color: risk_scores.map(v => v > 80 ? '#ef4444' : v > 60 ? '#f59e0b' : '#10b981')
+            }
+        }], {
+            ...layout_base,
+            xaxis: { title: 'Risk Score', range: [0, 100] },
+            yaxis: { title: 'Device' }
+        }, {responsive: true});
+        
+        // Real-time updates simulation
+        setInterval(() => {
+            document.getElementById('metric-devices').textContent = 
+                Math.floor(140 + Math.random() * 20);
+        }, 5000);
+    </script>
+</body>
+</html>

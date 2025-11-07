@@ -1,0 +1,9 @@
+{
+  "name": "Saraphina Dashboard",
+  "short_name": "Saraphina",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a84ff",
+  "icons": []
+}

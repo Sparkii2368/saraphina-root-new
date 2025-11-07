@@ -1,0 +1,681 @@
+{
+  "intelligence_level": 1,
+  "experience_points": 70,
+  "skill_progression": {
+    "conversation": 2.2,
+    "technical": 1.9999999999999998,
+    "problem_solving": 1.4,
+    "creativity": 1.2999999999999998,
+    "analysis": 2.0,
+    "system_management": 1.0,
+    "programming": 1.9999999999999998,
+    "cloud_devops": 1.0
+  },
+  "total_conversations": 79,
+  "learning_database": {
+    "patterns": {
+      "greeting": {
+        "count": 10
+      },
+      "identity": {
+        "count": 2
+      },
+      "capabilities": {
+        "count": 4
+      },
+      "learning": {
+        "count": 2
+      },
+      "technical": {
+        "count": 5
+      },
+      "general": {
+        "count": 8
+      },
+      "creative": {
+        "count": 2
+      },
+      "problem_solving": {
+        "count": 2
+      }
+    }
+  },
+  "memory_bank": [
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T20:46:14.129867"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T20:08:25.008293"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T18:14:47.395127"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T17:57:18.782639"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T17:31:05.211305"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T17:20:01.228778"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T17:09:59.524495"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T17:07:59.470095"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T16:37:18.254242"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T16:26:41.491897"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T16:00:23.039404"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T15:47:28.139674"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T15:35:14.067252"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T15:31:13.787131"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T13:38:40.489917"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T13:13:06.674302"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T12:36:13.023291"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T12:04:43.422320"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T11:47:15.166231"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T10:53:09.254108"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T10:44:03.241147"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T10:40:14.724721"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T00:58:53.275813"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-06T00:57:01.523171"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T23:41:02.197489"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T23:30:48.186699"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T22:48:02.404679"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T22:45:59.205416"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T22:43:38.293574"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T22:36:08.982089"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T22:36:00.179430"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T22:34:04.083600"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T22:30:50.489084"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T22:27:12.098481"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T22:23:29.199283"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T21:54:06.990947"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T21:42:13.334747"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T21:32:51.139099"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T21:26:08.302957"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T21:22:58.190209"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T21:13:48.799188"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T19:39:38.128405"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T19:19:58.746569"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T17:57:47.719365"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T17:31:16.377147"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T17:25:35.175260"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T17:05:17.710554"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T16:58:06.167130"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T16:52:37.173792"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T16:42:14.734240"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T11:12:08.197608"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-05T10:51:23.922673"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-04T18:53:54.396036"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-04T18:48:29.314787"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-04T18:44:42.626329"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-04T18:44:35.408948"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-04T18:44:13.517961"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-03T18:36:35.564320"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-03T15:22:45.274299"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-03T15:21:20.728499"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-03T14:52:39.303476"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-03T14:33:02.216749"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-03T14:26:11.279867"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-03T14:16:20.572349"
+    },
+    {
+      "type": "core_knowledge",
+      "content": "Advanced knowledge systems loaded with 7 major domains",
+      "importance": 10,
+      "timestamp": "2025-11-02T21:40:55.122235"
+    },
+    {
+      "type": "interaction",
+      "query": "Hello Saraphina",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-02T21:40:55.124239"
+    },
+    {
+      "type": "interaction",
+      "query": "Who are you?",
+      "query_type": "identity",
+      "learning_value": 1,
+      "timestamp": "2025-11-02T21:40:55.124239"
+    },
+    {
+      "type": "interaction",
+      "query": "What can you do?",
+      "query_type": "capabilities",
+      "learning_value": 1,
+      "timestamp": "2025-11-02T21:40:55.124239"
+    },
+    {
+      "type": "interaction",
+      "query": "Tell me about your learning",
+      "query_type": "learning",
+      "learning_value": 6,
+      "timestamp": "2025-11-02T21:40:55.125251"
+    },
+    {
+      "type": "interaction",
+      "query": "I need help with Python programming",
+      "query_type": "technical",
+      "learning_value": 4,
+      "timestamp": "2025-11-02T21:40:55.125251"
+    },
+    {
+      "type": "interaction",
+      "query": "How do I use Docker and Kubernetes?",
+      "query_type": "technical",
+      "learning_value": 4,
+      "timestamp": "2025-11-02T21:40:55.127239"
+    },
+    {
+      "type": "interaction",
+      "query": "What's your AWS expertise?",
+      "query_type": "general",
+      "learning_value": 1,
+      "timestamp": "2025-11-02T21:40:55.127239"
+    },
+    {
+      "type": "interaction",
+      "query": "Help me create a React app",
+      "query_type": "creative",
+      "learning_value": 3,
+      "timestamp": "2025-11-02T21:40:55.127239"
+    },
+    {
+      "type": "interaction",
+      "query": "I have a bug to troubleshoot",
+      "query_type": "problem_solving",
+      "learning_value": 4,
+      "timestamp": "2025-11-02T21:40:55.128238"
+    },
+    {
+      "type": "interaction",
+      "query": "hi",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T14:16:46.294894"
+    },
+    {
+      "type": "interaction",
+      "query": "hi",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T14:16:49.616983"
+    },
+    {
+      "type": "interaction",
+      "query": "what can you do",
+      "query_type": "capabilities",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T14:17:00.728880"
+    },
+    {
+      "type": "interaction",
+      "query": "do a self analysis",
+      "query_type": "general",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T14:17:28.941014"
+    },
+    {
+      "type": "interaction",
+      "query": "what networks are available",
+      "query_type": "technical",
+      "learning_value": 4,
+      "timestamp": "2025-11-03T14:17:48.548711"
+    },
+    {
+      "type": "interaction",
+      "query": "hi",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T14:26:21.546144"
+    },
+    {
+      "type": "interaction",
+      "query": "hi#",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T14:53:18.968858"
+    },
+    {
+      "type": "interaction",
+      "query": "hi",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T14:53:28.561097"
+    },
+    {
+      "type": "interaction",
+      "query": "hi",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T14:53:32.833687"
+    },
+    {
+      "type": "interaction",
+      "query": "In .env, optionally set:",
+      "query_type": "general",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T15:21:44.231081"
+    },
+    {
+      "type": "interaction",
+      "query": "ELEVEN_STABILITY=0.35",
+      "query_type": "general",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T15:22:05.321935"
+    },
+    {
+      "type": "interaction",
+      "query": "ELEVEN_SIMILARITY=0.85",
+      "query_type": "general",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T15:22:25.777321"
+    },
+    {
+      "type": "interaction",
+      "query": "Speak so I can hear",
+      "query_type": "general",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T15:23:23.983096"
+    },
+    {
+      "type": "interaction",
+      "query": "Hello Saraphina",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T18:36:35.565318"
+    },
+    {
+      "type": "interaction",
+      "query": "Who are you?",
+      "query_type": "identity",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T18:36:35.565318"
+    },
+    {
+      "type": "interaction",
+      "query": "What can you do?",
+      "query_type": "capabilities",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T18:36:35.668701"
+    },
+    {
+      "type": "interaction",
+      "query": "Tell me about your learning",
+      "query_type": "learning",
+      "learning_value": 6,
+      "timestamp": "2025-11-03T18:36:35.672703"
+    },
+    {
+      "type": "interaction",
+      "query": "I need help with Python programming",
+      "query_type": "technical",
+      "learning_value": 4,
+      "timestamp": "2025-11-03T18:36:35.672703"
+    },
+    {
+      "type": "interaction",
+      "query": "How do I use Docker and Kubernetes?",
+      "query_type": "technical",
+      "learning_value": 4,
+      "timestamp": "2025-11-03T18:36:35.672703"
+    },
+    {
+      "type": "interaction",
+      "query": "What's your AWS expertise?",
+      "query_type": "general",
+      "learning_value": 1,
+      "timestamp": "2025-11-03T18:36:35.673702"
+    },
+    {
+      "type": "interaction",
+      "query": "Help me create a React app",
+      "query_type": "creative",
+      "learning_value": 3,
+      "timestamp": "2025-11-03T18:36:35.673702"
+    },
+    {
+      "type": "interaction",
+      "query": "I have a bug to troubleshoot",
+      "query_type": "problem_solving",
+      "learning_value": 4,
+      "timestamp": "2025-11-03T18:36:35.676704"
+    },
+    {
+      "type": "interaction",
+      "query": "hi",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-04T18:54:35.163414"
+    },
+    {
+      "type": "interaction",
+      "query": "hihi",
+      "query_type": "greeting",
+      "learning_value": 1,
+      "timestamp": "2025-11-04T18:54:54.990362"
+    },
+    {
+      "type": "interaction",
+      "query": "what can you do",
+      "query_type": "capabilities",
+      "learning_value": 1,
+      "timestamp": "2025-11-05T11:12:31.654270"
+    },
+    {
+      "type": "interaction",
+      "query": "Sound less robotic",
+      "query_type": "general",
+      "learning_value": 1,
+      "timestamp": "2025-11-05T17:58:07.472267"
+    }
+  ],
+  "last_updated": "2025-11-06T22:34:55.475438"
+}

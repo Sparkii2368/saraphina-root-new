@@ -1,0 +1,31 @@
+{
+  "providers": [
+    {
+      "type": "web_scrape",
+      "title": "Ubuntu Releases",
+      "start_page": "https://releases.ubuntu.com/",
+      "selector": "a[href$='.iso'], a[href$='.iso.torrent']",
+      "allowed_domains": ["releases.ubuntu.com", "cdimage.ubuntu.com"],
+      "allowed_extensions": [".iso", ".torrent"]
+    },
+    {
+      "type": "web_search",
+      "top_n": 5,
+      "fetch_links": true,
+      "allowed_domains": [],
+      "denied_domains": [],
+      "allowed_extensions": [".pdf", ".zip", ".rar", ".7z", ".iso"],
+      "blocked_extensions": [".exe", ".msi", ".bat", ".cmd", ".vbs", ".js", ".scr", ".dll"]
+    }
+  ],
+  "torrent": {
+    "transmission_url": "http://localhost:9091/transmission/rpc",
+    "username": "",
+    "password": "",
+    "use_libtorrent": false
+  },
+  "max_present": 8,
+  "fallback_on_magnet_fail": true,
+  "auto_choose": true,
+  "auto_choose_policy": "allowed_only"
+}

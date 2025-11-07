@@ -1,0 +1,42 @@
+# Saraphina Dependencies
+# Last updated: 2025-11-02
+
+# Core UI
+textual>=6.5.0
+python-dotenv>=1.2.1
+rich>=14.2.0
+
+# Knowledge & Semantic Search
+rapidfuzz>=3.14.0
+sentence-transformers>=5.1.0
+
+# Web & Downloads
+aiohttp>=3.13.0
+beautifulsoup4>=4.14.0
+playwright>=1.55.0
+requests>=2.32.0
+
+# Database & Utils
+sqlite-utils>=3.36
+pyyaml>=6.0.1
+python-dateutil>=2.8.2
+tzlocal>=5.2
+
+# Logging
+loguru>=0.7.2
+
+# Testing
+pytest>=8.4.0
+pytest-asyncio>=1.2.0
+
+# Voice (optional)
+pyttsx3>=2.90
+speechrecognition>=3.10.1
+# elevenlabs
+
+# Visualization (optional)
+matplotlib>=3.8.0
+pillow>=10.1.0
+
+# Torrent (optional)
+# transmission-rpc
