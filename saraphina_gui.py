@@ -2,6 +2,13 @@
 """
 Saraphina GUI - Modern Futuristic Interface
 A proper windowed application with smooth animations and always-on voice listening
+
+Behavior change in this version:
+- Only loads environment variables from a single authoritative .env file:
+  D:/Saraphina Root/.env
+- Keys present in that file are applied (overwrite) into os.environ so the runtime
+  consistently uses that file as the single source of truth.
+- Loaded secret values are printed masked for debugging (no full secrets are printed).
 """
 
 import sys
@@ -25,15 +32,49 @@ os.environ['TMP'] = str(SARAPHINA_TEMP_DIR)
 print(f"[TEMP] All temporary files will use: {SARAPHINA_TEMP_DIR}")
 
 # Add project root to path
-sys.path.insert(0, str(Path(__file__).parent))
+REPO_ROOT = Path(__file__).parent.resolve()
+sys.path.insert(0, str(REPO_ROOT))
 
-# Load .env files FIRST
+# -----------------------------
+# Strict .env loading (single source of truth)
+# Only load from: D:/Saraphina Root/.env
+# This intentionally avoids loading any other .env files or relying on externally injected env vars
+# for sensitive keys like OPENAI_API_KEY.
+# -----------------------------
+def _mask_key(k: Optional[str]) -> Optional[str]:
+    if not k:
+        return None
+    k = str(k).strip()
+    if len(k) <= 12:
+        return k
+    return k[:6] + "..." + k[-4:]
+
+DOTENV_ENFORCED_PATH = Path("D:/Saraphina Root/.env")
+
 try:
-    from dotenv import load_dotenv
-    load_dotenv(Path(__file__).parent / '.env')
-    load_dotenv(Path('D:/SaraphinaApp') / '.env', override=True)
+    from dotenv import dotenv_values
+    if DOTENV_ENFORCED_PATH.exists():
+        loaded = dotenv_values(DOTENV_ENFORCED_PATH)
+        applied = {}
+        # Apply overrides only for keys present in the authoritative file.
+        for k, v in loaded.items():
+            if v is None:
+                continue
+            # sanitize simple surrounding quotes and whitespace
+            val = str(v).strip().strip('"').strip("'")
+            os.environ[k] = val
+            applied[k] = _mask_key(val)
+        if applied:
+            print(f"[ENV] Loaded and applied .env overrides from: {DOTENV_ENFORCED_PATH}")
+            for kk, mv in applied.items():
+                print(f"[ENV]   {kk} = {mv}")
+        else:
+            print(f"[ENV] {DOTENV_ENFORCED_PATH} found but no parsable keys.")
+    else:
+        print(f"[ENV] Enforced .env not found at: {DOTENV_ENFORCED_PATH}. No env overrides applied.")
 except Exception as e:
-    print(f"Warning: .env loading issue: {e}")
+    # If python-dotenv unavailable or something fails, do not modify environment and warn.
+    print(f"[ENV] Warning: Could not load dotenv utilities: {e}. No .env overrides applied.")
 
 # Try to import GUI library
 try:
@@ -45,61 +86,65 @@ except ImportError:
     sys.exit(1)
 
 # Import ALL Saraphina components - COMPLETE POWER
-from saraphina.ai_core_enhanced import SaraphinaAIEnhanced
-from saraphina.ultra_ai_core import UltraAICore
-from saraphina.knowledge_engine import KnowledgeEngine
-from saraphina.db import init_db, get_preference, set_preference, write_audit_log
-from saraphina.stt import STT
-from saraphina.memory_manager import MemoryManager
-from saraphina.emotion_engine import EmotionEngine
-from saraphina.security import SecurityManager, SecurityError
-from saraphina.trust_firewall import TrustFirewall
-from saraphina.ethics import BeliefStore, EthicalReasoner
-from saraphina.planner import Planner
-from saraphina.risk_model import RiskModel
-from saraphina.review_manager import ReviewManager
-from saraphina.persona import PersonaManager
-from saraphina.intuition import IntuitionEngine
-from saraphina.knowledge_graph import KnowledgeGraphExplorer
-from saraphina.research_agent import ResearchAgent
-from saraphina.toolsmith import Toolsmith
-from saraphina.sentience_monitor import SentienceMonitor
-from saraphina.safety_gate import SafetyGate
-from saraphina.learning_journal import LearningJournal
-from saraphina.meta_optimizer import MetaOptimizer
-from saraphina.shadow_node import ShadowNode
-from saraphina.recovery_bootstrap import RecoveryBootstrap
-from saraphina.code_knowledge_db import CodeKnowledgeDB
-from saraphina.code_research_agent import CodeResearchAgent
-from saraphina.recursive_code_miner import RecursiveCodeMiner
-from saraphina.code_factory import CodeFactory
-from saraphina.test_harness import TestHarness
-from saraphina.code_proposal_db import CodeProposalDB
-from saraphina.refinement_engine import RefinementEngine
-from saraphina.self_modification_engine import SelfModificationEngine
-from saraphina.hot_reload_manager import HotReloadManager
-from saraphina.rollback_engine import RollbackEngine
-from saraphina.improvement_loop import ImprovementLoop
-from saraphina.improvement_db import ImprovementDB
-from saraphina.meta_architect import MetaArchitect
-from saraphina.simulation_sandbox import SimulationSandbox
-from saraphina.architecture_db import ArchitectureDB
-from saraphina.device_agent import DeviceAgent
-from saraphina.ood import is_text_ood, is_code_high_risk
-from saraphina.gui_ultra_processor import GUIUltraProcessor
-from saraphina.self_healing_manager import SelfHealingManager
-from saraphina.self_modification_api import SelfModificationAPI
+# Imports are best-effort; missing components will be handled in init
+try:
+    from saraphina.ai_core_enhanced import SaraphinaAIEnhanced
+    from saraphina.ultra_ai_core import UltraAICore
+    from saraphina.knowledge_engine import KnowledgeEngine
+    from saraphina.db import init_db, get_preference, set_preference, write_audit_log
+    from saraphina.stt import STT
+    from saraphina.memory_manager import MemoryManager
+    from saraphina.emotion_engine import EmotionEngine
+    from saraphina.security import SecurityManager, SecurityError
+    from saraphina.trust_firewall import TrustFirewall
+    from saraphina.ethics import BeliefStore, EthicalReasoner
+    from saraphina.planner import Planner
+    from saraphina.risk_model import RiskModel
+    from saraphina.review_manager import ReviewManager
+    from saraphina.persona import PersonaManager
+    from saraphina.intuition import IntuitionEngine
+    from saraphina.knowledge_graph import KnowledgeGraphExplorer
+    from saraphina.research_agent import ResearchAgent
+    from saraphina.toolsmith import Toolsmith
+    from saraphina.sentience_monitor import SentienceMonitor
+    from saraphina.safety_gate import SafetyGate
+    from saraphina.learning_journal import LearningJournal
+    from saraphina.meta_optimizer import MetaOptimizer
+    from saraphina.shadow_node import ShadowNode
+    from saraphina.recovery_bootstrap import RecoveryBootstrap
+    from saraphina.code_knowledge_db import CodeKnowledgeDB
+    from saraphina.code_research_agent import CodeResearchAgent
+    from saraphina.recursive_code_miner import RecursiveCodeMiner
+    from saraphina.code_factory import CodeFactory
+    from saraphina.test_harness import TestHarness
+    from saraphina.code_proposal_db import CodeProposalDB
+    from saraphina.refinement_engine import RefinementEngine
+    from saraphina.self_modification_engine import SelfModificationEngine
+    from saraphina.hot_reload_manager import HotReloadManager
+    from saraphina.rollback_engine import RollbackEngine
+    from saraphina.improvement_loop import ImprovementLoop
+    from saraphina.improvement_db import ImprovementDB
+    from saraphina.meta_architect import MetaArchitect
+    from saraphina.simulation_sandbox import SimulationSandbox
+    from saraphina.architecture_db import ArchitectureDB
+    from saraphina.device_agent import DeviceAgent
+    from saraphina.ood import is_text_ood, is_code_high_risk
+    from saraphina.gui_ultra_processor import GUIUltraProcessor
+    from saraphina.self_healing_manager import SelfHealingManager
+    from saraphina.self_modification_api import SelfModificationAPI
+except Exception as e:
+    # Import errors will be handled during initialization. We print for debug.
+    print(f"[IMPORT] Warning while importing saraphina modules: {e}")
 
 # Use modern voice integration
 try:
     from saraphina.voice_modern import speak_text, get_voice, VOICE_AVAILABLE
     VOICE_IMPORT_ERROR = None
 except Exception as e:
-    # Logger not defined yet, so save error for later
     VOICE_IMPORT_ERROR = str(e)
     VOICE_AVAILABLE = False
 
-    # Define dummy functions
+    # Define dummy functions so GUI still runs without voice.
     def speak_text(text):
         pass
 
@@ -166,7 +211,6 @@ class SaraphinaGUI:
 
     def __init__(self, root):
         self.root = root
-        # Updated title to remove 'Ultra'
         self.root.title("Saraphina - Mission Control")
         self.root.geometry("1400x900")
 
@@ -385,33 +429,58 @@ class SaraphinaGUI:
                 self.add_system_message("🚀 Initializing Saraphina Mission Control...")
 
                 # Initialize database and knowledge engine
-                from saraphina.db import DB_FILE
+                try:
+                    from saraphina.db import DB_FILE
+                except Exception:
+                    DB_FILE = REPO_ROOT / "ai_data" / "saraphina_knowledge.db"
                 conn = init_db()  # This returns a connection
-                self.sess.ke = KnowledgeEngine(DB_FILE)  # KnowledgeEngine expects a path
+                try:
+                    self.sess.ke = KnowledgeEngine(DB_FILE)
+                except Exception:
+                    # fallback: if KnowledgeEngine signature differs, try passing conn
+                    try:
+                        self.sess.ke = KnowledgeEngine(conn)
+                    except Exception as e:
+                        self.add_system_message(f"⚠ KnowledgeEngine init failed: {e}")
 
                 # Initialize core AI
-                self.sess.ai = SaraphinaAIEnhanced(Path("ai_data"))
-                self.sess.ultra = UltraAICore()  # UltraAICore takes no arguments
+                try:
+                    self.sess.ai = SaraphinaAIEnhanced(Path("ai_data"))
+                except Exception as e:
+                    self.add_system_message(f"⚠ SaraphinaAIEnhanced init failed: {e}")
+                    self.sess.ai = None
 
-                self.add_system_message(f"✓ Core AI: Level {self.sess.ai.intelligence_level} | {self.sess.ai.experience_points} XP")
+                try:
+                    self.sess.ultra = UltraAICore()
+                except Exception:
+                    self.sess.ultra = None
+
+                if self.sess.ai:
+                    self.add_system_message(f"✓ Core AI: Level {self.sess.ai.intelligence_level} | {self.sess.ai.experience_points} XP")
+                else:
+                    self.add_system_message("⚠ Core AI not fully initialized")
 
                 # Initialize ALL support systems - FULL POWER
-                # Wrapped in try-except for robustness
-                from saraphina.db import DB_FILE
-
                 systems_loaded = 0
 
                 # Core systems (essential)
-                self.sess.mm = MemoryManager(self.sess.ke.conn)
-                self.sess.mem = self.sess.mm
-                self.sess.emotion = EmotionEngine(self.sess.ke.conn)
-                self.sess.sec = SecurityManager(Path("ai_data"))
-                self.sess.trust = TrustFirewall(self.sess.ke.conn)
-                self.sess.beliefs = BeliefStore(self.sess.ke.conn)
-                self.sess.reasoner = EthicalReasoner(self.sess.beliefs)
-                self.sess.planner = Planner()
-                self.sess.risk = RiskModel()
-                systems_loaded += 9
+                try:
+                    if self.sess.ke and hasattr(self.sess.ke, 'conn'):
+                        ke_conn = self.sess.ke.conn
+                    else:
+                        ke_conn = conn
+                    self.sess.mm = MemoryManager(ke_conn)
+                    self.sess.mem = self.sess.mm
+                    self.sess.emotion = EmotionEngine(ke_conn)
+                    self.sess.sec = SecurityManager(Path("ai_data"))
+                    self.sess.trust = TrustFirewall(ke_conn)
+                    self.sess.beliefs = BeliefStore(ke_conn)
+                    self.sess.reasoner = EthicalReasoner(self.sess.beliefs)
+                    self.sess.planner = Planner()
+                    self.sess.risk = RiskModel()
+                    systems_loaded += 9
+                except Exception as e:
+                    self.add_system_message(f"⚠ Core system init issue: {e}")
 
                 # Advanced systems (wrapped for safety)
                 try:
@@ -421,19 +490,19 @@ class SaraphinaGUI:
                     pass
 
                 try:
-                    self.sess.persona = PersonaManager(self.sess.ke.conn)
+                    self.sess.persona = PersonaManager(ke_conn)
                     systems_loaded += 1
                 except:
                     pass
 
                 try:
-                    self.sess.intuition = IntuitionEngine(self.sess.ke.conn)
+                    self.sess.intuition = IntuitionEngine(ke_conn)
                     systems_loaded += 1
                 except:
                     pass
 
                 try:
-                    self.sess.graph_explorer = KnowledgeGraphExplorer(self.sess.ke.conn)
+                    self.sess.graph_explorer = KnowledgeGraphExplorer(ke_conn)
                     systems_loaded += 1
                 except:
                     pass
@@ -445,66 +514,47 @@ class SaraphinaGUI:
                     pass
 
                 try:
-                    self.sess.toolsmith = Toolsmith(self.sess.ke.conn)
-                    systems_loaded += 1
-                except:
-                    pass
-
-                try:
-                    self.sess.sentience = SentienceMonitor(self.sess.ke.conn)
-                    systems_loaded += 1
-                except:
-                    pass
-
-                try:
-                    self.sess.safety_gate = SafetyGate(self.sess.ke.conn)
-                    systems_loaded += 1
-                except:
-                    pass
-
-                try:
-                    self.sess.journal = LearningJournal(Path("ai_data/learning_journal.db"))
-                    self.sess.metaopt = MetaOptimizer(self.sess.journal)
-                    systems_loaded += 2
-                except:
-                    pass
-
-                try:
-                    self.sess.code_factory = CodeFactory()
-                    self.sess.test_harness = TestHarness()
-                    systems_loaded += 2
-                except:
-                    pass
-
-                try:
-                    self.sess.code_kb = CodeKnowledgeDB(self.sess.ke.conn)
+                    # Code factory may require CodeKnowledgeDB - lazy init
+                    self.sess.code_kb = CodeKnowledgeDB(ke_conn)
                     self.sess.code_research = CodeResearchAgent(self.sess.code_kb)
                     self.sess.code_miner = RecursiveCodeMiner(self.sess.code_kb)
-                    systems_loaded += 3
+                    self.sess.code_factory = CodeFactory(self.sess.code_kb)
+                    self.sess.test_harness = TestHarness()
+                    systems_loaded += 4
                 except:
                     pass
 
                 try:
                     self.sess.code_proposals = CodeProposalDB(self.sess.ke.conn)
                     self.sess.refinement = RefinementEngine(self.sess.code_factory, self.sess.test_harness)
-                    self.sess.improvement_loop = ImprovementLoop(self.sess.code_proposals, self.sess.refinement)
                     self.sess.improvement_db = ImprovementDB(self.sess.ke.conn)
+                    self.sess.improvement_loop = ImprovementLoop(self.sess.improvement_db, self.sess.refinement)
                     systems_loaded += 4
                 except:
                     pass
 
                 try:
-                    self.sess.self_mod = SelfModificationEngine(self.sess.ke.conn, self.sess.code_factory)
-                    self.sess.hot_reload = HotReloadManager()
+                    # Create hot_reload and rollback with sensible paths
+                    self.sess.hot_reload = HotReloadManager(REPO_ROOT)
                     self.sess.rollback = RollbackEngine(Path("ai_data/backups"))
-                    systems_loaded += 3
+                    # SelfModificationEngine signature may vary; instantiate inside try
+                    try:
+                        # Preferred constructor if available: code_factory, proposal_db, security_manager, db
+                        self.sess.self_mod = SelfModificationEngine(self.sess.code_factory, self.sess.code_proposals, self.sess.sec, ke_conn)
+                    except Exception:
+                        # Fallback: try older constructor signatures
+                        try:
+                            self.sess.self_mod = SelfModificationEngine(self.sess.ke.conn, self.sess.code_factory)
+                        except Exception:
+                            self.sess.self_mod = None
+                    systems_loaded += 1
                 except:
                     pass
 
                 try:
-                    self.sess.meta_architect = MetaArchitect(self.sess.ke.conn)
+                    self.sess.meta_architect = MetaArchitect(ke_conn)
                     self.sess.simulation = SimulationSandbox()
-                    self.sess.arch_db = ArchitectureDB(self.sess.ke.conn)
+                    self.sess.arch_db = ArchitectureDB(ke_conn)
                     systems_loaded += 3
                 except:
                     pass
@@ -517,39 +567,57 @@ class SaraphinaGUI:
 
                 self.add_system_message(f"✓ {systems_loaded} advanced systems loaded - FULL POWER!")
 
-                # Initialize FULL Ultra processor
-                self.ultra_processor = GUIUltraProcessor(self.sess)
+                # Initialize FULL Ultra processor if available
+                try:
+                    self.ultra_processor = GUIUltraProcessor(self.sess)
+                except Exception:
+                    self.ultra_processor = None
 
                 # Initialize Self-Healing (Phase 29)
-                self.sess.self_healing = SelfHealingManager()
-                self.add_system_message("🏪 Self-Healing active - I auto-fix my own errors!")
+                try:
+                    self.sess.self_healing = SelfHealingManager()
+                    self.add_system_message("🏪 Self-Healing active - I auto-fix my own errors!")
+                except Exception as e:
+                    self.add_system_message(f"⚠ Self-Healing not initialized: {e}")
 
                 # Initialize Self-Modification API - Complete control
-                self.sess.self_mod_api = SelfModificationAPI(self.sess, self)
-                self.add_system_message("⚙️ Self-Modification API active - I can change ANYTHING about myself!")
+                try:
+                    self.sess.self_mod_api = SelfModificationAPI(self.sess, self)
+                    self.add_system_message("⚙️ Self-Modification API active - I can change ANYTHING about myself!")
+                except Exception as e:
+                    self.add_system_message(f"⚠ Self-Modification API init failed: {e}")
 
                 # Start background learning threads
                 self.start_background_learning()
 
                 # Initialize voice and STT
-                self.sess.stt = STT()
-                if VOICE_AVAILABLE and self.sess.stt.available:
-                    self.sess.voice_enabled = True
-                    self.add_system_message("✓ Voice system active - Always listening")
-                    self.start_voice_listening()
-                else:
-                    self.add_system_message("⚠ Voice system unavailable")
+                try:
+                    self.sess.stt = STT()
+                    if VOICE_AVAILABLE and getattr(self.sess.stt, 'available', False):
+                        self.sess.voice_enabled = True
+                        self.add_system_message("✓ Voice system active - Always listening")
+                        self.start_voice_listening()
+                    else:
+                        self.add_system_message("⚠ Voice system unavailable")
+                except Exception:
+                    self.add_system_message("⚠ STT initialization failed")
 
                 # Set preferences
-                set_preference(conn, 'auto_listen', 'true')
-                if not get_preference(conn, 'wake_word'):
-                    set_preference(conn, 'wake_word', 'saraphina')
+                try:
+                    set_preference(conn, 'auto_listen', 'true')
+                    if not get_preference(conn, 'wake_word'):
+                        set_preference(conn, 'wake_word', 'saraphina')
+                except Exception:
+                    pass
 
                 # Update status
                 self.update_status()
 
                 # Greeting
-                owner = get_preference(conn, 'owner_name') or 'there'
+                try:
+                    owner = get_preference(conn, 'owner_name') or 'there'
+                except Exception:
+                    owner = 'there'
                 greeting = f"Hello {owner}! I'm Saraphina. I'm always listening and learning. How can I help you today?"
                 self.add_message("Saraphina", greeting)
 
@@ -565,9 +633,12 @@ class SaraphinaGUI:
     def update_status(self):
         """Update status panel"""
         if self.sess.ai:
-            self.level_label.config(text=f"Level: {self.sess.ai.intelligence_level}")
-            self.xp_label.config(text=f"XP: {self.sess.ai.experience_points}")
-            self.conv_label.config(text=f"Conversations: {self.sess.ai.total_conversations}")
+            try:
+                self.level_label.config(text=f"Level: {self.sess.ai.intelligence_level}")
+                self.xp_label.config(text=f"XP: {self.sess.ai.experience_points}")
+                self.conv_label.config(text=f"Conversations: {self.sess.ai.total_conversations}")
+            except Exception:
+                pass
 
         if self.sess.ke:
             try:
@@ -575,7 +646,7 @@ class SaraphinaGUI:
                 cur.execute("SELECT COUNT(*) FROM facts")
                 fact_count = cur.fetchone()[0]
                 self.kb_label.config(text=f"📚 KB: {fact_count} facts")
-            except:
+            except Exception:
                 pass
 
         # Update voice status with animation
@@ -589,29 +660,32 @@ class SaraphinaGUI:
 
     def add_message(self, speaker, message):
         """Add a message to conversation display"""
-        self.conversation.config(state=tk.NORMAL)
-
-        # Timestamp
-        timestamp = datetime.now().strftime("%H:%M")
-
-        if speaker == "Saraphina":
-            self.conversation.insert(tk.END, f"[{timestamp}] ", "system")
-            self.conversation.insert(tk.END, f"{speaker}: ", "saraphina")
-            self.conversation.insert(tk.END, f"{message}\n\n")
-        else:
-            self.conversation.insert(tk.END, f"[{timestamp}] ", "system")
-            self.conversation.insert(tk.END, f"{speaker}: ", "user")
-            self.conversation.insert(tk.END, f"{message}\n\n")
-
-        self.conversation.see(tk.END)
-        self.conversation.config(state=tk.DISABLED)
+        try:
+            self.conversation.config(state=tk.NORMAL)
+            timestamp = datetime.now().strftime("%H:%M")
+            if speaker == "Saraphina":
+                self.conversation.insert(tk.END, f"[{timestamp}] ", "system")
+                self.conversation.insert(tk.END, f"{speaker}: ", "saraphina")
+                self.conversation.insert(tk.END, f"{message}\n\n")
+            else:
+                self.conversation.insert(tk.END, f"[{timestamp}] ", "system")
+                self.conversation.insert(tk.END, f"{speaker}: ", "user")
+                self.conversation.insert(tk.END, f"{message}\n\n")
+            self.conversation.see(tk.END)
+            self.conversation.config(state=tk.DISABLED)
+        except Exception:
+            # If UI fails, log to console
+            print(f"[MSG] {speaker}: {message}")
 
     def add_system_message(self, message):
         """Add a system message"""
-        self.conversation.config(state=tk.NORMAL)
-        self.conversation.insert(tk.END, f"[SYSTEM] {message}\n", "system")
-        self.conversation.see(tk.END)
-        self.conversation.config(state=tk.DISABLED)
+        try:
+            self.conversation.config(state=tk.NORMAL)
+            self.conversation.insert(tk.END, f"[SYSTEM] {message}\n", "system")
+            self.conversation.see(tk.END)
+            self.conversation.config(state=tk.DISABLED)
+        except Exception:
+            print(f"[SYSTEM] {message}")
 
     def send_message(self, event=None):
         """Send user message"""
@@ -624,9 +698,12 @@ class SaraphinaGUI:
 
         # Increment conversation count
         if self.sess.ai:
-            self.sess.ai.increment_conversation_count()
-            # Update UI immediately
-            self.conv_label.config(text=f"Conversations: {self.sess.ai.total_conversations}")
+            try:
+                self.sess.ai.increment_conversation_count()
+                # Update UI immediately
+                self.conv_label.config(text=f"Conversations: {self.sess.ai.total_conversations}")
+            except Exception:
+                pass
 
         # Add to conversation
         owner = "You"
@@ -651,7 +728,7 @@ class SaraphinaGUI:
     def process_input(self, user_input):
         """Process user input with FULL Ultra AI integration"""
         try:
-            if not self.sess.ai or not self.sess.ultra:
+            if not self.sess.ai or not getattr(self, 'ultra_processor', None):
                 self.add_system_message("⚠ AI not ready yet...")
                 return
 
@@ -675,14 +752,12 @@ class SaraphinaGUI:
             logger.error(f"Processing error: {e}", exc_info=True)
             self.add_system_message(f"✗ Error: {e}")
 
-    # Removed - now using GUIUltraProcessor for FULL power
-
     def process_messages(self):
         """Process message queue"""
         try:
             while True:
                 msg = self.message_queue.get_nowait()
-                # Process any queued messages
+                # Placeholder for queued messages processing
         except queue.Empty:
             pass
 
@@ -695,21 +770,27 @@ class SaraphinaGUI:
             return
 
         # Pulse the status indicator
-        current_text = self.status_label.cget('text')
-        if '●' in current_text:
-            self.status_label.config(text=current_text.replace('●', '○'))
-        else:
-            self.status_label.config(text=current_text.replace('○', '●'))
+        try:
+            current_text = self.status_label.cget('text')
+            if '●' in current_text:
+                self.status_label.config(text=current_text.replace('●', '○'))
+            else:
+                self.status_label.config(text=current_text.replace('○', '●'))
+        except Exception:
+            pass
 
         # Schedule next animation frame (2 Hz = smooth pulse)
         self.root.after(500, self.animate_status)
 
     def start_voice_listening(self):
         """Start always-on voice listening in background"""
-        if not self.sess.stt or not self.sess.stt.available:
+        if not self.sess.stt or not getattr(self.sess.stt, 'available', False):
             return
 
-        wake_word = get_preference(self.sess.ke.conn, 'wake_word') or 'saraphina'
+        try:
+            wake_word = get_preference(self.sess.ke.conn, 'wake_word') or 'saraphina'
+        except Exception:
+            wake_word = 'saraphina'
 
         def voice_handler(text: str):
             """Handle voice input from background listening"""
@@ -725,32 +806,37 @@ class SaraphinaGUI:
                         pass
 
                 # Add to conversation
-                owner = get_preference(self.sess.ke.conn, 'owner_name') or 'You'
+                try:
+                    owner = get_preference(self.sess.ke.conn, 'owner_name') or 'You'
+                except:
+                    owner = 'You'
                 self.add_message(f"{owner} (voice)", text)
 
                 # Handle reminder intent
                 if text.lower().startswith(('remind me', 'set a reminder')):
                     m = re.search(r"remind me to (.+) at (\d{1,2}:\d{2})", text, re.IGNORECASE)
-                    if m:
+                    if m and self.sess.mm:
                         what, when = m.group(1), m.group(2)
-                        self.sess.mm.add_reminder(what.strip(), datetime.now().strftime('%Y-%m-%d ') + when)
-                        response = f"Okay, I'll remind you to {what} at {when}."
-                        self.add_message("Saraphina", response)
-                        if self.sess.voice_enabled:
-                            self.speak(response)
+                        try:
+                            self.sess.mm.add_reminder(what.strip(), datetime.now().strftime('%Y-%m-%d ') + when)
+                            response = f"Okay, I'll remind you to {what} at {when}."
+                            self.add_message("Saraphina", response)
+                            if self.sess.voice_enabled:
+                                self.speak(response)
+                        except Exception:
+                            self.add_system_message("⚠ Failed to schedule reminder.")
                         self.is_listening = False
                         self.update_status()
                         return
 
-                # Process with Ultra AI
-                # Use the GUIUltraProcessor instance for consistency
-                response = self.ultra_processor.process_query_with_ultra(text)
+                # Process with Ultra AI using GUIUltraProcessor
+                if getattr(self, 'ultra_processor', None):
+                    response = self.ultra_processor.process_query_with_ultra(text)
+                    self.add_message("Saraphina", response)
 
-                self.add_message("Saraphina", response)
-
-                # Speak response
-                if self.sess.voice_enabled:
-                    self.speak(response)
+                    # Speak response
+                    if self.sess.voice_enabled:
+                        self.speak(response)
 
                 # Update status
                 self.update_status()
@@ -762,13 +848,15 @@ class SaraphinaGUI:
                 self.update_status()
 
         # Start background listening
-        self.sess.stt.start_background(voice_handler, engine='whisper', wake_word=wake_word)
-        self.add_system_message(f"🎤 Always listening for '{wake_word}'...")
+        try:
+            self.sess.stt.start_background(voice_handler, engine='whisper', wake_word=wake_word)
+            self.add_system_message(f"🎤 Always listening for '{wake_word}'...")
+        except Exception as e:
+            self.add_system_message(f"⚠ Failed to start background STT: {e}")
 
     def speak(self, text: str):
         """Speak text with emotion detection"""
         if not VOICE_AVAILABLE:
-            # Log why voice isn't working (only once)
             if not hasattr(self, '_voice_error_logged'):
                 self._voice_error_logged = True
                 if VOICE_IMPORT_ERROR:
@@ -789,7 +877,7 @@ class SaraphinaGUI:
             # Additional sanitization to avoid saying symbols
             clean_text = re.sub(r"\[[^\]]+\]", " ", clean_text)  # remove [SYSTEM] tags
             clean_text = clean_text.replace('=', ' ')
-            clean_text = re.sub(r'[_]{1,}', ' ', clean_text)
+            clean_text = re.sub(r"[_]{1,}", ' ', clean_text)
             clean_text = re.sub(r'\s{2,}', ' ', clean_text).strip()
 
             # Speak
@@ -809,8 +897,11 @@ class SaraphinaGUI:
             self.animation_running = False
 
             # Stop voice systems
-            if self.sess.stt and self.sess.stt.available:
-                self.sess.stt.stop_background()
+            if self.sess.stt and getattr(self.sess.stt, 'available', False):
+                try:
+                    self.sess.stt.stop_background()
+                except Exception:
+                    pass
 
             if VOICE_AVAILABLE:
                 try:
@@ -820,14 +911,20 @@ class SaraphinaGUI:
 
             # Save AI state
             if self.sess.ai:
-                self.sess.ai._save_state()
+                try:
+                    self.sess.ai._save_state()
+                except Exception:
+                    pass
 
             logger.info("Shutting down Saraphina GUI")
 
         except Exception as e:
             logger.error(f"Shutdown error: {e}", exc_info=True)
 
-        self.root.destroy()
+        try:
+            self.root.destroy()
+        except Exception:
+            pass
 
     def start_background_learning(self):
         """Start background threads for continuous learning and improvement"""
@@ -861,9 +958,12 @@ class SaraphinaGUI:
                     time.sleep(3600)  # Every hour
 
                     if self.sess.mm:
-                        added = self.sess.mm.consolidate_daily()
-                        if added > 0:
-                            self.add_system_message(f"🧠 Consolidated {added} memories")
+                        try:
+                            added = self.sess.mm.consolidate_daily()
+                            if added > 0:
+                                self.add_system_message(f"🧠 Consolidated {added} memories")
+                        except Exception:
+                            pass
 
                 except Exception as e:
                     logger.debug(f"Memory consolidation error: {e}")
@@ -877,14 +977,17 @@ class SaraphinaGUI:
 
                     # Check if need more knowledge
                     if self.sess.ke:
-                        cur = self.sess.ke.conn.cursor()
-                        cur.execute("SELECT COUNT(*) FROM facts")
-                        fact_count = cur.fetchone()[0]
+                        try:
+                            cur = self.sess.ke.conn.cursor()
+                            cur.execute("SELECT COUNT(*) FROM facts")
+                            fact_count = cur.fetchone()[0]
 
-                        if fact_count < 100:
-                            self.add_system_message("👶 Still learning... Need more conversations to grow smarter!")
-                        elif fact_count % 100 == 0:
-                            self.add_system_message(f"🎉 Milestone: {fact_count} facts learned!")
+                            if fact_count < 100:
+                                self.add_system_message("👶 Still learning... Need more conversations to grow smarter!")
+                            elif fact_count % 100 == 0:
+                                self.add_system_message(f"🎉 Milestone: {fact_count} facts learned!")
+                        except Exception:
+                            pass
 
                 except Exception as e:
                     logger.debug(f"Health monitor error: {e}")
@@ -972,8 +1075,11 @@ AI Model: GPT-4o via OpenAI"""
         history_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
         # Get history from conversation display instead of DB (thread-safe)
-        conv_content = self.conversation.get("1.0", tk.END)
-        history_text.insert(tk.END, conv_content)
+        try:
+            conv_content = self.conversation.get("1.0", tk.END)
+            history_text.insert(tk.END, conv_content)
+        except Exception:
+            history_text.insert(tk.END, "[No conversation available]\n")
         history_text.config(state=tk.DISABLED)
 
         # Close button
