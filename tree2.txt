@@ -1,0 +1,2269 @@
+Folder PATH listing for volume Data
+Volume serial number is 000000EB 0A56:9A13
+D:\SARAPHINA ROOT
+³   .conversation_count
+³   .env
+³   .gitignore
+³   ANTI_LYING_FIX_COMPLETE.md
+³   AUTONOMOUS_IMPROVEMENTS.md
+³   AUTONOMOUS_UPGRADE_COMPLETE_FIX.md
+³   AUTONOMOUS_UPGRADE_SYSTEM.md
+³   BACKUP_QUICK_REFERENCE.md
+³   BACKUP_STRATEGY.md
+³   BACKUP_SYSTEM_COMPLETE.md
+³   ci_local.py
+³   cleanup_saraphina.ps1
+³   CLEANUP_SUMMARY.md
+³   code_forge.py
+³   COMPLETE_SELF_MODIFICATION.md
+³   CONVERSATION_COUNTER_FIX.md
+³   CRASH_FIX.md
+³   CreateSaraphinaShortcut.ps1
+³   CRITICAL_DISK_SPACE_ISSUE.md
+³   CURIOUS_AI_UPGRADE.md
+³   demo_ui.py
+³   DEPLOYMENT_GUIDE.md
+³   ENABLE_FUTURISTIC_UI.md
+³   FINAL_FIXES_COMPLETE.md
+³   GUI_FIX_SUMMARY.md
+³   GUI_README.md
+³   GUI_STATUS.md
+³   HOTRELOAD_APPLY_ARTIFACT_FIX.md
+³   INTEGRATION_SUMMARY.md
+³   Launch Saraphina GUI.bat
+³   LEARNING_UPGRADE_SUMMARY.md
+³   LIVE_INTEGRATION_COMPLETE.md
+³   MakeAdminShortcut.ps1
+³   MEMORY_INTEGRATED_MODIFICATIONS.md
+³   NEXT_EVOLUTION_COMPLETE.md
+³   PHASE_0_TO_5_COMPLETE.md
+³   PHASE_12_COMPLETE.md
+³   PHASE_13_COMPLETE.md
+³   PHASE_13_QUICKSTART.md
+³   PHASE_14_COMPLETE.md
+³   PHASE_15_COMPLETE.md
+³   PHASE_22_COMPLETE.md
+³   PHASE_6_COMPLETE.md
+³   PHASE_7_SUMMARY.md
+³   PHASE_8_SUMMARY.md
+³   PHASE_9_COMPLETE.md
+³   QUICK_START_CURIOUS_AI.md
+³   README.md
+³   requirements.txt
+³   sandbox_validator.py
+³   saraphina_api_server.py
+³   saraphina_cli.py
+³   saraphina_gui.py
+³   saraphina_gui.txt
+³   saraphina_knowledge.db
+³   saraphina_terminal.py
+³   saraphina_terminal_enhanced.py
+³   saraphina_terminal_ultra.py
+³   saraphina_terminal_voice.py
+³   saraphina_v4_5.db
+³   selfmod_audit.py
+³   self_modification_engine.txt
+³   SELF_MODIFICATION_WITH_LEARNING_ROADMAP.md
+³   SENTIENCE.md
+³   SETUP_COMPLETE.md
+³   StartSaraphina.cmd
+³   StartSaraphinaAdmin.ps1
+³   STOP_LYING_ENABLE_REAL_UPGRADES.md
+³   TEMP_TO_D_DRIVE_COMPLETE.md
+³   test_backup_system.py
+³   test_enhanced.py
+³   test_gpt4_connection.py
+³   test_gpt4_integration.py
+³   test_phase13.py
+³   test_phase6.py
+³   test_phase_16.py
+³   test_phase_17.py
+³   TEST_PHASE_22.md
+³   test_phase_9.py
+³   test_search.py
+³   test_self_upgrade.py
+³   test_terminal.py
+³   test_ui_integration.py
+³   tree2.txt
+³   tree_output.txt
+³   TWO_CHANNEL_ARCHITECTURE.md
+³   ui_smoketest.py
+³   ULTIMATE_UPGRADE.md
+³   ULTRA_AI_CAPABILITIES.md
+³   upgrade_learning_journal.py
+³   UPGRADE_ROADMAP.md
+³   UPGRADE_SUMMARY.md
+³   VALIDATION_LAYER_COMPLETE.md
+³   VOICE_ERROR_REPORTING_FIX.md
+³   VOICE_SETUP.md
+³   WRITE_MODULE_TRIGGER_FIX.md
+³   
+ÃÄÄÄ.github
+³   ÀÄÄÄworkflows
+³           ci-cd.yml
+³           
+ÃÄÄÄ.pytest_cache
+³   ³   .gitignore
+³   ³   CACHEDIR.TAG
+³   ³   README.md
+³   ³   
+³   ÀÄÄÄv
+³       ÀÄÄÄcache
+³               lastfailed
+³               nodeids
+³               
+ÃÄÄÄ.saraphina_playwright_profile
+³   ³   BrowserMetrics-spare.pma
+³   ³   first_party_sets.db
+³   ³   first_party_sets.db-journal
+³   ³   Last Browser
+³   ³   Last Version
+³   ³   Local State
+³   ³   Variations
+³   ³   
+³   ÃÄÄÄBrowserMetrics
+³   ³       BrowserMetrics-6904D302-5BC0.pma
+³   ³       
+³   ÃÄÄÄcomponent_crx_cache
+³   ³       metadata.json
+³   ³       
+³   ÃÄÄÄCrashpad
+³   ³   ³   settings.dat
+³   ³   ³   
+³   ³   ÃÄÄÄattachments
+³   ³   ÀÄÄÄreports
+³   ÃÄÄÄDefault
+³   ³   ³   Account Web Data
+³   ³   ³   Account Web Data-journal
+³   ³   ³   Affiliation Database
+³   ³   ³   Affiliation Database-journal
+³   ³   ³   BookmarkMergedSurfaceOrdering
+³   ³   ³   BrowsingTopicsSiteData
+³   ³   ³   BrowsingTopicsSiteData-journal
+³   ³   ³   BrowsingTopicsState
+³   ³   ³   DIPS
+³   ³   ³   Favicons
+³   ³   ³   Favicons-journal
+³   ³   ³   heavy_ad_intervention_opt_out.db
+³   ³   ³   heavy_ad_intervention_opt_out.db-journal
+³   ³   ³   History
+³   ³   ³   History-journal
+³   ³   ³   LOCK
+³   ³   ³   LOG
+³   ³   ³   LOG.old
+³   ³   ³   Login Data
+³   ³   ³   Login Data For Account
+³   ³   ³   Login Data For Account-journal
+³   ³   ³   Login Data-journal
+³   ³   ³   Network Action Predictor
+³   ³   ³   Network Action Predictor-journal
+³   ³   ³   passkey_enclave_state
+³   ³   ³   Preferences
+³   ³   ³   PreferredApps
+³   ³   ³   README
+³   ³   ³   Secure Preferences
+³   ³   ³   ServerCertificate
+³   ³   ³   ServerCertificate-journal
+³   ³   ³   SharedStorage
+³   ³   ³   Shortcuts
+³   ³   ³   Shortcuts-journal
+³   ³   ³   Top Sites
+³   ³   ³   Top Sites-journal
+³   ³   ³   trusted_vault.pb
+³   ³   ³   Web Data
+³   ³   ³   Web Data-journal
+³   ³   ³   
+³   ³   ÃÄÄÄAutofillStrikeDatabase
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄblob_storage
+³   ³   ³   ÀÄÄÄ79ad3556-897f-46d5-bef1-c8a77babd247
+³   ³   ÃÄÄÄBudgetDatabase
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄCache
+³   ³   ³   ÃÄÄÄCache_Data
+³   ³   ³   ³       data_0
+³   ³   ³   ³       data_1
+³   ³   ³   ³       data_2
+³   ³   ³   ³       data_3
+³   ³   ³   ³       index
+³   ³   ³   ³       
+³   ³   ³   ÀÄÄÄNo_Vary_Search
+³   ³   ÃÄÄÄchrome_cart_db
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄClientCertificates
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄCode Cache
+³   ³   ³   ÃÄÄÄjs
+³   ³   ³   ³   ³   index
+³   ³   ³   ³   ³   
+³   ³   ³   ³   ÀÄÄÄindex-dir
+³   ³   ³   ³           the-real-index
+³   ³   ³   ³           
+³   ³   ³   ÀÄÄÄwasm
+³   ³   ³       ³   index
+³   ³   ³       ³   
+³   ³   ³       ÀÄÄÄindex-dir
+³   ³   ³               the-real-index
+³   ³   ³               
+³   ³   ÃÄÄÄcommerce_subscription_db
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄDawnGraphiteCache
+³   ³   ³       data_0
+³   ³   ³       data_1
+³   ³   ³       data_2
+³   ³   ³       data_3
+³   ³   ³       index
+³   ³   ³       
+³   ³   ÃÄÄÄDawnWebGPUCache
+³   ³   ³       data_0
+³   ³   ³       data_1
+³   ³   ³       data_2
+³   ³   ³       data_3
+³   ³   ³       index
+³   ³   ³       
+³   ³   ÃÄÄÄdiscounts_db
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄdiscount_infos_db
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄDownload Service
+³   ³   ³   ÃÄÄÄEntryDB
+³   ³   ³   ³       LOCK
+³   ³   ³   ³       LOG
+³   ³   ³   ³       LOG.old
+³   ³   ³   ³       
+³   ³   ³   ÀÄÄÄFiles
+³   ³   ÃÄÄÄExtension Rules
+³   ³   ³       000003.log
+³   ³   ³       CURRENT
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       MANIFEST-000001
+³   ³   ³       
+³   ³   ÃÄÄÄExtension Scripts
+³   ³   ³       000003.log
+³   ³   ³       CURRENT
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       MANIFEST-000001
+³   ³   ³       
+³   ³   ÃÄÄÄExtension State
+³   ³   ³       000003.log
+³   ³   ³       CURRENT
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       MANIFEST-000001
+³   ³   ³       
+³   ³   ÃÄÄÄFeature Engagement Tracker
+³   ³   ³   ÃÄÄÄAvailabilityDB
+³   ³   ³   ³       LOCK
+³   ³   ³   ³       LOG
+³   ³   ³   ³       LOG.old
+³   ³   ³   ³       
+³   ³   ³   ÀÄÄÄEventDB
+³   ³   ³           LOCK
+³   ³   ³           LOG
+³   ³   ³           LOG.old
+³   ³   ³           
+³   ³   ÃÄÄÄGCM Store
+³   ³   ³   ³   000003.log
+³   ³   ³   ³   CURRENT
+³   ³   ³   ³   LOCK
+³   ³   ³   ³   LOG
+³   ³   ³   ³   LOG.old
+³   ³   ³   ³   MANIFEST-000001
+³   ³   ³   ³   
+³   ³   ³   ÀÄÄÄEncryption
+³   ³   ³           000003.log
+³   ³   ³           CURRENT
+³   ³   ³           LOCK
+³   ³   ³           LOG
+³   ³   ³           LOG.old
+³   ³   ³           MANIFEST-000001
+³   ³   ³           
+³   ³   ÃÄÄÄGPUCache
+³   ³   ³       data_0
+³   ³   ³       data_1
+³   ³   ³       data_2
+³   ³   ³       data_3
+³   ³   ³       index
+³   ³   ³       
+³   ³   ÃÄÄÄLocal Storage
+³   ³   ³   ÀÄÄÄleveldb
+³   ³   ³           000003.log
+³   ³   ³           CURRENT
+³   ³   ³           LOCK
+³   ³   ³           LOG
+³   ³   ³           LOG.old
+³   ³   ³           MANIFEST-000001
+³   ³   ³           
+³   ³   ÃÄÄÄNetwork
+³   ³   ³       Cookies
+³   ³   ³       Cookies-journal
+³   ³   ³       Network Persistent State
+³   ³   ³       NetworkDataMigrated
+³   ³   ³       Reporting and NEL
+³   ³   ³       Reporting and NEL-journal
+³   ³   ³       SCT Auditing Pending Reports
+³   ³   ³       TransportSecurity
+³   ³   ³       Trust Tokens
+³   ³   ³       Trust Tokens-journal
+³   ³   ³       
+³   ³   ÃÄÄÄoptimization_guide_hint_cache_store
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄparcel_tracking_db
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄPersistentOriginTrials
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       
+³   ³   ÃÄÄÄSafe Browsing Network
+³   ³   ³       NetworkDataMigrated
+³   ³   ³       Safe Browsing Cookies
+³   ³   ³       Safe Browsing Cookies-journal
+³   ³   ³       
+³   ³   ÃÄÄÄSegmentation Platform
+³   ³   ³   ÃÄÄÄSegmentInfoDB
+³   ³   ³   ³       LOCK
+³   ³   ³   ³       LOG
+³   ³   ³   ³       LOG.old
+³   ³   ³   ³       
+³   ³   ³   ÃÄÄÄSignalDB
+³   ³   ³   ³       LOCK
+³   ³   ³   ³       LOG
+³   ³   ³   ³       LOG.old
+³   ³   ³   ³       
+³   ³   ³   ÀÄÄÄSignalStorageConfigDB
+³   ³   ³           LOCK
+³   ³   ³           LOG
+³   ³   ³           LOG.old
+³   ³   ³           
+³   ³   ÃÄÄÄSession Storage
+³   ³   ³       000003.log
+³   ³   ³       CURRENT
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       MANIFEST-000001
+³   ³   ³       
+³   ³   ÃÄÄÄSessions
+³   ³   ³       Session_13406397304987989
+³   ³   ³       Session_13406397444753075
+³   ³   ³       Tabs_13406397305142354
+³   ³   ³       Tabs_13406397444887330
+³   ³   ³       
+³   ³   ÃÄÄÄShared Dictionary
+³   ³   ³   ³   db
+³   ³   ³   ³   db-journal
+³   ³   ³   ³   
+³   ³   ³   ÀÄÄÄcache
+³   ³   ³       ³   index
+³   ³   ³       ³   
+³   ³   ³       ÀÄÄÄindex-dir
+³   ³   ³               the-real-index
+³   ³   ³               
+³   ³   ÃÄÄÄshared_proto_db
+³   ³   ³   ³   000003.log
+³   ³   ³   ³   CURRENT
+³   ³   ³   ³   LOCK
+³   ³   ³   ³   LOG
+³   ³   ³   ³   LOG.old
+³   ³   ³   ³   MANIFEST-000001
+³   ³   ³   ³   
+³   ³   ³   ÀÄÄÄmetadata
+³   ³   ³           000003.log
+³   ³   ³           CURRENT
+³   ³   ³           LOCK
+³   ³   ³           LOG
+³   ³   ³           LOG.old
+³   ³   ³           MANIFEST-000001
+³   ³   ³           
+³   ³   ÃÄÄÄSite Characteristics Database
+³   ³   ³       000003.log
+³   ³   ³       CURRENT
+³   ³   ³       LOCK
+³   ³   ³       LOG
+³   ³   ³       LOG.old
+³   ³   ³       MANIFEST-000001
+³   ³   ³       
+³   ³   ÀÄÄÄSync Data
+³   ³       ÀÄÄÄLevelDB
+³   ³               000003.log
+³   ³               CURRENT
+³   ³               LOCK
+³   ³               LOG
+³   ³               LOG.old
+³   ³               MANIFEST-000001
+³   ³               
+³   ÃÄÄÄextensions_crx_cache
+³   ³       metadata.json
+³   ³       
+³   ÃÄÄÄGraphiteDawnCache
+³   ³       data_0
+³   ³       data_1
+³   ³       data_2
+³   ³       data_3
+³   ³       index
+³   ³       
+³   ÃÄÄÄGrShaderCache
+³   ³       data_0
+³   ³       data_1
+³   ³       data_2
+³   ³       data_3
+³   ³       index
+³   ³       
+³   ÃÄÄÄSafe Browsing
+³   ÃÄÄÄsegmentation_platform
+³   ³       ukm_db
+³   ³       ukm_db-wal
+³   ³       
+³   ÀÄÄÄShaderCache
+³           data_0
+³           data_1
+³           data_2
+³           data_3
+³           index
+³           
+ÃÄÄÄ.venv
+³   ³   .gitignore
+³   ³   pyvenv.cfg
+³   ³   
+³   ÃÄÄÄInclude
+³   ÃÄÄÄLib
+³   ³   ÀÄÄÄsite-packages
+³   ³       ÃÄÄÄpip
+³   ³       ³   ³   py.typed
+³   ³       ³   ³   __init__.py
+³   ³       ³   ³   __main__.py
+³   ³       ³   ³   __pip-runner__.py
+³   ³       ³   ³   
+³   ³       ³   ÃÄÄÄ_internal
+³   ³       ³   ³   ³   build_env.py
+³   ³       ³   ³   ³   cache.py
+³   ³       ³   ³   ³   configuration.py
+³   ³       ³   ³   ³   exceptions.py
+³   ³       ³   ³   ³   main.py
+³   ³       ³   ³   ³   pyproject.py
+³   ³       ³   ³   ³   self_outdated_check.py
+³   ³       ³   ³   ³   wheel_builder.py
+³   ³       ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   
+³   ³       ³   ³   ÃÄÄÄcli
+³   ³       ³   ³   ³   ³   autocompletion.py
+³   ³       ³   ³   ³   ³   base_command.py
+³   ³       ³   ³   ³   ³   cmdoptions.py
+³   ³       ³   ³   ³   ³   command_context.py
+³   ³       ³   ³   ³   ³   index_command.py
+³   ³       ³   ³   ³   ³   main.py
+³   ³       ³   ³   ³   ³   main_parser.py
+³   ³       ³   ³   ³   ³   parser.py
+³   ³       ³   ³   ³   ³   progress_bars.py
+³   ³       ³   ³   ³   ³   req_command.py
+³   ³       ³   ³   ³   ³   spinners.py
+³   ³       ³   ³   ³   ³   status_codes.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           autocompletion.cpython-313.pyc
+³   ³       ³   ³   ³           base_command.cpython-313.pyc
+³   ³       ³   ³   ³           cmdoptions.cpython-313.pyc
+³   ³       ³   ³   ³           command_context.cpython-313.pyc
+³   ³       ³   ³   ³           index_command.cpython-313.pyc
+³   ³       ³   ³   ³           main.cpython-313.pyc
+³   ³       ³   ³   ³           main_parser.cpython-313.pyc
+³   ³       ³   ³   ³           parser.cpython-313.pyc
+³   ³       ³   ³   ³           progress_bars.cpython-313.pyc
+³   ³       ³   ³   ³           req_command.cpython-313.pyc
+³   ³       ³   ³   ³           spinners.cpython-313.pyc
+³   ³       ³   ³   ³           status_codes.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄcommands
+³   ³       ³   ³   ³   ³   cache.py
+³   ³       ³   ³   ³   ³   check.py
+³   ³       ³   ³   ³   ³   completion.py
+³   ³       ³   ³   ³   ³   configuration.py
+³   ³       ³   ³   ³   ³   debug.py
+³   ³       ³   ³   ³   ³   download.py
+³   ³       ³   ³   ³   ³   freeze.py
+³   ³       ³   ³   ³   ³   hash.py
+³   ³       ³   ³   ³   ³   help.py
+³   ³       ³   ³   ³   ³   index.py
+³   ³       ³   ³   ³   ³   inspect.py
+³   ³       ³   ³   ³   ³   install.py
+³   ³       ³   ³   ³   ³   list.py
+³   ³       ³   ³   ³   ³   lock.py
+³   ³       ³   ³   ³   ³   search.py
+³   ³       ³   ³   ³   ³   show.py
+³   ³       ³   ³   ³   ³   uninstall.py
+³   ³       ³   ³   ³   ³   wheel.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           cache.cpython-313.pyc
+³   ³       ³   ³   ³           check.cpython-313.pyc
+³   ³       ³   ³   ³           completion.cpython-313.pyc
+³   ³       ³   ³   ³           configuration.cpython-313.pyc
+³   ³       ³   ³   ³           debug.cpython-313.pyc
+³   ³       ³   ³   ³           download.cpython-313.pyc
+³   ³       ³   ³   ³           freeze.cpython-313.pyc
+³   ³       ³   ³   ³           hash.cpython-313.pyc
+³   ³       ³   ³   ³           help.cpython-313.pyc
+³   ³       ³   ³   ³           index.cpython-313.pyc
+³   ³       ³   ³   ³           inspect.cpython-313.pyc
+³   ³       ³   ³   ³           install.cpython-313.pyc
+³   ³       ³   ³   ³           list.cpython-313.pyc
+³   ³       ³   ³   ³           lock.cpython-313.pyc
+³   ³       ³   ³   ³           search.cpython-313.pyc
+³   ³       ³   ³   ³           show.cpython-313.pyc
+³   ³       ³   ³   ³           uninstall.cpython-313.pyc
+³   ³       ³   ³   ³           wheel.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄdistributions
+³   ³       ³   ³   ³   ³   base.py
+³   ³       ³   ³   ³   ³   installed.py
+³   ³       ³   ³   ³   ³   sdist.py
+³   ³       ³   ³   ³   ³   wheel.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           base.cpython-313.pyc
+³   ³       ³   ³   ³           installed.cpython-313.pyc
+³   ³       ³   ³   ³           sdist.cpython-313.pyc
+³   ³       ³   ³   ³           wheel.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄindex
+³   ³       ³   ³   ³   ³   collector.py
+³   ³       ³   ³   ³   ³   package_finder.py
+³   ³       ³   ³   ³   ³   sources.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           collector.cpython-313.pyc
+³   ³       ³   ³   ³           package_finder.cpython-313.pyc
+³   ³       ³   ³   ³           sources.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄlocations
+³   ³       ³   ³   ³   ³   base.py
+³   ³       ³   ³   ³   ³   _distutils.py
+³   ³       ³   ³   ³   ³   _sysconfig.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           base.cpython-313.pyc
+³   ³       ³   ³   ³           _distutils.cpython-313.pyc
+³   ³       ³   ³   ³           _sysconfig.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄmetadata
+³   ³       ³   ³   ³   ³   base.py
+³   ³       ³   ³   ³   ³   pkg_resources.py
+³   ³       ³   ³   ³   ³   _json.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÃÄÄÄimportlib
+³   ³       ³   ³   ³   ³   ³   _compat.py
+³   ³       ³   ³   ³   ³   ³   _dists.py
+³   ³       ³   ³   ³   ³   ³   _envs.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           _compat.cpython-313.pyc
+³   ³       ³   ³   ³   ³           _dists.cpython-313.pyc
+³   ³       ³   ³   ³   ³           _envs.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           base.cpython-313.pyc
+³   ³       ³   ³   ³           pkg_resources.cpython-313.pyc
+³   ³       ³   ³   ³           _json.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄmodels
+³   ³       ³   ³   ³   ³   candidate.py
+³   ³       ³   ³   ³   ³   direct_url.py
+³   ³       ³   ³   ³   ³   format_control.py
+³   ³       ³   ³   ³   ³   index.py
+³   ³       ³   ³   ³   ³   installation_report.py
+³   ³       ³   ³   ³   ³   link.py
+³   ³       ³   ³   ³   ³   pylock.py
+³   ³       ³   ³   ³   ³   scheme.py
+³   ³       ³   ³   ³   ³   search_scope.py
+³   ³       ³   ³   ³   ³   selection_prefs.py
+³   ³       ³   ³   ³   ³   target_python.py
+³   ³       ³   ³   ³   ³   wheel.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           candidate.cpython-313.pyc
+³   ³       ³   ³   ³           direct_url.cpython-313.pyc
+³   ³       ³   ³   ³           format_control.cpython-313.pyc
+³   ³       ³   ³   ³           index.cpython-313.pyc
+³   ³       ³   ³   ³           installation_report.cpython-313.pyc
+³   ³       ³   ³   ³           link.cpython-313.pyc
+³   ³       ³   ³   ³           pylock.cpython-313.pyc
+³   ³       ³   ³   ³           scheme.cpython-313.pyc
+³   ³       ³   ³   ³           search_scope.cpython-313.pyc
+³   ³       ³   ³   ³           selection_prefs.cpython-313.pyc
+³   ³       ³   ³   ³           target_python.cpython-313.pyc
+³   ³       ³   ³   ³           wheel.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄnetwork
+³   ³       ³   ³   ³   ³   auth.py
+³   ³       ³   ³   ³   ³   cache.py
+³   ³       ³   ³   ³   ³   download.py
+³   ³       ³   ³   ³   ³   lazy_wheel.py
+³   ³       ³   ³   ³   ³   session.py
+³   ³       ³   ³   ³   ³   utils.py
+³   ³       ³   ³   ³   ³   xmlrpc.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           auth.cpython-313.pyc
+³   ³       ³   ³   ³           cache.cpython-313.pyc
+³   ³       ³   ³   ³           download.cpython-313.pyc
+³   ³       ³   ³   ³           lazy_wheel.cpython-313.pyc
+³   ³       ³   ³   ³           session.cpython-313.pyc
+³   ³       ³   ³   ³           utils.cpython-313.pyc
+³   ³       ³   ³   ³           xmlrpc.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄoperations
+³   ³       ³   ³   ³   ³   check.py
+³   ³       ³   ³   ³   ³   freeze.py
+³   ³       ³   ³   ³   ³   prepare.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÃÄÄÄbuild
+³   ³       ³   ³   ³   ³   ³   build_tracker.py
+³   ³       ³   ³   ³   ³   ³   metadata.py
+³   ³       ³   ³   ³   ³   ³   metadata_editable.py
+³   ³       ³   ³   ³   ³   ³   metadata_legacy.py
+³   ³       ³   ³   ³   ³   ³   wheel.py
+³   ³       ³   ³   ³   ³   ³   wheel_editable.py
+³   ³       ³   ³   ³   ³   ³   wheel_legacy.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           build_tracker.cpython-313.pyc
+³   ³       ³   ³   ³   ³           metadata.cpython-313.pyc
+³   ³       ³   ³   ³   ³           metadata_editable.cpython-313.pyc
+³   ³       ³   ³   ³   ³           metadata_legacy.cpython-313.pyc
+³   ³       ³   ³   ³   ³           wheel.cpython-313.pyc
+³   ³       ³   ³   ³   ³           wheel_editable.cpython-313.pyc
+³   ³       ³   ³   ³   ³           wheel_legacy.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÃÄÄÄinstall
+³   ³       ³   ³   ³   ³   ³   editable_legacy.py
+³   ³       ³   ³   ³   ³   ³   wheel.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           editable_legacy.cpython-313.pyc
+³   ³       ³   ³   ³   ³           wheel.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           check.cpython-313.pyc
+³   ³       ³   ³   ³           freeze.cpython-313.pyc
+³   ³       ³   ³   ³           prepare.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄreq
+³   ³       ³   ³   ³   ³   constructors.py
+³   ³       ³   ³   ³   ³   req_dependency_group.py
+³   ³       ³   ³   ³   ³   req_file.py
+³   ³       ³   ³   ³   ³   req_install.py
+³   ³       ³   ³   ³   ³   req_set.py
+³   ³       ³   ³   ³   ³   req_uninstall.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           constructors.cpython-313.pyc
+³   ³       ³   ³   ³           req_dependency_group.cpython-313.pyc
+³   ³       ³   ³   ³           req_file.cpython-313.pyc
+³   ³       ³   ³   ³           req_install.cpython-313.pyc
+³   ³       ³   ³   ³           req_set.cpython-313.pyc
+³   ³       ³   ³   ³           req_uninstall.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄresolution
+³   ³       ³   ³   ³   ³   base.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÃÄÄÄlegacy
+³   ³       ³   ³   ³   ³   ³   resolver.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           resolver.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÃÄÄÄresolvelib
+³   ³       ³   ³   ³   ³   ³   base.py
+³   ³       ³   ³   ³   ³   ³   candidates.py
+³   ³       ³   ³   ³   ³   ³   factory.py
+³   ³       ³   ³   ³   ³   ³   found_candidates.py
+³   ³       ³   ³   ³   ³   ³   provider.py
+³   ³       ³   ³   ³   ³   ³   reporter.py
+³   ³       ³   ³   ³   ³   ³   requirements.py
+³   ³       ³   ³   ³   ³   ³   resolver.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           base.cpython-313.pyc
+³   ³       ³   ³   ³   ³           candidates.cpython-313.pyc
+³   ³       ³   ³   ³   ³           factory.cpython-313.pyc
+³   ³       ³   ³   ³   ³           found_candidates.cpython-313.pyc
+³   ³       ³   ³   ³   ³           provider.cpython-313.pyc
+³   ³       ³   ³   ³   ³           reporter.cpython-313.pyc
+³   ³       ³   ³   ³   ³           requirements.cpython-313.pyc
+³   ³       ³   ³   ³   ³           resolver.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           base.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄutils
+³   ³       ³   ³   ³   ³   appdirs.py
+³   ³       ³   ³   ³   ³   compat.py
+³   ³       ³   ³   ³   ³   compatibility_tags.py
+³   ³       ³   ³   ³   ³   datetime.py
+³   ³       ³   ³   ³   ³   deprecation.py
+³   ³       ³   ³   ³   ³   direct_url_helpers.py
+³   ³       ³   ³   ³   ³   egg_link.py
+³   ³       ³   ³   ³   ³   entrypoints.py
+³   ³       ³   ³   ³   ³   filesystem.py
+³   ³       ³   ³   ³   ³   filetypes.py
+³   ³       ³   ³   ³   ³   glibc.py
+³   ³       ³   ³   ³   ³   hashes.py
+³   ³       ³   ³   ³   ³   logging.py
+³   ³       ³   ³   ³   ³   misc.py
+³   ³       ³   ³   ³   ³   packaging.py
+³   ³       ³   ³   ³   ³   retry.py
+³   ³       ³   ³   ³   ³   setuptools_build.py
+³   ³       ³   ³   ³   ³   subprocess.py
+³   ³       ³   ³   ³   ³   temp_dir.py
+³   ³       ³   ³   ³   ³   unpacking.py
+³   ³       ³   ³   ³   ³   urls.py
+³   ³       ³   ³   ³   ³   virtualenv.py
+³   ³       ³   ³   ³   ³   wheel.py
+³   ³       ³   ³   ³   ³   _jaraco_text.py
+³   ³       ³   ³   ³   ³   _log.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           appdirs.cpython-313.pyc
+³   ³       ³   ³   ³           compat.cpython-313.pyc
+³   ³       ³   ³   ³           compatibility_tags.cpython-313.pyc
+³   ³       ³   ³   ³           datetime.cpython-313.pyc
+³   ³       ³   ³   ³           deprecation.cpython-313.pyc
+³   ³       ³   ³   ³           direct_url_helpers.cpython-313.pyc
+³   ³       ³   ³   ³           egg_link.cpython-313.pyc
+³   ³       ³   ³   ³           entrypoints.cpython-313.pyc
+³   ³       ³   ³   ³           filesystem.cpython-313.pyc
+³   ³       ³   ³   ³           filetypes.cpython-313.pyc
+³   ³       ³   ³   ³           glibc.cpython-313.pyc
+³   ³       ³   ³   ³           hashes.cpython-313.pyc
+³   ³       ³   ³   ³           logging.cpython-313.pyc
+³   ³       ³   ³   ³           misc.cpython-313.pyc
+³   ³       ³   ³   ³           packaging.cpython-313.pyc
+³   ³       ³   ³   ³           retry.cpython-313.pyc
+³   ³       ³   ³   ³           setuptools_build.cpython-313.pyc
+³   ³       ³   ³   ³           subprocess.cpython-313.pyc
+³   ³       ³   ³   ³           temp_dir.cpython-313.pyc
+³   ³       ³   ³   ³           unpacking.cpython-313.pyc
+³   ³       ³   ³   ³           urls.cpython-313.pyc
+³   ³       ³   ³   ³           virtualenv.cpython-313.pyc
+³   ³       ³   ³   ³           wheel.cpython-313.pyc
+³   ³       ³   ³   ³           _jaraco_text.cpython-313.pyc
+³   ³       ³   ³   ³           _log.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄvcs
+³   ³       ³   ³   ³   ³   bazaar.py
+³   ³       ³   ³   ³   ³   git.py
+³   ³       ³   ³   ³   ³   mercurial.py
+³   ³       ³   ³   ³   ³   subversion.py
+³   ³       ³   ³   ³   ³   versioncontrol.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           bazaar.cpython-313.pyc
+³   ³       ³   ³   ³           git.cpython-313.pyc
+³   ³       ³   ³   ³           mercurial.cpython-313.pyc
+³   ³       ³   ³   ³           subversion.cpython-313.pyc
+³   ³       ³   ³   ³           versioncontrol.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³           build_env.cpython-313.pyc
+³   ³       ³   ³           cache.cpython-313.pyc
+³   ³       ³   ³           configuration.cpython-313.pyc
+³   ³       ³   ³           exceptions.cpython-313.pyc
+³   ³       ³   ³           main.cpython-313.pyc
+³   ³       ³   ³           pyproject.cpython-313.pyc
+³   ³       ³   ³           self_outdated_check.cpython-313.pyc
+³   ³       ³   ³           wheel_builder.cpython-313.pyc
+³   ³       ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³           
+³   ³       ³   ÃÄÄÄ_vendor
+³   ³       ³   ³   ³   vendor.txt
+³   ³       ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   
+³   ³       ³   ³   ÃÄÄÄcachecontrol
+³   ³       ³   ³   ³   ³   adapter.py
+³   ³       ³   ³   ³   ³   cache.py
+³   ³       ³   ³   ³   ³   controller.py
+³   ³       ³   ³   ³   ³   filewrapper.py
+³   ³       ³   ³   ³   ³   heuristics.py
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   serialize.py
+³   ³       ³   ³   ³   ³   wrapper.py
+³   ³       ³   ³   ³   ³   _cmd.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÃÄÄÄcaches
+³   ³       ³   ³   ³   ³   ³   file_cache.py
+³   ³       ³   ³   ³   ³   ³   redis_cache.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           file_cache.cpython-313.pyc
+³   ³       ³   ³   ³   ³           redis_cache.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           adapter.cpython-313.pyc
+³   ³       ³   ³   ³           cache.cpython-313.pyc
+³   ³       ³   ³   ³           controller.cpython-313.pyc
+³   ³       ³   ³   ³           filewrapper.cpython-313.pyc
+³   ³       ³   ³   ³           heuristics.cpython-313.pyc
+³   ³       ³   ³   ³           serialize.cpython-313.pyc
+³   ³       ³   ³   ³           wrapper.cpython-313.pyc
+³   ³       ³   ³   ³           _cmd.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄcertifi
+³   ³       ³   ³   ³   ³   cacert.pem
+³   ³       ³   ³   ³   ³   core.py
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   __main__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           core.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           __main__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄdependency_groups
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   _implementation.py
+³   ³       ³   ³   ³   ³   _lint_dependency_groups.py
+³   ³       ³   ³   ³   ³   _pip_wrapper.py
+³   ³       ³   ³   ³   ³   _toml_compat.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   __main__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           _implementation.cpython-313.pyc
+³   ³       ³   ³   ³           _lint_dependency_groups.cpython-313.pyc
+³   ³       ³   ³   ³           _pip_wrapper.cpython-313.pyc
+³   ³       ³   ³   ³           _toml_compat.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           __main__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄdistlib
+³   ³       ³   ³   ³   ³   compat.py
+³   ³       ³   ³   ³   ³   resources.py
+³   ³       ³   ³   ³   ³   scripts.py
+³   ³       ³   ³   ³   ³   t32.exe
+³   ³       ³   ³   ³   ³   t64-arm.exe
+³   ³       ³   ³   ³   ³   t64.exe
+³   ³       ³   ³   ³   ³   util.py
+³   ³       ³   ³   ³   ³   w32.exe
+³   ³       ³   ³   ³   ³   w64-arm.exe
+³   ³       ³   ³   ³   ³   w64.exe
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           compat.cpython-313.pyc
+³   ³       ³   ³   ³           resources.cpython-313.pyc
+³   ³       ³   ³   ³           scripts.cpython-313.pyc
+³   ³       ³   ³   ³           util.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄdistro
+³   ³       ³   ³   ³   ³   distro.py
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   __main__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           distro.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           __main__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄidna
+³   ³       ³   ³   ³   ³   codec.py
+³   ³       ³   ³   ³   ³   compat.py
+³   ³       ³   ³   ³   ³   core.py
+³   ³       ³   ³   ³   ³   idnadata.py
+³   ³       ³   ³   ³   ³   intranges.py
+³   ³       ³   ³   ³   ³   package_data.py
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   uts46data.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           codec.cpython-313.pyc
+³   ³       ³   ³   ³           compat.cpython-313.pyc
+³   ³       ³   ³   ³           core.cpython-313.pyc
+³   ³       ³   ³   ³           idnadata.cpython-313.pyc
+³   ³       ³   ³   ³           intranges.cpython-313.pyc
+³   ³       ³   ³   ³           package_data.cpython-313.pyc
+³   ³       ³   ³   ³           uts46data.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄmsgpack
+³   ³       ³   ³   ³   ³   exceptions.py
+³   ³       ³   ³   ³   ³   ext.py
+³   ³       ³   ³   ³   ³   fallback.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           exceptions.cpython-313.pyc
+³   ³       ³   ³   ³           ext.cpython-313.pyc
+³   ³       ³   ³   ³           fallback.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄpackaging
+³   ³       ³   ³   ³   ³   markers.py
+³   ³       ³   ³   ³   ³   metadata.py
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   requirements.py
+³   ³       ³   ³   ³   ³   specifiers.py
+³   ³       ³   ³   ³   ³   tags.py
+³   ³       ³   ³   ³   ³   utils.py
+³   ³       ³   ³   ³   ³   version.py
+³   ³       ³   ³   ³   ³   _elffile.py
+³   ³       ³   ³   ³   ³   _manylinux.py
+³   ³       ³   ³   ³   ³   _musllinux.py
+³   ³       ³   ³   ³   ³   _parser.py
+³   ³       ³   ³   ³   ³   _structures.py
+³   ³       ³   ³   ³   ³   _tokenizer.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÃÄÄÄlicenses
+³   ³       ³   ³   ³   ³   ³   _spdx.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           _spdx.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           markers.cpython-313.pyc
+³   ³       ³   ³   ³           metadata.cpython-313.pyc
+³   ³       ³   ³   ³           requirements.cpython-313.pyc
+³   ³       ³   ³   ³           specifiers.cpython-313.pyc
+³   ³       ³   ³   ³           tags.cpython-313.pyc
+³   ³       ³   ³   ³           utils.cpython-313.pyc
+³   ³       ³   ³   ³           version.cpython-313.pyc
+³   ³       ³   ³   ³           _elffile.cpython-313.pyc
+³   ³       ³   ³   ³           _manylinux.cpython-313.pyc
+³   ³       ³   ³   ³           _musllinux.cpython-313.pyc
+³   ³       ³   ³   ³           _parser.cpython-313.pyc
+³   ³       ³   ³   ³           _structures.cpython-313.pyc
+³   ³       ³   ³   ³           _tokenizer.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄpkg_resources
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄplatformdirs
+³   ³       ³   ³   ³   ³   android.py
+³   ³       ³   ³   ³   ³   api.py
+³   ³       ³   ³   ³   ³   macos.py
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   unix.py
+³   ³       ³   ³   ³   ³   version.py
+³   ³       ³   ³   ³   ³   windows.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   __main__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           android.cpython-313.pyc
+³   ³       ³   ³   ³           api.cpython-313.pyc
+³   ³       ³   ³   ³           macos.cpython-313.pyc
+³   ³       ³   ³   ³           unix.cpython-313.pyc
+³   ³       ³   ³   ³           version.cpython-313.pyc
+³   ³       ³   ³   ³           windows.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           __main__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄpygments
+³   ³       ³   ³   ³   ³   console.py
+³   ³       ³   ³   ³   ³   filter.py
+³   ³       ³   ³   ³   ³   formatter.py
+³   ³       ³   ³   ³   ³   lexer.py
+³   ³       ³   ³   ³   ³   modeline.py
+³   ³       ³   ³   ³   ³   plugin.py
+³   ³       ³   ³   ³   ³   regexopt.py
+³   ³       ³   ³   ³   ³   scanner.py
+³   ³       ³   ³   ³   ³   sphinxext.py
+³   ³       ³   ³   ³   ³   style.py
+³   ³       ³   ³   ³   ³   token.py
+³   ³       ³   ³   ³   ³   unistring.py
+³   ³       ³   ³   ³   ³   util.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   __main__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÃÄÄÄfilters
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÃÄÄÄformatters
+³   ³       ³   ³   ³   ³   ³   _mapping.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           _mapping.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÃÄÄÄlexers
+³   ³       ³   ³   ³   ³   ³   python.py
+³   ³       ³   ³   ³   ³   ³   _mapping.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           python.cpython-313.pyc
+³   ³       ³   ³   ³   ³           _mapping.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÃÄÄÄstyles
+³   ³       ³   ³   ³   ³   ³   _mapping.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           _mapping.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           console.cpython-313.pyc
+³   ³       ³   ³   ³           filter.cpython-313.pyc
+³   ³       ³   ³   ³           formatter.cpython-313.pyc
+³   ³       ³   ³   ³           lexer.cpython-313.pyc
+³   ³       ³   ³   ³           modeline.cpython-313.pyc
+³   ³       ³   ³   ³           plugin.cpython-313.pyc
+³   ³       ³   ³   ³           regexopt.cpython-313.pyc
+³   ³       ³   ³   ³           scanner.cpython-313.pyc
+³   ³       ³   ³   ³           sphinxext.cpython-313.pyc
+³   ³       ³   ³   ³           style.cpython-313.pyc
+³   ³       ³   ³   ³           token.cpython-313.pyc
+³   ³       ³   ³   ³           unistring.cpython-313.pyc
+³   ³       ³   ³   ³           util.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           __main__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄpyproject_hooks
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   _impl.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÃÄÄÄ_in_process
+³   ³       ³   ³   ³   ³   ³   _in_process.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           _in_process.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           _impl.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄrequests
+³   ³       ³   ³   ³   ³   adapters.py
+³   ³       ³   ³   ³   ³   api.py
+³   ³       ³   ³   ³   ³   auth.py
+³   ³       ³   ³   ³   ³   certs.py
+³   ³       ³   ³   ³   ³   compat.py
+³   ³       ³   ³   ³   ³   cookies.py
+³   ³       ³   ³   ³   ³   exceptions.py
+³   ³       ³   ³   ³   ³   help.py
+³   ³       ³   ³   ³   ³   hooks.py
+³   ³       ³   ³   ³   ³   models.py
+³   ³       ³   ³   ³   ³   packages.py
+³   ³       ³   ³   ³   ³   sessions.py
+³   ³       ³   ³   ³   ³   status_codes.py
+³   ³       ³   ³   ³   ³   structures.py
+³   ³       ³   ³   ³   ³   utils.py
+³   ³       ³   ³   ³   ³   _internal_utils.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   __version__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           adapters.cpython-313.pyc
+³   ³       ³   ³   ³           api.cpython-313.pyc
+³   ³       ³   ³   ³           auth.cpython-313.pyc
+³   ³       ³   ³   ³           certs.cpython-313.pyc
+³   ³       ³   ³   ³           compat.cpython-313.pyc
+³   ³       ³   ³   ³           cookies.cpython-313.pyc
+³   ³       ³   ³   ³           exceptions.cpython-313.pyc
+³   ³       ³   ³   ³           help.cpython-313.pyc
+³   ³       ³   ³   ³           hooks.cpython-313.pyc
+³   ³       ³   ³   ³           models.cpython-313.pyc
+³   ³       ³   ³   ³           packages.cpython-313.pyc
+³   ³       ³   ³   ³           sessions.cpython-313.pyc
+³   ³       ³   ³   ³           status_codes.cpython-313.pyc
+³   ³       ³   ³   ³           structures.cpython-313.pyc
+³   ³       ³   ³   ³           utils.cpython-313.pyc
+³   ³       ³   ³   ³           _internal_utils.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           __version__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄresolvelib
+³   ³       ³   ³   ³   ³   providers.py
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   reporters.py
+³   ³       ³   ³   ³   ³   structs.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÃÄÄÄresolvers
+³   ³       ³   ³   ³   ³   ³   abstract.py
+³   ³       ³   ³   ³   ³   ³   criterion.py
+³   ³       ³   ³   ³   ³   ³   exceptions.py
+³   ³       ³   ³   ³   ³   ³   resolution.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           abstract.cpython-313.pyc
+³   ³       ³   ³   ³   ³           criterion.cpython-313.pyc
+³   ³       ³   ³   ³   ³           exceptions.cpython-313.pyc
+³   ³       ³   ³   ³   ³           resolution.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           providers.cpython-313.pyc
+³   ³       ³   ³   ³           reporters.cpython-313.pyc
+³   ³       ³   ³   ³           structs.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄrich
+³   ³       ³   ³   ³   ³   abc.py
+³   ³       ³   ³   ³   ³   align.py
+³   ³       ³   ³   ³   ³   ansi.py
+³   ³       ³   ³   ³   ³   bar.py
+³   ³       ³   ³   ³   ³   box.py
+³   ³       ³   ³   ³   ³   cells.py
+³   ³       ³   ³   ³   ³   color.py
+³   ³       ³   ³   ³   ³   color_triplet.py
+³   ³       ³   ³   ³   ³   columns.py
+³   ³       ³   ³   ³   ³   console.py
+³   ³       ³   ³   ³   ³   constrain.py
+³   ³       ³   ³   ³   ³   containers.py
+³   ³       ³   ³   ³   ³   control.py
+³   ³       ³   ³   ³   ³   default_styles.py
+³   ³       ³   ³   ³   ³   diagnose.py
+³   ³       ³   ³   ³   ³   emoji.py
+³   ³       ³   ³   ³   ³   errors.py
+³   ³       ³   ³   ³   ³   filesize.py
+³   ³       ³   ³   ³   ³   file_proxy.py
+³   ³       ³   ³   ³   ³   highlighter.py
+³   ³       ³   ³   ³   ³   json.py
+³   ³       ³   ³   ³   ³   jupyter.py
+³   ³       ³   ³   ³   ³   layout.py
+³   ³       ³   ³   ³   ³   live.py
+³   ³       ³   ³   ³   ³   live_render.py
+³   ³       ³   ³   ³   ³   logging.py
+³   ³       ³   ³   ³   ³   markup.py
+³   ³       ³   ³   ³   ³   measure.py
+³   ³       ³   ³   ³   ³   padding.py
+³   ³       ³   ³   ³   ³   pager.py
+³   ³       ³   ³   ³   ³   palette.py
+³   ³       ³   ³   ³   ³   panel.py
+³   ³       ³   ³   ³   ³   pretty.py
+³   ³       ³   ³   ³   ³   progress.py
+³   ³       ³   ³   ³   ³   progress_bar.py
+³   ³       ³   ³   ³   ³   prompt.py
+³   ³       ³   ³   ³   ³   protocol.py
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   region.py
+³   ³       ³   ³   ³   ³   repr.py
+³   ³       ³   ³   ³   ³   rule.py
+³   ³       ³   ³   ³   ³   scope.py
+³   ³       ³   ³   ³   ³   screen.py
+³   ³       ³   ³   ³   ³   segment.py
+³   ³       ³   ³   ³   ³   spinner.py
+³   ³       ³   ³   ³   ³   status.py
+³   ³       ³   ³   ³   ³   style.py
+³   ³       ³   ³   ³   ³   styled.py
+³   ³       ³   ³   ³   ³   syntax.py
+³   ³       ³   ³   ³   ³   table.py
+³   ³       ³   ³   ³   ³   terminal_theme.py
+³   ³       ³   ³   ³   ³   text.py
+³   ³       ³   ³   ³   ³   theme.py
+³   ³       ³   ³   ³   ³   themes.py
+³   ³       ³   ³   ³   ³   traceback.py
+³   ³       ³   ³   ³   ³   tree.py
+³   ³       ³   ³   ³   ³   _cell_widths.py
+³   ³       ³   ³   ³   ³   _emoji_codes.py
+³   ³       ³   ³   ³   ³   _emoji_replace.py
+³   ³       ³   ³   ³   ³   _export_format.py
+³   ³       ³   ³   ³   ³   _extension.py
+³   ³       ³   ³   ³   ³   _fileno.py
+³   ³       ³   ³   ³   ³   _inspect.py
+³   ³       ³   ³   ³   ³   _log_render.py
+³   ³       ³   ³   ³   ³   _loop.py
+³   ³       ³   ³   ³   ³   _null_file.py
+³   ³       ³   ³   ³   ³   _palettes.py
+³   ³       ³   ³   ³   ³   _pick.py
+³   ³       ³   ³   ³   ³   _ratio.py
+³   ³       ³   ³   ³   ³   _spinners.py
+³   ³       ³   ³   ³   ³   _stack.py
+³   ³       ³   ³   ³   ³   _timer.py
+³   ³       ³   ³   ³   ³   _win32_console.py
+³   ³       ³   ³   ³   ³   _windows.py
+³   ³       ³   ³   ³   ³   _windows_renderer.py
+³   ³       ³   ³   ³   ³   _wrap.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   __main__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           abc.cpython-313.pyc
+³   ³       ³   ³   ³           align.cpython-313.pyc
+³   ³       ³   ³   ³           ansi.cpython-313.pyc
+³   ³       ³   ³   ³           bar.cpython-313.pyc
+³   ³       ³   ³   ³           box.cpython-313.pyc
+³   ³       ³   ³   ³           cells.cpython-313.pyc
+³   ³       ³   ³   ³           color.cpython-313.pyc
+³   ³       ³   ³   ³           color_triplet.cpython-313.pyc
+³   ³       ³   ³   ³           columns.cpython-313.pyc
+³   ³       ³   ³   ³           console.cpython-313.pyc
+³   ³       ³   ³   ³           constrain.cpython-313.pyc
+³   ³       ³   ³   ³           containers.cpython-313.pyc
+³   ³       ³   ³   ³           control.cpython-313.pyc
+³   ³       ³   ³   ³           default_styles.cpython-313.pyc
+³   ³       ³   ³   ³           diagnose.cpython-313.pyc
+³   ³       ³   ³   ³           emoji.cpython-313.pyc
+³   ³       ³   ³   ³           errors.cpython-313.pyc
+³   ³       ³   ³   ³           filesize.cpython-313.pyc
+³   ³       ³   ³   ³           file_proxy.cpython-313.pyc
+³   ³       ³   ³   ³           highlighter.cpython-313.pyc
+³   ³       ³   ³   ³           json.cpython-313.pyc
+³   ³       ³   ³   ³           jupyter.cpython-313.pyc
+³   ³       ³   ³   ³           layout.cpython-313.pyc
+³   ³       ³   ³   ³           live.cpython-313.pyc
+³   ³       ³   ³   ³           live_render.cpython-313.pyc
+³   ³       ³   ³   ³           logging.cpython-313.pyc
+³   ³       ³   ³   ³           markup.cpython-313.pyc
+³   ³       ³   ³   ³           measure.cpython-313.pyc
+³   ³       ³   ³   ³           padding.cpython-313.pyc
+³   ³       ³   ³   ³           pager.cpython-313.pyc
+³   ³       ³   ³   ³           palette.cpython-313.pyc
+³   ³       ³   ³   ³           panel.cpython-313.pyc
+³   ³       ³   ³   ³           pretty.cpython-313.pyc
+³   ³       ³   ³   ³           progress.cpython-313.pyc
+³   ³       ³   ³   ³           progress_bar.cpython-313.pyc
+³   ³       ³   ³   ³           prompt.cpython-313.pyc
+³   ³       ³   ³   ³           protocol.cpython-313.pyc
+³   ³       ³   ³   ³           region.cpython-313.pyc
+³   ³       ³   ³   ³           repr.cpython-313.pyc
+³   ³       ³   ³   ³           rule.cpython-313.pyc
+³   ³       ³   ³   ³           scope.cpython-313.pyc
+³   ³       ³   ³   ³           screen.cpython-313.pyc
+³   ³       ³   ³   ³           segment.cpython-313.pyc
+³   ³       ³   ³   ³           spinner.cpython-313.pyc
+³   ³       ³   ³   ³           status.cpython-313.pyc
+³   ³       ³   ³   ³           style.cpython-313.pyc
+³   ³       ³   ³   ³           styled.cpython-313.pyc
+³   ³       ³   ³   ³           syntax.cpython-313.pyc
+³   ³       ³   ³   ³           table.cpython-313.pyc
+³   ³       ³   ³   ³           terminal_theme.cpython-313.pyc
+³   ³       ³   ³   ³           text.cpython-313.pyc
+³   ³       ³   ³   ³           theme.cpython-313.pyc
+³   ³       ³   ³   ³           themes.cpython-313.pyc
+³   ³       ³   ³   ³           traceback.cpython-313.pyc
+³   ³       ³   ³   ³           tree.cpython-313.pyc
+³   ³       ³   ³   ³           _cell_widths.cpython-313.pyc
+³   ³       ³   ³   ³           _emoji_codes.cpython-313.pyc
+³   ³       ³   ³   ³           _emoji_replace.cpython-313.pyc
+³   ³       ³   ³   ³           _export_format.cpython-313.pyc
+³   ³       ³   ³   ³           _extension.cpython-313.pyc
+³   ³       ³   ³   ³           _fileno.cpython-313.pyc
+³   ³       ³   ³   ³           _inspect.cpython-313.pyc
+³   ³       ³   ³   ³           _log_render.cpython-313.pyc
+³   ³       ³   ³   ³           _loop.cpython-313.pyc
+³   ³       ³   ³   ³           _null_file.cpython-313.pyc
+³   ³       ³   ³   ³           _palettes.cpython-313.pyc
+³   ³       ³   ³   ³           _pick.cpython-313.pyc
+³   ³       ³   ³   ³           _ratio.cpython-313.pyc
+³   ³       ³   ³   ³           _spinners.cpython-313.pyc
+³   ³       ³   ³   ³           _stack.cpython-313.pyc
+³   ³       ³   ³   ³           _timer.cpython-313.pyc
+³   ³       ³   ³   ³           _win32_console.cpython-313.pyc
+³   ³       ³   ³   ³           _windows.cpython-313.pyc
+³   ³       ³   ³   ³           _windows_renderer.cpython-313.pyc
+³   ³       ³   ³   ³           _wrap.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           __main__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄtomli
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   _parser.py
+³   ³       ³   ³   ³   ³   _re.py
+³   ³       ³   ³   ³   ³   _types.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           _parser.cpython-313.pyc
+³   ³       ³   ³   ³           _re.cpython-313.pyc
+³   ³       ³   ³   ³           _types.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄtomli_w
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   _writer.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           _writer.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄtruststore
+³   ³       ³   ³   ³   ³   py.typed
+³   ³       ³   ³   ³   ³   _api.py
+³   ³       ³   ³   ³   ³   _macos.py
+³   ³       ³   ³   ³   ³   _openssl.py
+³   ³       ³   ³   ³   ³   _ssl_constants.py
+³   ³       ³   ³   ³   ³   _windows.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           _api.cpython-313.pyc
+³   ³       ³   ³   ³           _macos.cpython-313.pyc
+³   ³       ³   ³   ³           _openssl.cpython-313.pyc
+³   ³       ³   ³   ³           _ssl_constants.cpython-313.pyc
+³   ³       ³   ³   ³           _windows.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÃÄÄÄurllib3
+³   ³       ³   ³   ³   ³   connection.py
+³   ³       ³   ³   ³   ³   connectionpool.py
+³   ³       ³   ³   ³   ³   exceptions.py
+³   ³       ³   ³   ³   ³   fields.py
+³   ³       ³   ³   ³   ³   filepost.py
+³   ³       ³   ³   ³   ³   poolmanager.py
+³   ³       ³   ³   ³   ³   request.py
+³   ³       ³   ³   ³   ³   response.py
+³   ³       ³   ³   ³   ³   _collections.py
+³   ³       ³   ³   ³   ³   _version.py
+³   ³       ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   
+³   ³       ³   ³   ³   ÃÄÄÄcontrib
+³   ³       ³   ³   ³   ³   ³   appengine.py
+³   ³       ³   ³   ³   ³   ³   ntlmpool.py
+³   ³       ³   ³   ³   ³   ³   pyopenssl.py
+³   ³       ³   ³   ³   ³   ³   securetransport.py
+³   ³       ³   ³   ³   ³   ³   socks.py
+³   ³       ³   ³   ³   ³   ³   _appengine_environ.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÃÄÄÄ_securetransport
+³   ³       ³   ³   ³   ³   ³   ³   bindings.py
+³   ³       ³   ³   ³   ³   ³   ³   low_level.py
+³   ³       ³   ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³   ³           bindings.cpython-313.pyc
+³   ³       ³   ³   ³   ³   ³           low_level.cpython-313.pyc
+³   ³       ³   ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³   ³           
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           appengine.cpython-313.pyc
+³   ³       ³   ³   ³   ³           ntlmpool.cpython-313.pyc
+³   ³       ³   ³   ³   ³           pyopenssl.cpython-313.pyc
+³   ³       ³   ³   ³   ³           securetransport.cpython-313.pyc
+³   ³       ³   ³   ³   ³           socks.cpython-313.pyc
+³   ³       ³   ³   ³   ³           _appengine_environ.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÃÄÄÄpackages
+³   ³       ³   ³   ³   ³   ³   six.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÃÄÄÄbackports
+³   ³       ³   ³   ³   ³   ³   ³   makefile.py
+³   ³       ³   ³   ³   ³   ³   ³   weakref_finalize.py
+³   ³       ³   ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³   ³           makefile.cpython-313.pyc
+³   ³       ³   ³   ³   ³   ³           weakref_finalize.cpython-313.pyc
+³   ³       ³   ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³   ³           
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           six.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÃÄÄÄutil
+³   ³       ³   ³   ³   ³   ³   connection.py
+³   ³       ³   ³   ³   ³   ³   proxy.py
+³   ³       ³   ³   ³   ³   ³   queue.py
+³   ³       ³   ³   ³   ³   ³   request.py
+³   ³       ³   ³   ³   ³   ³   response.py
+³   ³       ³   ³   ³   ³   ³   retry.py
+³   ³       ³   ³   ³   ³   ³   ssltransport.py
+³   ³       ³   ³   ³   ³   ³   ssl_.py
+³   ³       ³   ³   ³   ³   ³   ssl_match_hostname.py
+³   ³       ³   ³   ³   ³   ³   timeout.py
+³   ³       ³   ³   ³   ³   ³   url.py
+³   ³       ³   ³   ³   ³   ³   wait.py
+³   ³       ³   ³   ³   ³   ³   __init__.py
+³   ³       ³   ³   ³   ³   ³   
+³   ³       ³   ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³   ³           connection.cpython-313.pyc
+³   ³       ³   ³   ³   ³           proxy.cpython-313.pyc
+³   ³       ³   ³   ³   ³           queue.cpython-313.pyc
+³   ³       ³   ³   ³   ³           request.cpython-313.pyc
+³   ³       ³   ³   ³   ³           response.cpython-313.pyc
+³   ³       ³   ³   ³   ³           retry.cpython-313.pyc
+³   ³       ³   ³   ³   ³           ssltransport.cpython-313.pyc
+³   ³       ³   ³   ³   ³           ssl_.cpython-313.pyc
+³   ³       ³   ³   ³   ³           ssl_match_hostname.cpython-313.pyc
+³   ³       ³   ³   ³   ³           timeout.cpython-313.pyc
+³   ³       ³   ³   ³   ³           url.cpython-313.pyc
+³   ³       ³   ³   ³   ³           wait.cpython-313.pyc
+³   ³       ³   ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³   ³           
+³   ³       ³   ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³   ³           connection.cpython-313.pyc
+³   ³       ³   ³   ³           connectionpool.cpython-313.pyc
+³   ³       ³   ³   ³           exceptions.cpython-313.pyc
+³   ³       ³   ³   ³           fields.cpython-313.pyc
+³   ³       ³   ³   ³           filepost.cpython-313.pyc
+³   ³       ³   ³   ³           poolmanager.cpython-313.pyc
+³   ³       ³   ³   ³           request.cpython-313.pyc
+³   ³       ³   ³   ³           response.cpython-313.pyc
+³   ³       ³   ³   ³           _collections.cpython-313.pyc
+³   ³       ³   ³   ³           _version.cpython-313.pyc
+³   ³       ³   ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³   ³           
+³   ³       ³   ³   ÀÄÄÄ__pycache__
+³   ³       ³   ³           __init__.cpython-313.pyc
+³   ³       ³   ³           
+³   ³       ³   ÀÄÄÄ__pycache__
+³   ³       ³           __init__.cpython-313.pyc
+³   ³       ³           __main__.cpython-313.pyc
+³   ³       ³           __pip-runner__.cpython-313.pyc
+³   ³       ³           
+³   ³       ÀÄÄÄpip-25.2.dist-info
+³   ³           ³   entry_points.txt
+³   ³           ³   INSTALLER
+³   ³           ³   METADATA
+³   ³           ³   RECORD
+³   ³           ³   REQUESTED
+³   ³           ³   top_level.txt
+³   ³           ³   WHEEL
+³   ³           ³   
+³   ³           ÀÄÄÄlicenses
+³   ³               ³   AUTHORS.txt
+³   ³               ³   LICENSE.txt
+³   ³               ³   
+³   ³               ÀÄÄÄsrc
+³   ³                   ÀÄÄÄpip
+³   ³                       ÀÄÄÄ_vendor
+³   ³                           ÃÄÄÄcachecontrol
+³   ³                           ³       LICENSE.txt
+³   ³                           ³       
+³   ³                           ÃÄÄÄcertifi
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄdependency_groups
+³   ³                           ³       LICENSE.txt
+³   ³                           ³       
+³   ³                           ÃÄÄÄdistlib
+³   ³                           ³       LICENSE.txt
+³   ³                           ³       
+³   ³                           ÃÄÄÄdistro
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄidna
+³   ³                           ³       LICENSE.md
+³   ³                           ³       
+³   ³                           ÃÄÄÄmsgpack
+³   ³                           ³       COPYING
+³   ³                           ³       
+³   ³                           ÃÄÄÄpackaging
+³   ³                           ³       LICENSE
+³   ³                           ³       LICENSE.APACHE
+³   ³                           ³       LICENSE.BSD
+³   ³                           ³       
+³   ³                           ÃÄÄÄpkg_resources
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄplatformdirs
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄpygments
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄpyproject_hooks
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄrequests
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄresolvelib
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄrich
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄtomli
+³   ³                           ³       LICENSE
+³   ³                           ³       LICENSE-HEADER
+³   ³                           ³       
+³   ³                           ÃÄÄÄtomli_w
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÃÄÄÄtruststore
+³   ³                           ³       LICENSE
+³   ³                           ³       
+³   ³                           ÀÄÄÄurllib3
+³   ³                                   LICENSE.txt
+³   ³                                   
+³   ÀÄÄÄScripts
+³           activate
+³           activate.bat
+³           activate.fish
+³           Activate.ps1
+³           deactivate.bat
+³           pip.exe
+³           pip3.13.exe
+³           pip3.exe
+³           python.exe
+³           pythonw.exe
+³           
+ÃÄÄÄai_data
+³   ³   ai_state.json
+³   ³   conversation_ai_20251102_214055.json
+³   ³   conversation_ai_20251103_183635.json
+³   ³   errors.db
+³   ³   learning_journal.db
+³   ³   saraphina.db
+³   ³   saraphina.db-shm
+³   ³   saraphina.db-wal
+³   ³   
+³   ÃÄÄÄbackups
+³   ÃÄÄÄsecurity
+³   ³       keystore.json
+³   ³       
+³   ÀÄÄÄshadows
+ÃÄÄÄai_state
+³   ³   core_state.json
+³   ³   emotions.json
+³   ³   goals.json
+³   ³   knowledge.db
+³   ³   long_memory.json
+³   ³   relationship.json
+³   ³   xp_state.json
+³   ³   
+³   ÀÄÄÄmemory
+³           episode_20251115T145529.json
+³           episode_20251115T145546.json
+³           episode_20251115T145631.json
+³           episode_20251115T145719.json
+³           episode_20251115T145755.json
+³           episode_20251115T153831.json
+³           episode_20251115T153847.json
+³           episode_20251115T154106.json
+³           episode_20251115T154124.json
+³           episode_20251115T154142.json
+³           episode_20251115T154210.json
+³           episode_20251115T154250.json
+³           episode_20251115T154315.json
+³           episodic.json
+³           semantic.json
+³           
+ÃÄÄÄbackups
+³   ³   saraphina_knowledge_backup_20251027_125319.db
+³   ³   saraphina_knowledge_backup_20251102_163734.db
+³   ³   saraphina_knowledge_backup_20251102_163743.db.enc
+³   ³   saraphina_knowledge_backup_20251102_163914.db.enc
+³   ³   
+³   ÀÄÄÄself_mod
+ÃÄÄÄconfigs
+³       .env.example
+³       config.example.json
+³       config_orchestrator.json
+³       
+ÃÄÄÄdashboard
+³       index.html
+³       README.md
+³       
+ÃÄÄÄdata
+³   ³   upgrade_journal.db
+³   ³   
+³   ÃÄÄÄevolution
+³   ³   ³   best_genome.py
+³   ³   ³   
+³   ³   ÀÄÄÄgenomes
+³   ÃÄÄÄknowledge_v3
+³   ³   ³   knowledge.db
+³   ³   ³   
+³   ³   ÀÄÄÄchroma
+³   ³       ³   chroma.sqlite3
+³   ³       ³   
+³   ³       ÀÄÄÄfb7e5e01-e9d9-4ba3-b91f-2744c19ef0e8
+³   ³               data_level0.bin
+³   ³               header.bin
+³   ³               length.bin
+³   ³               link_lists.bin
+³   ³               
+³   ÀÄÄÄmemories
+³           long_term.db
+³           mid_term.json
+³           
+ÃÄÄÄdeployment
+³       Dockerfile
+³       kubernetes.yaml
+³       
+ÃÄÄÄdocs
+³       AUTONOMOUS_CAPABILITIES.md
+³       Autonomous_Research_Guide.md
+³       CRITICAL_FIXES_2025-11-05.md
+³       natural_language_guide.md
+³       phase23_code_generation.md
+³       phase24_automatic_refinement.md
+³       phase25_self_modification.md
+³       phase26_hot_reload_and_rollback.md
+³       phase27_improvement_loop.md
+³       phase28_meta_architect.md
+³       phase30.5_ai_risk_analysis.md
+³       PHASE30.5_SETUP.md
+³       phase30_code_safety_and_ethics.md
+³       PHASE30_INTEGRATION.md
+³       PHASE30_SUMMARY.md
+³       PHASES_23-25_COMPLETE.md
+³       Phase_16_Philosophical_Ethical_Core.md
+³       Phase_16_Quick_Start.md
+³       PHASE_29_SELF_HEALING.md
+³       PHASE_9_META_LEARNING.md
+³       PHASE_9_NATURAL_LANGUAGE.md
+³       PHASE_9_QUICKSTART.md
+³       SESSION_2025-01-05.md
+³       UI_FIXES_2025-11-05.md
+³       UI_REDESIGN.md
+³       VOICE_EMOTION_UPDATE.md
+³       
+ÃÄÄÄdownloads
+ÃÄÄÄexplanations
+³       why_1763218529106.html
+³       why_1763218546623.html
+³       why_1763218591389.html
+³       why_1763218639298.html
+³       why_1763218675381.html
+³       why_1763221111929.html
+³       why_1763221127308.html
+³       why_1763221266436.html
+³       why_1763221284684.html
+³       why_1763221302431.html
+³       why_1763221330030.html
+³       why_1763221370289.html
+³       why_1763221395171.html
+³       
+ÃÄÄÄlogs
+³       BOOT_MARKER.txt
+³       saraphina.log
+³       saraphina.log.txt
+³       saraphina_gui.log
+³       ui_app.err.txt
+³       ui_app.out.txt
+³       ui_app_mod.err.txt
+³       ui_app_mod.out.txt
+³       ui_mod2.err.txt
+³       ui_mod2.out.txt
+³       
+ÃÄÄÄmemory
+³       failures.db
+³       mutations.db
+³       
+ÃÄÄÄmobile
+³   ³   README.md
+³   ³   
+³   ÀÄÄÄsrc
+³       ÀÄÄÄservices
+³               SaraphinaService.ts
+³               
+ÃÄÄÄplugins
+ÃÄÄÄproposals
+ÃÄÄÄsaraphina
+³   ³   active_learning.py
+³   ³   adversarial_defense.py
+³   ³   ai_core.py
+³   ³   ai_core_enhanced.py
+³   ³   ai_risk_analyzer.py
+³   ³   api_gateway.py
+³   ³   architecture_db.py
+³   ³   autonomous_core.py
+³   ³   capability_auditor.py
+³   ³   codebase_scanner.py
+³   ³   code_audit_trail.py
+³   ³   code_factory.py
+³   ³   code_forge.py
+³   ³   code_knowledge_db.py
+³   ³   code_proposal_db.py
+³   ³   code_research_agent.py
+³   ³   code_risk_model.py
+³   ³   code_upgrader.py
+³   ³   consensus_engine.py
+³   ³   create_a_speech_to_text_stt_listener_module_named_stt_listener_py_requirements.py
+³   ³   create_a_speech_to_text_stt_listener_module_named_stt_listener_py_requirements.py.bak
+³   ³   create_a_speech_to_text_stt_module_that.py
+³   ³   cross_modal.py
+³   ³   db.py
+³   ³   demo_module.py
+³   ³   device_agent.py
+³   ³   distributed_mesh.py
+³   ³   embeddings.py
+³   ³   emotion_engine.py
+³   ³   error_auto_healer.py
+³   ³   error_knowledge_base.py
+³   ³   error_sentinel.py
+³   ³   ethics.py
+³   ³   explainability.py
+³   ³   feature_factory.py
+³   ³   git_integration.py
+³   ³   gui_ultra_processor.py
+³   ³   gui_ultra_processor.py.pre_upgrade
+³   ³   gui_ultra_processor.txt
+³   ³   hardcoded_string_rewriter.py
+³   ³   hot_reload_demo.py
+³   ³   hot_reload_manager.py
+³   ³   improvement_db.py
+³   ³   improvement_loop.py
+³   ³   introspection_engine.py
+³   ³   intuition.py
+³   ³   knowledge_engine.py
+³   ³   knowledge_graph.py
+³   ³   learning_journal.py
+³   ³   learning_meta.py
+³   ³   local_llm.py
+³   ³   memory_manager.py
+³   ³   meta_architect.py
+³   ³   meta_optimizer.py
+³   ³   modify_saraphina_gui_py_to_integrate_the_sttlistener_module_context.py
+³   ³   modify_saraphina_gui_py_to_integrate_the_sttlistener_module_context.py.pre_upgrade
+³   ³   module_creator.py
+³   ³   monitoring.py
+³   ³   monte_carlo_planner.py
+³   ³   multi_agent.py
+³   ³   ood.py
+³   ³   owner_approval_gate.py
+³   ³   persona.py
+³   ³   planner.py
+³   ³   plugin_manager.py
+³   ³   powershell_adapter.py
+³   ³   provenance.py
+³   ³   recovery_bootstrap.py
+³   ³   recursive_code_miner.py
+³   ³   refinement_engine.py
+³   ³   reranker.py
+³   ³   research_agent.py
+³   ³   research_fix_engine.py
+³   ³   review_manager.py
+³   ³   risk_model.py
+³   ³   roadmap_parser.py
+³   ³   rollback_engine.py
+³   ³   safety_gate.py
+³   ³   sandbox_validator.py
+³   ³   scenario_engine.py
+³   ³   security.py
+³   ³   self_documentation.py
+³   ³   self_editor.py
+³   ³   self_healing.py
+³   ³   self_healing_manager.py
+³   ³   self_modification_api.py
+³   ³   self_modification_coordinator.py
+³   ³   self_modification_engine.py
+³   ³   self_optimizer.py
+³   ³   self_upgrade_orchestrator.py
+³   ³   sentience_monitor.py
+³   ³   shadow_node.py
+³   ³   shadow_sync.py
+³   ³   simulation_sandbox.py
+³   ³   spec_generator.py
+³   ³   sqlcipher_rotate.py
+³   ³   stt.py
+³   ³   stt_listener.py
+³   ³   stt_listener.py.bak
+³   ³   system_adapter.py
+³   ³   temporal_reasoning.py
+³   ³   temp_manager.py
+³   ³   test_harness.py
+³   ³   toolsmith.py
+³   ³   trust_firewall.py
+³   ³   ui_live.py
+³   ³   ui_manager.py
+³   ³   ultra_ai_core.py
+³   ³   universal_search.py
+³   ³   upgrade_learning_journal.py
+³   ³   upgrade_ledger.py
+³   ³   voice_integration.py
+³   ³   voice_modern.py
+³   ³   webhook_manager.py
+³   ³   __init__.py
+³   ³   
+³   ÃÄÄÄ.audit
+³   ³       selfmod.jsonl
+³   ³       
+³   ÃÄÄÄadvanced_recovery
+³   ³   ³   advanced_methods.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           advanced_methods.cpython-312.pyc
+³   ³           
+³   ÃÄÄÄauth
+³   ³   ³   auth_manager.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           auth_manager.cpython-312.pyc
+³   ³           
+³   ÃÄÄÄautonomous
+³   ³   ³   autonomous_system.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           autonomous_system.cpython-312.pyc
+³   ³           
+³   ÃÄÄÄbackups
+³   ³   ÃÄÄÄhot_reload
+³   ³   ÀÄÄÄself_mod
+³   ÃÄÄÄcode_factory
+³   ³   ³   code_artifacts.py
+³   ³   ³   feature_factory.py
+³   ³   ³   neural_codegen.py
+³   ³   ³   sandbox.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           code_artifacts.cpython-312.pyc
+³   ³           feature_factory.cpython-312.pyc
+³   ³           neural_codegen.cpython-312.pyc
+³   ³           sandbox.cpython-312.pyc
+³   ³           
+³   ÃÄÄÄdashboard
+³   ³       analytics_dashboard.html
+³   ³       
+³   ÃÄÄÄdata
+³   ³   ³   selfmod_audit.jsonl
+³   ³   ³   
+³   ³   ÀÄÄÄapprovals
+³   ÃÄÄÄfederated
+³   ³   ³   federated_learning.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           federated_learning.cpython-312.pyc
+³   ³           
+³   ÃÄÄÄmemory
+³   ³       learned_failures.json
+³   ³       
+³   ÃÄÄÄproposals
+³   ³       improve_6d9730e768.py
+³   ³       improve_79dde5a3ad.py
+³   ³       
+³   ÃÄÄÄrealtime
+³   ³   ³   event_stream.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           event_stream.cpython-312.pyc
+³   ³           
+³   ÃÄÄÄresilience
+³   ³   ³   resilience.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           resilience.cpython-312.pyc
+³   ³           
+³   ÃÄÄÄsecurity
+³   ³   ³   security_manager.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           security_manager.cpython-312.pyc
+³   ³           
+³   ÃÄÄÄsimulation
+³   ³   ³   digital_twin.py
+³   ³   ³   
+³   ³   ÀÄÄÄ__pycache__
+³   ³           digital_twin.cpython-312.pyc
+³   ³           
+³   ÀÄÄÄ__pycache__
+³           active_learning.cpython-312.pyc
+³           adversarial_defense.cpython-312.pyc
+³           ai_core.cpython-312.pyc
+³           ai_core_enhanced.cpython-312.pyc
+³           ai_core_enhanced.cpython-313.pyc
+³           ai_risk_analyzer.cpython-312.pyc
+³           ai_risk_analyzer.cpython-313.pyc
+³           api_gateway.cpython-312.pyc
+³           architecture_db.cpython-312.pyc
+³           architecture_db.cpython-313.pyc
+³           autonomous_core.cpython-312.pyc
+³           capability_auditor.cpython-312.pyc
+³           code_audit_trail.cpython-312.pyc
+³           code_audit_trail.cpython-313.pyc
+³           code_factory.cpython-312.pyc
+³           code_factory.cpython-313.pyc
+³           code_forge.cpython-312.pyc
+³           code_knowledge_db.cpython-312.pyc
+³           code_knowledge_db.cpython-313.pyc
+³           code_proposal_db.cpython-312.pyc
+³           code_proposal_db.cpython-313.pyc
+³           code_research_agent.cpython-312.pyc
+³           code_research_agent.cpython-313.pyc
+³           code_risk_model.cpython-312.pyc
+³           code_risk_model.cpython-313.pyc
+³           code_upgrader.cpython-312.pyc
+³           consensus_engine.cpython-312.pyc
+³           consensus_engine.cpython-313.pyc
+³           create_a_speech_to_text_stt_listener_module_named_stt_listener_py_requirements.cpython-312.pyc
+³           create_a_speech_to_text_stt_module_that.cpython-312.pyc
+³           cross_modal.cpython-312.pyc
+³           db.cpython-312.pyc
+³           db.cpython-313.pyc
+³           demo_module.cpython-312.pyc
+³           device_agent.cpython-312.pyc
+³           device_agent.cpython-313.pyc
+³           distributed_mesh.cpython-312.pyc
+³           embeddings.cpython-312.pyc
+³           embeddings.cpython-313.pyc
+³           emotion_engine.cpython-312.pyc
+³           emotion_engine.cpython-313.pyc
+³           error_knowledge_base.cpython-312.pyc
+³           error_sentinel.cpython-312.pyc
+³           ethics.cpython-312.pyc
+³           ethics.cpython-313.pyc
+³           explainability.cpython-312.pyc
+³           feature_factory.cpython-312.pyc
+³           feature_factory.cpython-313.pyc
+³           git_integration.cpython-312.pyc
+³           gui_ultra_processor.cpython-312.pyc
+³           gui_ultra_processor.cpython-313.pyc
+³           hot_reload_demo.cpython-312.pyc
+³           hot_reload_manager.cpython-312.pyc
+³           hot_reload_manager.cpython-313.pyc
+³           improvement_db.cpython-312.pyc
+³           improvement_db.cpython-313.pyc
+³           improvement_loop.cpython-312.pyc
+³           improvement_loop.cpython-313.pyc
+³           intuition.cpython-312.pyc
+³           intuition.cpython-313.pyc
+³           knowledge_engine.cpython-312.pyc
+³           knowledge_engine.cpython-313.pyc
+³           knowledge_graph.cpython-312.pyc
+³           knowledge_graph.cpython-313.pyc
+³           learning_journal.cpython-312.pyc
+³           learning_journal.cpython-313.pyc
+³           learning_meta.cpython-312.pyc
+³           local_llm.cpython-312.pyc
+³           memory_manager.cpython-312.pyc
+³           memory_manager.cpython-313.pyc
+³           meta_architect.cpython-312.pyc
+³           meta_architect.cpython-313.pyc
+³           meta_optimizer.cpython-312.pyc
+³           meta_optimizer.cpython-313.pyc
+³           modify_saraphina_gui_py_to_integrate_the_sttlistener_module_context.cpython-312.pyc
+³           monitoring.cpython-312.pyc
+³           monitoring.cpython-313.pyc
+³           monte_carlo_planner.cpython-312.pyc
+³           multi_agent.cpython-312.pyc
+³           ood.cpython-312.pyc
+³           ood.cpython-313.pyc
+³           owner_approval_gate.cpython-312.pyc
+³           owner_approval_gate.cpython-313.pyc
+³           persona.cpython-312.pyc
+³           persona.cpython-313.pyc
+³           planner.cpython-312.pyc
+³           planner.cpython-313.pyc
+³           plugin_manager.cpython-312.pyc
+³           powershell_adapter.cpython-312.pyc
+³           powershell_adapter.cpython-313.pyc
+³           provenance.cpython-312.pyc
+³           recovery_bootstrap.cpython-312.pyc
+³           recovery_bootstrap.cpython-313.pyc
+³           recursive_code_miner.cpython-312.pyc
+³           recursive_code_miner.cpython-313.pyc
+³           refinement_engine.cpython-312.pyc
+³           refinement_engine.cpython-313.pyc
+³           reranker.cpython-312.pyc
+³           research_agent.cpython-312.pyc
+³           research_agent.cpython-313.pyc
+³           research_fix_engine.cpython-312.pyc
+³           review_manager.cpython-312.pyc
+³           review_manager.cpython-313.pyc
+³           risk_model.cpython-312.pyc
+³           risk_model.cpython-313.pyc
+³           roadmap_parser.cpython-312.pyc
+³           rollback_engine.cpython-312.pyc
+³           rollback_engine.cpython-313.pyc
+³           safety_gate.cpython-312.pyc
+³           safety_gate.cpython-313.pyc
+³           sandbox_validator.cpython-312.pyc
+³           scenario_engine.cpython-312.pyc
+³           scenario_engine.cpython-313.pyc
+³           security.cpython-312.pyc
+³           security.cpython-313.pyc
+³           self_documentation.cpython-312.pyc
+³           self_editor.cpython-312.pyc
+³           self_healing.cpython-312.pyc
+³           self_healing_manager.cpython-312.pyc
+³           self_modification_api.cpython-312.pyc
+³           self_modification_coordinator.cpython-312.pyc
+³           self_modification_engine.cpython-312.pyc
+³           self_modification_engine.cpython-313.pyc
+³           self_optimizer.cpython-312.pyc
+³           self_upgrade_orchestrator.cpython-312.pyc
+³           sentience_monitor.cpython-312.pyc
+³           sentience_monitor.cpython-313.pyc
+³           shadow_node.cpython-312.pyc
+³           shadow_node.cpython-313.pyc
+³           shadow_sync.cpython-312.pyc
+³           simulation_sandbox.cpython-312.pyc
+³           simulation_sandbox.cpython-313.pyc
+³           spec_generator.cpython-312.pyc
+³           sqlcipher_rotate.cpython-312.pyc
+³           stt.cpython-312.pyc
+³           stt.cpython-313.pyc
+³           stt_listener.cpython-312.pyc
+³           system_adapter.cpython-312.pyc
+³           system_adapter.cpython-313.pyc
+³           temporal_reasoning.cpython-312.pyc
+³           test_harness.cpython-312.pyc
+³           test_harness.cpython-313.pyc
+³           toolsmith.cpython-312.pyc
+³           toolsmith.cpython-313.pyc
+³           trust_firewall.cpython-312.pyc
+³           trust_firewall.cpython-313.pyc
+³           ui_live.cpython-312.pyc
+³           ui_live.cpython-313.pyc
+³           ui_manager.cpython-312.pyc
+³           ui_manager.cpython-313.pyc
+³           ultra_ai_core.cpython-312.pyc
+³           ultra_ai_core.cpython-313.pyc
+³           universal_search.cpython-312.pyc
+³           upgrade_learning_journal.cpython-312.pyc
+³           voice_integration.cpython-312.pyc
+³           voice_integration.cpython-313.pyc
+³           voice_modern.cpython-312.pyc
+³           webhook_manager.cpython-312.pyc
+³           __init__.cpython-312.pyc
+³           __init__.cpython-313.pyc
+³           
+ÃÄÄÄSaraphina-Root
+³       .gitattributes
+³       README.md
+³       
+ÃÄÄÄscripts
+³   ³   chaos.py
+³   ³   load_test.py
+³   ³   
+³   ÀÄÄÄ__pycache__
+³           load_test.cpython-312-pytest-8.4.2.pyc
+³           
+ÃÄÄÄsessions
+ÃÄÄÄsrc
+³   ³   autonomous_evolution_engine.py
+³   ³   curiosity_engine_v4.py
+³   ³   decentralized_mind.py
+³   ³   emotion_engine.py
+³   ³   hybrid_model_router.py
+³   ³   knowledge_engine.py
+³   ³   local_llm_client.py
+³   ³   memory_engine.py
+³   ³   personality_core.py
+³   ³   planner.py
+³   ³   risk_model.py
+³   ³   saraphina_integrations.py
+³   ³   saraphina_swarm.py
+³   ³   self_modification_engine.py
+³   ³   self_mod_safety_wrappers.py
+³   ³   system_adapters.py
+³   ³   ultra_core.py
+³   ³   util_logging.py
+³   ³   __init__.py
+³   ³   
+³   ÃÄÄÄbackups
+³   ³   ÀÄÄÄself_mod
+³   ÃÄÄÄdata
+³   ÃÄÄÄmemory
+³   ³       failures.db
+³   ³       mutations.db
+³   ³       
+³   ÃÄÄÄplugins
+³   ÃÄÄÄproposals
+³   ÀÄÄÄsessions
+ÃÄÄÄtemp
+³   ³   tmp0j00nu3z.mp3
+³   ³   tmp18dh8dy9.mp3
+³   ³   tmp1ulaii48.mp3
+³   ³   tmp2s_iscwy.mp3
+³   ³   tmp3hd0dt65.mp3
+³   ³   tmp3hqkmeq9.mp3
+³   ³   tmp4ots8kxd.mp3
+³   ³   tmp5qs422r1.mp3
+³   ³   tmp8qo3jpl6.mp3
+³   ³   tmp9fb1nvrm.mp3
+³   ³   tmp9llqes_j.mp3
+³   ³   tmpaj4ltpyg.mp3
+³   ³   tmpbcg8lk3p.mp3
+³   ³   tmpd2ezglak.mp3
+³   ³   tmpdlq7lva0.mp3
+³   ³   tmpdut7z0ps.mp3
+³   ³   tmpfub3j7fv.mp3
+³   ³   tmpg0oaweta.mp3
+³   ³   tmph4h7m24h.mp3
+³   ³   tmphtng2p6a.mp3
+³   ³   tmpi7t8nd5r.mp3
+³   ³   tmpike_m5x4.mp3
+³   ³   tmpiv8tohlp.mp3
+³   ³   tmpjfmnphcj.mp3
+³   ³   tmpkb4ii572.mp3
+³   ³   tmpldo7ahdt.mp3
+³   ³   tmplxgdhglj.mp3
+³   ³   tmpn6_sv3p7.mp3
+³   ³   tmpna1koy59.mp3
+³   ³   tmpnd5pnw8o.mp3
+³   ³   tmpohgfpuwr.mp3
+³   ³   tmpq7u_lqao.mp3
+³   ³   tmpqwf9ayaw.mp3
+³   ³   tmpr6n2lcmj.mp3
+³   ³   tmpstq4hevx.mp3
+³   ³   tmptjq7gc2_.mp3
+³   ³   tmptvow1z5f.mp3
+³   ³   tmpuqc412zs.mp3
+³   ³   tmpximq3b0i.mp3
+³   ³   tmpxq2cz0x0.mp3
+³   ³   tmpycc9bsl1.mp3
+³   ³   tmpz2q39_sf.mp3
+³   ³   tmp_1mj8k5y.mp3
+³   ³   
+³   ÀÄÄÄsaraphina_sandbox
+ÃÄÄÄtemp_real
+³   ÀÄÄÄsaraphina_sandbox
+ÃÄÄÄtests
+³   ³   test_ai_risk_analyzer.py
+³   ³   test_all.py
+³   ³   test_orchestrator.py
+³   ³   test_phase30_safety.py
+³   ³   test_startup.py
+³   ³   test_torrent_manager.py
+³   ³   
+³   ÀÄÄÄ__pycache__
+³           test_all.cpython-312-pytest-8.4.2.pyc
+³           test_orchestrator.cpython-312-pytest-8.4.2.pyc
+³           test_startup.cpython-312-pytest-8.4.2.pyc
+³           test_torrent_manager.cpython-312-pytest-8.4.2.pyc
+³           
+ÃÄÄÄvoice_tmp
+³       tts_0e4790b9e37b9c2ef70654b08240c4cef6d76a52.mp3
+³       tts_16c39cd723f53f71a2e5c70f869f8b47a0a08029.mp3
+³       tts_1931113c4fabbe937679684cb45975dd41237b5c.mp3
+³       tts_3aba6c3301a82c564568cd79aa27f0998ca7275d.mp3
+³       tts_3b9587c16897c44b05553834c9dfddb394f2c259.mp3
+³       tts_3d91ffb47f71ca362d47bd80c2da5c62af432bb1.mp3
+³       tts_47a4dcc0305368789130889daecaf04ed92f55e3.mp3
+³       tts_5583330be73f86795f07fca6e3bfd2e9eedc20b0.mp3
+³       tts_5b7e94fd3a69fbc289a17e21235a4c5cb432c9fc.mp3
+³       tts_5c6d9d94fda9bc627d54e39d8d19dd4d4ff18218.mp3
+³       tts_60bd10bf7292d52085caa03308656a0e16822522.mp3
+³       tts_6ed3bb148b80f41c82db7a06bff09788da3a3c8c.mp3
+³       tts_7444f978f28234403f399607be807f79565f53c7.mp3
+³       tts_75cd7327f2d0a35d26f6a4917c8ab8fe82498d49.mp3
+³       tts_874c5476d8440034ef1e30019d2abd163ac5ebef.mp3
+³       tts_9158f9f4e1fd1cdeba5bcc5c8d27748ccd61f77e.mp3
+³       tts_98acf2efa9472fcb13ee6bebb6ceee65b2859a2d.mp3
+³       tts_994cd15ffcaa13b865f8c1f86e1d122797e65070.mp3
+³       tts_994d0c897fb894b03c5df4fdd3642aa3a3e420f9.mp3
+³       tts_9e88e16bbc9c149b494d56c1efe3f7919ee9a320.mp3
+³       tts_a811b118cdd6f53fb2a97daea2b9c84b01822c00.mp3
+³       tts_aa0a184ece5d374da779180eb68a1e070d0bc687.mp3
+³       tts_b8c95454c5bc52f11bf704ac325dec0b712fe22e.mp3
+³       tts_be9d52381b728a780d90ec0ca2185dc8c7978541.mp3
+³       tts_cb0b3737a5512502c92fbf549433612bc4df7a95.mp3
+³       tts_cb5e957b2fc04f54e7dc0029f37c4d44e2ebec0e.mp3
+³       tts_dac047ba7053a191c640e37b76781a775d229121.mp3
+³       tts_e4e9473a332ab847d7a2bbdb6cfdfa5168ddc59b.mp3
+³       tts_ea6b2ad4f185aba6ff5e460ba1d1a745aaff8348.mp3
+³       tts_f34e38f3cb948cf0f669164bda2186c02708c712.mp3
+³       tts_f641cf2602d12d2a6ddcebfec15b90f87667c429.mp3
+³       tts_fd6dafc3510319222e21bb48ac07b44440a37257.mp3
+³       
+ÃÄÄÄweb
+³       dashboard.html
+³       manifest.json
+³       service-worker.js
+³       
+ÀÄÄÄ__pycache__
+        code_forge.cpython-312.pyc
+        code_forge.cpython-313.pyc
+        curiosity_engine_v4.cpython-312.pyc
+        emotion_engine.cpython-312.pyc
+        hybrid_model_router.cpython-312.pyc
+        knowledge_engine.cpython-312.pyc
+        knowledge_engine.cpython-313.pyc
+        local_llm_client.cpython-312.pyc
+        memory_engine.cpython-312.pyc
+        personality_core.cpython-312.pyc
+        sandbox_validator.cpython-312.pyc
+        sandbox_validator.cpython-313.pyc
+        saraphina_gui.cpython-312.pyc
+        saraphina_terminal_ultra.cpython-312.pyc
+        self_modification_engine.cpython-312.pyc
+        self_modification_engine.cpython-313.pyc
+        test_enhanced.cpython-312-pytest-8.4.2.pyc
+        test_phase6.cpython-312-pytest-8.4.2.pyc
+        test_search.cpython-312-pytest-8.4.2.pyc
+        test_terminal.cpython-312-pytest-8.4.2.pyc
+        upgrade_learning_journal.cpython-312.pyc
+        upgrade_learning_journal.cpython-313.pyc
+        util_logging.cpython-312.pyc
+        util_logging.cpython-313.pyc
+        

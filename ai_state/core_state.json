@@ -1,0 +1,11 @@
+{
+  "personality": {
+    "name": "Saraphina",
+    "version": "5.0",
+    "base_warmth": 0.5698381977969514,
+    "base_clarity": 0.5775412499999999,
+    "base_depth": 0.5621550000000001,
+    "base_stability": 0.6177090000000004,
+    "personality_growth": 0.0286
+  }
+}

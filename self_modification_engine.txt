@@ -1,0 +1,1131 @@
+#!/usr/bin/env python3
+# saraphina/self_modification_engine.py
+"""
+SelfModificationEngine — supervised superpowers for Saraphina
+(with cross-root file resolution, GUI shim, integrity safety, backups, rollback,
+owner-token flow, optional OpenAI code generation, and package install path).
+
+This engine is designed to be called by your existing GUI without modifying the GUI.
+Notable public methods (stable surface used by GUI or CLI wrappers):
+  - load_env_from_root(env_root: Optional[Path]) -> Dict[str, Any]
+  - scan_codebase(target_module: Optional[str]) -> Dict[str, Any]
+  - propose_improvement(target_file: str, improvement_spec: str, safety_level: str="high") -> Dict[str, Any]
+  - apply_improvement(proposal_id: str, owner_authorization: Optional[str]=None) -> Dict[str, Any]
+  - propose_module(module_name: str, spec: str, safety_level: str="high") -> Dict[str, Any]
+  - import_module_runtime(module_filename: str, owner_authorization: Optional[str]=None) -> Dict[str, Any]
+  - request_install_packages(packages: List[str]) -> Dict[str, Any]
+  - confirm_install_packages(proposal_id: str, owner_token: Optional[str]=None, allow_upgrade: bool=False) -> Dict[str, Any]
+  - rollback_from_backup(backup_filename: str) -> Dict[str, Any]
+  - list_proposals() -> List[Dict[str, Any]]
+  - get_proposal(pid: str) -> Optional[Dict[str, Any]]
+  - enable_operator_token(token: str) -> None
+  - enable_autonomy_session(owner_token: Optional[str]) -> bool
+  - disable_autonomy_session() -> None
+
+GUI compatibility shims / helpers:
+  - accept_spec_and_propose(spec: dict, actor: str="gui") -> dict
+  - try_autowire_into_gui(gui_root_object) -> bool
+
+Security principles:
+  - Owner-in-the-loop on apply/installs/imports unless a signed consent artifact authorises more.
+  - Atomic file writes, backups, and rollbacks.
+  - Integrity signatures optional; if required by env but secret missing -> proposal allowed but owner approval enforced.
+"""
+
+from __future__ import annotations
+
+import os
+import sys
+import io
+import json
+import hmac
+import uuid
+import time
+import shutil
+import hashlib
+import logging
+import tempfile
+import subprocess
+import threading
+import difflib
+import ast
+from pathlib import Path
+from datetime import datetime, timezone
+from typing import Optional, Dict, Any, List, Callable
+
+# ---------------- Logging ----------------
+logger = logging.getLogger("SelfModificationEngine")
+if not logger.handlers:
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
+
+# ---------------- Env bootstrap ----------------
+# Ensure the same .env the GUI uses is visible here too.
+try:
+    from dotenv import load_dotenv, dotenv_values  # type: ignore
+    DOTENV_AVAILABLE = True
+except Exception:
+    DOTENV_AVAILABLE = False
+    load_dotenv = None
+    dotenv_values = None
+
+# Default to your declared root (Windows path as you requested)
+DEFAULT_PROJECT_ROOT = Path(os.getenv("SARAPHINA_PROJECT_ROOT", "D:/Saraphina Root")).resolve()
+if DOTENV_AVAILABLE and (DEFAULT_PROJECT_ROOT / ".env").exists():
+    # Load .env early so OPENAI_API_KEY and SELF_MOD_OWNER_TOKEN are present before engine init
+    load_dotenv(dotenv_path=str(DEFAULT_PROJECT_ROOT / ".env"), override=True)
+
+# Optional libs
+try:
+    import openai  # type: ignore
+    OPENAI_AVAILABLE = True
+except Exception:
+    OPENAI_AVAILABLE = False
+
+try:
+    from git import Repo  # type: ignore
+    GITPY_AVAILABLE = True
+except Exception:
+    GITPY_AVAILABLE = False
+
+# ---------------- Config knobs ----------------
+ENGINE_DIR = Path(__file__).parent.resolve()
+ROOT_ENV_PATH = DEFAULT_PROJECT_ROOT
+
+SELF_MOD_SECRET = os.getenv("SELF_MOD_SECRET", "")
+SELF_MOD_REQUIRE_INTEGRITY = os.getenv("SELF_MOD_REQUIRE_INTEGRITY", "true").lower() in ("1", "true", "yes")
+MAX_FILE_SIZE = int(os.getenv("SELF_MOD_MAX_FILE_SIZE", "300000"))  # bytes
+BACKUP_RETENTION = int(os.getenv("SELF_MOD_BACKUP_RETENTION", "12"))  # files to keep
+
+# ---------------- Small helpers ----------------
+def _hash_text(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+def _atomic_write(path: Path, content: str, perms: Optional[int] = None) -> None:
+    tmp = path.with_suffix(path.suffix + f".tmp.{uuid.uuid4().hex}")
+    tmp.write_text(content, encoding="utf-8")
+    tmp.replace(path)
+    if perms is not None:
+        try:
+            os.chmod(path, perms)
+        except Exception:
+            pass
+
+def _make_backup(target: Path, backup_dir: Path) -> Path:
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    dest = backup_dir / f"{target.name}.{stamp}.bak"
+    shutil.copy2(str(target), str(dest))
+    # Rotate old backups
+    files = sorted(
+        backup_dir.glob(f"{target.name}.*.bak"),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True
+    )
+    for old in files[BACKUP_RETENTION:]:
+        try:
+            old.unlink()
+        except Exception:
+            pass
+    return dest
+
+def _safe_exists(p: Path, base: Path) -> bool:
+    p = p.resolve()
+    try:
+        return str(p).startswith(str(base.resolve())) and p.exists()
+    except Exception:
+        return False
+
+def _search_for_file(across: List[Path], name_or_abs: str) -> Optional[Path]:
+    """Resolve a target file name across multiple roots, honoring project root boundary."""
+    cand = Path(name_or_abs)
+    if cand.is_absolute() and _safe_exists(cand, DEFAULT_PROJECT_ROOT):
+        return cand.resolve()
+    fname = os.path.basename(name_or_abs)
+    if not fname.endswith(".py"):
+        fname += ".py"
+    for root in across:
+        p = (root / fname).resolve()
+        if _safe_exists(p, DEFAULT_PROJECT_ROOT):
+            return p
+    # Try parents of engine dir as last resort
+    for root in (ENGINE_DIR.parent, ENGINE_DIR.parent.parent):
+        p = (root / fname).resolve()
+        if _safe_exists(p, DEFAULT_PROJECT_ROOT):
+            return p
+    return None
+
+# ---------------- Storage & approvals ----------------
+class SimpleProposalDB:
+    """In-memory proposal db (GUI reads through engine -> fine for your local use)."""
+    def __init__(self):
+        self._lock = threading.RLock()
+        self._store: Dict[str, Dict[str, Any]] = {}
+
+    def store_proposal(self, proposal: Dict[str, Any]) -> None:
+        with self._lock:
+            self._store[proposal["proposal_id"]] = dict(proposal)
+            self._store[proposal["proposal_id"]].setdefault("status", "created")
+
+    def get_proposal(self, pid: str) -> Optional[Dict[str, Any]]:
+        with self._lock:
+            return self._store.get(pid)
+
+    def set_status(self, pid: str, status: str) -> bool:
+        with self._lock:
+            if pid in self._store:
+                self._store[pid]["status"] = status
+                return True
+            return False
+
+class FileOwnerApprovalGate:
+    """File-based approval flags, so GUI/owner can authorize actions outside the process."""
+    def __init__(self, approvals_dir: Path):
+        self.dir = Path(approvals_dir)
+        self.dir.mkdir(parents=True, exist_ok=True)
+
+    def is_approved(self, proposal_id: str) -> bool:
+        return (self.dir / f"{proposal_id}.approved").exists()
+
+    def approve(self, proposal_id: str, token: Optional[str] = None) -> None:
+        payload = {"ts": datetime.utcnow().isoformat()+"Z", "token": token}
+        (self.dir / f"{proposal_id}.approved").write_text(json.dumps(payload), encoding="utf-8")
+
+    def revoke(self, proposal_id: str) -> None:
+        p = self.dir / f"{proposal_id}.approved"
+        if p.exists():
+            p.unlink()
+
+class FileAuditTrail:
+    """Append-only log for every important action."""
+    def __init__(self, data_dir: Path):
+        self.dir = Path(data_dir)
+        self.dir.mkdir(parents=True, exist_ok=True)
+        self.logfile = self.dir / "selfmod_audit.jsonl"
+
+    def log_event(self, action: str, details: Dict[str, Any], success: bool) -> None:
+        entry = {
+            "ts": datetime.utcnow().isoformat()+"Z",
+            "action": action,
+            "details": details,
+            "success": bool(success)
+        }
+        try:
+            with open(self.logfile, "a", encoding="utf-8") as fh:
+                fh.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        except Exception:
+            logger.debug("Audit write failed", exc_info=True)
+
+# ---------------- Code factories ----------------
+class DefaultCodeFactory:
+    """Offline scaffolder – always available; replaced by OpenAI factory if key present."""
+    def propose_code(self, feature_spec: str, language: str="python", context: Optional[Dict[str, Any]]=None) -> Dict[str, Any]:
+        # Minimal working scaffold; the apply path ensures syntax-validity anyway.
+        code = (
+            f'"""Auto-generated scaffold for: {feature_spec}"""\n'
+            f"\n"
+            f"def initialize():\n"
+            f"    # Implement: {feature_spec}\n"
+            f"    return None\n"
+        )
+        return {"success": True, "code": code, "explanation": "Offline scaffold", "tests": ""}
+
+class OpenAICodeFactory:
+    """LLM-backed generator (used only if OPENAI_API_KEY present)."""
+    def __init__(self, model: str="gpt-4o-mini"):
+        self.model = model
+
+    def _call_openai(self, prompt: str, max_tokens: int=1200) -> Dict[str, Any]:
+        if not OPENAI_AVAILABLE:
+            return {"success": False, "error": "openai library not installed"}
+        try:
+            resp = openai.ChatCompletion.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "Return only complete, runnable Python files when asked to modify code."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=max_tokens,
+                temperature=0.15
+            )
+            content = resp.choices[0].message.content
+            if content.strip().startswith("```"):
+                parts = content.strip().split("```")
+                content = parts[1] if len(parts) >= 3 else parts[-1]
+            return {"success": True, "code": content}
+        except Exception as e:
+            logger.exception("OpenAI call failed")
+            return {"success": False, "error": str(e)}
+
+    def propose_code(self, feature_spec: str, language: str="python", context: Optional[Dict[str, Any]]=None) -> Dict[str, Any]:
+        prompt = (
+            "Update or create the target Python GUI file according to the request.\n"
+            "Return the FULL FILE CONTENT only (ready to write to disk). Keep existing behavior; add the feature minimally and cleanly.\n"
+            f"REQUEST: {feature_spec}\n"
+            f"CONTEXT(JSON): {json.dumps(context or {}, ensure_ascii=False)[:2000]}\n"
+        )
+        return self._call_openai(prompt)
+
+# ---------------- Engine ----------------
+class SelfModificationEngine:
+    def __init__(self, code_factory=None, proposal_db=None, security=None, data_root: Optional[Path]=None):
+        # Where the engine code lives (do NOT assume project root == engine dir)
+        self.engine_dir = ENGINE_DIR
+        self.project_root = DEFAULT_PROJECT_ROOT
+
+        # Legacy alias some callsites might expect
+        self.root = self.engine_dir
+
+        # Data paths
+        self.data_root = Path(data_root) if data_root else (self.engine_dir / "data")
+        self.data_root.mkdir(parents=True, exist_ok=True)
+        self._backup_dir = self.engine_dir / "backups" / "self_mod"
+        self._backup_dir.mkdir(parents=True, exist_ok=True)
+
+        # Subsystems
+        self.proposal_db = proposal_db or SimpleProposalDB()
+        self.owner_gate = security or FileOwnerApprovalGate(self.data_root / "approvals")
+        self.audit = FileAuditTrail(self.data_root)
+
+        self.default_factory = code_factory or DefaultCodeFactory()
+        self._code_factory = self.default_factory  # may be switched to OpenAICodeFactory if key found
+
+        self._lock = threading.RLock()
+        self._dangerous_keywords = ["subprocess", "socket", "ctypes", "eval(", "exec(", "__import__"]
+        self._event_listeners: Dict[str, List[Callable[..., None]]] = {}
+
+        self.autonomous_enabled = False
+        self._operator_token: Optional[str] = None
+
+        # Consent cache
+        self._consent_cache: Optional[Dict[str, Any]] = None
+        self._consent_ts: Optional[float] = None
+
+        # Optional git repo
+        self._git = None
+        self._init_git()
+
+        # --- Autowire owner token so GUI 'apply <token>' flows cleanly
+        try:
+            env_owner = os.getenv("SELF_MOD_OWNER_TOKEN", "").strip()
+            if env_owner:
+                self.enable_operator_token(env_owner)
+                logger.info("Operator token autowired from environment.")
+        except Exception:
+            logger.debug("Could not autowire operator token", exc_info=True)
+
+        # --- If OpenAI key present, enable the LLM factory
+        try:
+            key = os.getenv("OPENAI_API_KEY", "").strip()
+            if key and OPENAI_AVAILABLE:
+                openai.api_key = key
+                self._code_factory = OpenAICodeFactory()
+                logger.info("OpenAI CodeFactory enabled.")
+        except Exception:
+            logger.debug("OpenAI wiring failed", exc_info=True)
+
+    # -------- Event bus --------
+    def on(self, event: str, handler: Callable[..., None]):
+        self._event_listeners.setdefault(event, []).append(handler)
+
+    def _emit(self, event: str, *args, **kwargs):
+        for h in list(self._event_listeners.get(event, [])):
+            try:
+                h(*args, **kwargs)
+            except Exception:
+                logger.debug("Event handler failed", exc_info=True)
+
+    # -------- Git --------
+    def _init_git(self):
+        if not GITPY_AVAILABLE:
+            return
+        try:
+            # Prefer project root repo if present
+            if (self.project_root / ".git").exists():
+                self._git = Repo(str(self.project_root))
+            elif (self.engine_dir / ".git").exists():
+                self._git = Repo(str(self.engine_dir))
+            else:
+                self._git = None
+        except Exception:
+            self._git = None
+
+    # -------- Env loader (explicit call if you want a reload) --------
+    def load_env_from_root(self, env_root: Optional[Path]=None) -> Dict[str, Any]:
+        with self._lock:
+            root = Path(env_root) if env_root else ROOT_ENV_PATH
+            dotenv_path = root / ".env"
+            if not dotenv_path.exists():
+                return {"success": False, "error": f".env not found at {dotenv_path}"}
+            try:
+                vals: Dict[str, str] = {}
+                if DOTENV_AVAILABLE:
+                    vals = {k: ("" if v is None else str(v)) for k, v in dotenv_values(str(dotenv_path)).items()}
+                else:
+                    for line in dotenv_path.read_text(encoding="utf-8").splitlines():
+                        line = line.strip()
+                        if not line or line.startswith("#") or "=" not in line:
+                            continue
+                        k, v = line.split("=", 1)
+                        vals[k.strip()] = v.strip().strip('"').strip("'")
+
+                # Wire OpenAI if present
+                openai_key = vals.get("OPENAI_API_KEY", "").strip()
+                if openai_key and OPENAI_AVAILABLE:
+                    os.environ["OPENAI_API_KEY"] = openai_key
+                    openai.api_key = openai_key
+                    self._code_factory = OpenAICodeFactory()
+                    logger.info("OpenAI factory wired from .env")
+
+                # Update operator token from env (if changed)
+                env_owner = vals.get("SELF_MOD_OWNER_TOKEN", "").strip()
+                if env_owner:
+                    self.enable_operator_token(env_owner)
+
+                self._env_cache = vals
+                return {"success": True, "loaded": list(vals.keys())}
+            except Exception as e:
+                logger.exception("load_env_from_root failed")
+                return {"success": False, "error": str(e)}
+
+    # -------- Consent handling (optional) --------
+    def _load_consent(self) -> Optional[Dict[str, Any]]:
+        try:
+            now = time.time()
+            if self._consent_cache and self._consent_ts and (now - self._consent_ts) < 30:
+                return self._consent_cache
+
+            path = self.engine_dir / "consent.json"
+            if not path.exists():
+                return None
+            hpath = path.with_suffix(path.suffix + ".hmac")
+            if not hpath.exists():
+                return None
+
+            payload = path.read_bytes()
+            expected = hpath.read_text().strip()
+            secret = os.getenv("SELF_MOD_CONSENT_SECRET", "")
+            if not secret:
+                return None
+
+            calc = hmac.new(secret.encode("utf-8"), payload, hashlib.sha256).hexdigest()
+            if not hmac.compare_digest(calc, expected):
+                return None
+
+            c = json.loads(payload.decode("utf-8"))
+            self._consent_cache = c
+            self._consent_ts = now
+            return c
+        except Exception:
+            return None
+
+    def _consent_allows(self, safety_level: str, target: Optional[str]=None) -> bool:
+        try:
+            c = self._load_consent()
+            if not c or not c.get("allow_auto_apply", False):
+                return False
+
+            exp = c.get("expires_at")
+            if exp:
+                try:
+                    exp_dt = datetime.fromisoformat(exp.replace("Z", "+00:00"))
+                    if datetime.now(timezone.utc) > exp_dt:
+                        return False
+                except Exception:
+                    return False
+
+            levels = {"LOW": 0, "MEDIUM": 1, "HIGH": 2, "CRITICAL": 3}
+            allowed = levels.get(c.get("max_allowed_risk", "LOW").upper(), 0)
+            needed = levels.get(safety_level.upper(), 2)
+            if needed > allowed:
+                return False
+
+            targets = c.get("allowed_targets", [])
+            if targets and target:
+                from fnmatch import fnmatch
+                return any(fnmatch(target, p) for p in targets)
+
+            return True
+        except Exception:
+            return False
+
+    # -------- Scanning / static analysis --------
+    def _analyze_file(self, file_path: Path) -> Dict[str, Any]:
+        content = file_path.read_text(encoding="utf-8", errors="ignore")
+        analysis = {"file": file_path.name, "lines": len(content.splitlines()), "size": len(content), "issues": []}
+        try:
+            tree = ast.parse(content)
+            for node in ast.walk(tree):
+                if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and not ast.get_docstring(node):
+                    analysis["issues"].append({"type": "missing_docstring", "severity": "low", "line": getattr(node, "lineno", None)})
+                if isinstance(node, ast.FunctionDef) and hasattr(node, "end_lineno"):
+                    if (node.end_lineno - node.lineno) > 200:
+                        analysis["issues"].append({"type": "long_function", "severity": "medium", "line": node.lineno})
+                if isinstance(node, ast.ExceptHandler) and (node.type is None or (isinstance(node, ast.Name) and node.type.id == "Exception")):
+                    analysis["issues"].append({"type": "broad_except", "severity": "low", "line": getattr(node, "lineno", None)})
+        except SyntaxError as e:
+            analysis["issues"].append({"type": "syntax_error", "severity": "high", "description": e.msg, "line": e.lineno})
+        except Exception as e:
+            analysis["issues"].append({"type": "analysis_failed", "severity": "low", "description": str(e)})
+        return analysis
+
+    def scan_codebase(self, target_module: Optional[str]=None) -> Dict[str, Any]:
+        with self._lock:
+            roots = [self.project_root, self.engine_dir]
+            results = {"scanned_files": 0, "opportunities": [], "file_analyses": [], "timestamp": datetime.utcnow().isoformat()+"Z"}
+            files: List[Path] = []
+            if target_module:
+                p = _search_for_file(roots, target_module)
+                if p and p.exists():
+                    files = [p]
+            else:
+                files = [*self.engine_dir.glob("*.py"), *self.project_root.glob("*.py")]
+            seen = set()
+            for f in files:
+                if f in seen:
+                    continue
+                seen.add(f)
+                try:
+                    if f.stat().st_size > MAX_FILE_SIZE:
+                        continue
+                    analysis = self._analyze_file(f)
+                    results["file_analyses"].append(analysis)
+                    results["scanned_files"] += 1
+                    for issue in analysis.get("issues", []):
+                        if issue.get("severity") in ("high", "medium"):
+                            results["opportunities"].append({"file": f.name, "type": issue["type"], "severity": issue["severity"], "line": issue.get("line")})
+                except Exception:
+                    logger.exception("scan error")
+            self.audit.log_event("scan_codebase", {"files_scanned": results["scanned_files"]}, True)
+            self._emit("scan_complete", results)
+            return results
+
+    # -------- Patch classification --------
+    def _classify_patch(self, original: str, improved: str) -> Dict[str, Any]:
+        try:
+            s = difflib.SequenceMatcher(a=original, b=improved)
+            sim = s.quick_ratio()
+            level = "low" if sim > 0.96 else ("medium" if sim > 0.86 else "high")
+            added = []
+            low_o, low_n = original.lower(), improved.lower()
+            for kw in self._dangerous_keywords:
+                if kw in low_n and kw not in low_o:
+                    added.append(kw)
+            reasons = [f"added {kw}" for kw in added]
+            return {"level": level, "similarity": sim, "reasons": reasons, "added": added}
+        except Exception:
+            return {"level": "high", "similarity": 0.0, "reasons": ["classification_failed"], "added": []}
+
+    # -------- Target resolution helper --------
+    def _resolve_target_file(self, name_or_abs: str) -> Optional[Path]:
+        roots = [self.project_root, self.engine_dir]
+        return _search_for_file(roots, name_or_abs)
+
+    # -------- Propose improvement --------
+    def propose_improvement(self, target_file: str, improvement_spec: str, safety_level: str="high") -> Dict[str, Any]:
+        with self._lock:
+            try:
+                file_path = self._resolve_target_file(target_file)
+                if not file_path or not file_path.exists():
+                    base = os.path.basename(target_file if isinstance(target_file, str) else str(target_file))
+                    return {"success": False, "error": f"Target not found: {base}"}
+
+                original = file_path.read_text(encoding="utf-8", errors="ignore")
+                context = {"existing_code": original[:200000], "constraints": f"Preserve compatibility. Safety: {safety_level}"}
+                proposal = self._code_factory.propose_code(
+                    feature_spec=f"Improve {file_path.name}: {improvement_spec}",
+                    context=context
+                )
+                if not proposal.get("success"):
+                    return {"success": False, "error": "code generation failed", "details": proposal}
+
+                improved = proposal["code"]
+                try:
+                    compile(improved, str(file_path), "exec")
+                except Exception as ce:
+                    return {"success": False, "error": f"syntax error in generated code: {ce}"}
+
+                diff = "\n".join(difflib.unified_diff(
+                    original.splitlines(),
+                    improved.splitlines(),
+                    fromfile=file_path.name,
+                    tofile=f"{file_path.name}.improved",
+                    lineterm=""
+                ))
+
+                classification = self._classify_patch(original, improved)
+                requires_owner = classification.get("level", "high").lower() != "low"
+
+                pid = f"selfmod_{uuid.uuid4().hex[:12]}"
+                created_at = datetime.utcnow().isoformat()+"Z"
+
+                # Integrity signature rules
+                signature = None
+                if SELF_MOD_REQUIRE_INTEGRITY and SELF_MOD_SECRET:
+                    sig_payload = json.dumps(
+                        {"proposal_id": pid, "target": file_path.name, "timestamp": created_at, "orig_hash": _hash_text(original)},
+                        sort_keys=True
+                    ).encode("utf-8")
+                    signature = hmac.new(SELF_MOD_SECRET.encode("utf-8"), sig_payload, hashlib.sha256).hexdigest()
+                elif SELF_MOD_REQUIRE_INTEGRITY and not SELF_MOD_SECRET:
+                    requires_owner = True  # enforce human approval if we can't sign
+
+                record = {
+                    "proposal_id": pid,
+                    "feature_spec": improvement_spec,
+                    "language": "python",
+                    "code": improved,
+                    "diff": diff,
+                    "metadata": {
+                        "target_file": file_path.name,
+                        "target_path": str(file_path),
+                        "created_at": created_at,
+                        "proposal_signature": signature
+                    },
+                    "safety_checks": {"requires_owner_approval": requires_owner, "safety_level": safety_level},
+                    "explanation": proposal.get("explanation", "")
+                }
+                self.proposal_db.store_proposal(record)
+                self.audit.log_event("propose_improvement", {"proposal_id": pid, "target": file_path.name}, True)
+                self._emit("proposal_created", record)
+
+                # Consent-based auto apply
+                try:
+                    if self._consent_allows(safety_level, file_path.name):
+                        threading.Thread(target=self._auto_apply_worker, args=(pid,), daemon=True).start()
+                except Exception:
+                    pass
+
+                return {"success": True, "proposal_id": pid, "requires_approval": requires_owner, "diff": diff, "metadata": record["metadata"]}
+            except Exception as e:
+                logger.exception("propose_improvement error")
+                return {"success": False, "error": str(e)}
+
+    # -------- Auto apply worker (consent) --------
+    def _auto_apply_worker(self, pid: str) -> None:
+        try:
+            time.sleep(0.2)
+            prop = self.proposal_db.get_proposal(pid)
+            if not prop:
+                return
+            safety = prop.get("safety_checks", {}).get("safety_level", "high")
+            target = prop.get("metadata", {}).get("target_file")
+            if not self._consent_allows(safety, target):
+                return
+            self.proposal_db.set_status(pid, "approved")
+            self.apply_improvement(pid, owner_authorization="CONSENTED")
+        except Exception:
+            logger.exception("auto_apply_worker error")
+
+    # -------- Apply improvement --------
+    def apply_improvement(self, proposal_id: str, owner_authorization: Optional[str]=None) -> Dict[str, Any]:
+        with self._lock:
+            try:
+                p = self.proposal_db.get_proposal(proposal_id)
+                if not p:
+                    return {"success": False, "error": "proposal not found"}
+
+                md = p.get("metadata", {})
+                target_path = Path(md.get("target_path", "") or "").resolve()
+                if not target_path.exists():
+                    return {"success": False, "error": "target missing"}
+
+                needs_owner = p.get("safety_checks", {}).get("requires_owner_approval", True)
+                consent_ok = self._consent_allows(p.get("safety_checks", {}).get("safety_level", "high"), md.get("target_file"))
+                operator_ok = (owner_authorization and self._operator_token and owner_authorization == self._operator_token)
+
+                # Allow file flag approval or autonomy, otherwise require owner token
+                if needs_owner and not (consent_ok or operator_ok or self.autonomous_enabled or self.owner_gate.is_approved(proposal_id)):
+                    return {"success": False, "error": "owner approval required"}
+
+                original = target_path.read_text(encoding="utf-8", errors="ignore")
+                backup = _make_backup(target_path, self._backup_dir)
+
+                # Dangerous delta guard
+                low_o, low_n = original.lower(), p["code"].lower()
+                added = [kw for kw in self._dangerous_keywords if kw in low_n and kw not in low_o]
+                if added and not (consent_ok or operator_ok or self.autonomous_enabled):
+                    return {"success": False, "error": f"Patch adds dangerous constructs: {added}. Approval required."}
+
+                # Syntax test in temp
+                tmpdir = Path(tempfile.mkdtemp(prefix="selfmod_"))
+                try:
+                    tmpf = tmpdir / target_path.name
+                    tmpf.write_text(p["code"], encoding="utf-8")
+                    compile(p["code"], str(tmpf), "exec")
+
+                    # Apply atomically
+                    _atomic_write(target_path, p["code"], perms=0o600)
+
+                    # Optional git commit
+                    try:
+                        if self._git and (self._git.working_tree_dir is not None):
+                            rel = str(target_path.relative_to(self._git.working_tree_dir))
+                            self._git.index.add([rel])
+                            self._git.index.commit(f"Self-mod apply {proposal_id} {md.get('target_file')}")
+                    except Exception:
+                        pass
+
+                    self.proposal_db.set_status(proposal_id, "applied")
+                    self.audit.log_event("apply_improvement", {"proposal_id": proposal_id, "target": md.get("target_file"), "backup": backup.name}, True)
+                    self._emit("proposal_applied", {"proposal_id": proposal_id, "target": md.get("target_file")})
+
+                    return {"success": True, "proposal_id": proposal_id, "target": md.get("target_file"), "backup": backup.name}
+                finally:
+                    try:
+                        shutil.rmtree(str(tmpdir))
+                    except Exception:
+                        pass
+            except Exception as e:
+                logger.exception("apply_improvement failed")
+                return {"success": False, "error": str(e)}
+
+    # -------- Propose new module --------
+    def propose_module(self, module_name: str, spec: str, safety_level: str="high") -> Dict[str, Any]:
+        with self._lock:
+            try:
+                safe_name = module_name if module_name.endswith(".py") else f"{module_name}.py"
+                target = _search_for_file([self.project_root, self.engine_dir], safe_name) or (self.project_root / safe_name)
+                if target.exists():
+                    return {"success": False, "error": "module exists"}
+
+                proposal = self._code_factory.propose_code(
+                    feature_spec=f"Create module {safe_name}: {spec}",
+                    context={"module_name": module_name}
+                )
+                if not proposal.get("success"):
+                    return {"success": False, "error": "code generation failed", "details": proposal}
+
+                code = proposal["code"]
+                try:
+                    compile(code, str(target), "exec")
+                except Exception as ce:
+                    return {"success": False, "error": f"Generated code invalid: {ce}"}
+
+                pid = f"selfmod_{uuid.uuid4().hex[:12]}"
+                created_at = datetime.utcnow().isoformat()+"Z"
+
+                signature = None
+                if SELF_MOD_REQUIRE_INTEGRITY and SELF_MOD_SECRET:
+                    sig_payload = json.dumps({"proposal_id": pid, "target": safe_name, "timestamp": created_at}, sort_keys=True).encode("utf-8")
+                    signature = hmac.new(SELF_MOD_SECRET.encode("utf-8"), sig_payload, hashlib.sha256).hexdigest()
+
+                record = {
+                    "proposal_id": pid,
+                    "feature_spec": spec,
+                    "language": "python",
+                    "code": code,
+                    "metadata": {
+                        "target_file": safe_name,
+                        "target_path": str(target),
+                        "created_at": created_at,
+                        "proposal_signature": signature
+                    },
+                    "safety_checks": {"safety_level": safety_level, "requires_owner_approval": True}
+                }
+                self.proposal_db.store_proposal(record)
+                self.audit.log_event("propose_module", {"proposal_id": pid, "target": safe_name}, True)
+                self._emit("proposal_created", record)
+
+                if self._consent_allows(safety_level, safe_name):
+                    threading.Thread(target=self._auto_apply_worker, args=(pid,), daemon=True).start()
+
+                return {"success": True, "proposal_id": pid, "target": safe_name}
+            except Exception as e:
+                logger.exception("propose_module failed")
+                return {"success": False, "error": str(e)}
+
+    # -------- Runtime import (requires approval) --------
+    def import_module_runtime(self, module_filename: str, owner_authorization: Optional[str]=None) -> Dict[str, Any]:
+        with self._lock:
+            try:
+                fpath = self._resolve_target_file(module_filename)
+                if not fpath or not fpath.exists():
+                    return {"success": False, "error": "file not found"}
+
+                ok = (
+                    (self._operator_token and owner_authorization and owner_authorization == self._operator_token)
+                    or self.autonomous_enabled
+                    or self.owner_gate.is_approved(f"import_{fpath.name}")
+                )
+                if not ok:
+                    return {"success": False, "error": "owner approval required to import module at runtime"}
+
+                import importlib.util
+                module_name = f"saraphina_dynamic_{fpath.stem}_{uuid.uuid4().hex[:6]}"
+                spec = importlib.util.spec_from_file_location(module_name, str(fpath))
+                if not spec or not spec.loader:
+                    return {"success": False, "error": "loader unavailable"}
+
+                mod = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod)  # executes under owner approval
+
+                if hasattr(mod, "initialize") and callable(mod.initialize):
+                    try:
+                        mod.initialize()
+                    except Exception:
+                        logger.debug("module initialize raised")
+
+                self._emit("module_imported", {"module": module_name, "file": fpath.name})
+                return {"success": True, "module": module_name}
+            except Exception as e:
+                logger.exception("dynamic import failed")
+                return {"success": False, "error": str(e)}
+
+    # -------- Owner controls --------
+    def enable_operator_token(self, token: str) -> None:
+        """Set in-memory operator token – use it when confirming installs/applies."""
+        self._operator_token = token
+        self._emit("operator_token_enabled", {"masked": (token[:4] + "...") if token else None})
+
+    def enable_autonomy_session(self, owner_token: Optional[str]=None) -> bool:
+        """Enable autonomy for this session (use with caution)."""
+        if owner_token and self._operator_token and owner_token == self._operator_token:
+            self.autonomous_enabled = True
+            self.audit.log_event("autonomy_enabled", {"by": "operator"}, True)
+            self._emit("autonomy_enabled", {"by": "operator"})
+            return True
+        return False
+
+    def disable_autonomy_session(self) -> None:
+        self.autonomous_enabled = False
+        self.audit.log_event("autonomy_disabled", {}, True)
+        self._emit("autonomy_disabled", {})
+
+    # -------- Packages (request + confirm) --------
+    def detect_missing_packages(self, python_file: Optional[Path]=None) -> Dict[str, Any]:
+        with self._lock:
+            files = [python_file] if python_file else list(self.project_root.glob("*.py")) + list(self.engine_dir.glob("*.py"))
+            needs: Dict[str, bool] = {}
+            for f in files:
+                try:
+                    text = f.read_text(encoding="utf-8", errors="ignore")
+                    tree = ast.parse(text)
+                    for node in ast.walk(tree):
+                        if isinstance(node, ast.Import):
+                            for alias in node.names:
+                                name = alias.name.split(".")[0]
+                                if name not in needs:
+                                    try:
+                                        __import__(name)
+                                        needs[name] = True
+                                    except Exception:
+                                        needs[name] = False
+                        if isinstance(node, ast.ImportFrom):
+                            mod = (node.module or "").split(".")[0]
+                            if mod and mod not in needs:
+                                try:
+                                    __import__(mod)
+                                    needs[mod] = True
+                                except Exception:
+                                    needs[mod] = False
+                except Exception:
+                    continue
+            self._emit("detect_missing_packages", needs)
+            return needs
+
+    def request_install_packages(self, packages: List[str]) -> Dict[str, Any]:
+        pid = f"install_{uuid.uuid4().hex[:10]}"
+        rec = {
+            "proposal_id": pid,
+            "feature_spec": f"install {packages}",
+            "language": "system",
+            "code": "",
+            "metadata": {"packages": packages, "created_at": datetime.utcnow().isoformat()+"Z"},
+            "safety_checks": {"requires_owner_approval": True}
+        }
+        self.proposal_db.store_proposal(rec)
+        self.audit.log_event("install_requested", {"proposal_id": pid, "packages": packages}, True)
+        self._emit("install_requested", rec)
+        return {"success": True, "proposal_id": pid, "packages": packages}
+
+    def confirm_install_packages(self, proposal_id: str, owner_token: Optional[str]=None, allow_upgrade: bool=False) -> Dict[str, Any]:
+        with self._lock:
+            prop = self.proposal_db.get_proposal(proposal_id)
+            if not prop:
+                return {"success": False, "error": "proposal not found"}
+            pkgs = prop.get("metadata", {}).get("packages", [])
+            if not pkgs:
+                return {"success": False, "error": "no packages listed"}
+
+            ok = (
+                (owner_token and self._operator_token and owner_token == self._operator_token)
+                or self.owner_gate.is_approved(proposal_id)
+                or self.autonomous_enabled
+            )
+            if not ok:
+                return {"success": False, "error": "owner approval required to install packages"}
+
+            cmd = [sys.executable, "-m", "pip", "install"] + (["--upgrade"] if allow_upgrade else []) + pkgs
+            try:
+                proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=900)
+                success = proc.returncode == 0
+                self.proposal_db.set_status(proposal_id, "installed" if success else "failed")
+                self.audit.log_event("install_executed", {"proposal_id": proposal_id, "returncode": proc.returncode}, success)
+                return {
+                    "success": success,
+                    "stdout": proc.stdout.decode("utf-8", "ignore"),
+                    "stderr": proc.stderr.decode("utf-8", "ignore")
+                }
+            except Exception as e:
+                logger.exception("install failed")
+                return {"success": False, "error": str(e)}
+
+    # -------- Backups / rollback --------
+    def rollback_from_backup(self, backup_filename: str) -> Dict[str, Any]:
+        bpath = self._backup_dir / backup_filename
+        if not bpath.exists():
+            return {"success": False, "error": "backup not found"}
+
+        fname = backup_filename.split(".")[0]
+        target = _search_for_file([self.project_root, self.engine_dir], fname)
+        if not target:
+            return {"success": False, "error": "target not resolvable"}
+
+        shutil.copy2(str(bpath), str(target))
+        self.audit.log_event("rollback", {"backup": backup_filename, "restored": target.name}, True)
+        self._emit("rollback", {"backup": backup_filename})
+        return {"success": True, "restored": str(target)}
+
+    # -------- Introspection --------
+    def list_proposals(self) -> List[Dict[str, Any]]:
+        return list(getattr(self.proposal_db, "_store", {}).values())
+
+    def get_proposal(self, pid: str) -> Optional[Dict[str, Any]]:
+        return self.proposal_db.get_proposal(pid)
+
+    # -------- GUI compatibility shim (NO GUI changes required) --------
+    def accept_spec_and_propose(self, spec: dict, actor: str="gui") -> dict:
+        try:
+            # Candidates from GUI spec
+            candidates: List[str] = []
+            if isinstance(spec, dict):
+                t = spec.get("targets") or spec.get("target") or []
+                if isinstance(t, str):
+                    candidates = [t]
+                elif isinstance(t, list):
+                    candidates = [x for x in t if isinstance(x, str)]
+            if not candidates:
+                candidates = [str(DEFAULT_PROJECT_ROOT / "saraphina_gui.py")]
+
+            # Resolve an existing file
+            chosen: Optional[Path] = None
+            for c in candidates:
+                p = self._resolve_target_file(c)
+                if p and p.exists():
+                    chosen = p
+                    break
+            if not chosen:
+                fb = os.path.basename(candidates[0])
+                chosen = self._resolve_target_file(fb)
+
+            if not chosen or not chosen.exists():
+                return {"success": False, "error": f"Target not found: {os.path.basename(candidates[0])}"}
+
+            # Build improvement text
+            safety = (spec.get("safety_level") if isinstance(spec, dict) else None) or "high"
+            human_spec = ""
+            if isinstance(spec, dict):
+                human_spec = spec.get("improvement_spec") or spec.get("summary") or spec.get("request") or ""
+                desired = spec.get("desired_changes")
+                if isinstance(desired, list) and desired:
+                    human_spec += "\nDesired changes:\n" + "\n".join([json.dumps(x, ensure_ascii=False) for x in desired])
+            if not human_spec.strip():
+                human_spec = "Implement the requested improvement inferred from user intent and context."
+
+            res = self.propose_improvement(str(chosen), human_spec, safety_level=safety)
+            if res.get("success"):
+                self._emit("proposal_created", {"proposal_id": res.get("proposal_id"), "metadata": res.get("metadata")})
+            return res
+        except Exception as e:
+            logger.exception("accept_spec_and_propose failed")
+            return {"success": False, "error": str(e)}
+
+    # -------- Optional GUI autowire (messages only) --------
+    def try_autowire_into_gui(self, gui_root_object):
+        try:
+            if not gui_root_object:
+                return False
+
+            def _on_created(record):
+                msg = f"[SelfMod] Proposal created: {record.get('proposal_id')} -> {record.get('metadata',{}).get('target_file','?')}"
+                if hasattr(gui_root_object, "add_system_message"):
+                    gui_root_object.add_system_message(msg)
+
+            def _on_applied(info):
+                msg = f"[SelfMod] Proposal applied: {info.get('proposal_id')} -> {info.get('target')}"
+                if hasattr(gui_root_object, "add_system_message"):
+                    gui_root_object.add_system_message(msg)
+
+            self.on("proposal_created", _on_created)
+            self.on("proposal_applied", _on_applied)
+            return True
+        except Exception:
+            return False
+
+# ===========================
+# APPEND-ONLY COMPATIBILITY PATCH (do not remove anything above)
+# Purpose: add GUI-facing API and robust path resolution without altering existing code.
+# ===========================
+
+import os as _sme_os
+from pathlib import Path as _sme_Path
+from datetime import datetime as _sme_dt
+import uuid as _sme_uuid
+import shutil as _sme_shutil
+
+# --- helpers ---
+def _sme_resolve_target(self, name_or_path: str):
+    try:
+        cand = _sme_Path(name_or_path)
+        if cand.is_absolute() and cand.exists():
+            return cand.resolve()
+        base = _sme_os.path.basename(name_or_path)
+        if not base.endswith(".py"):
+            base += ".py"
+        # infer roots
+        roots = []
+        proj = getattr(self, "project_root", None)
+        if isinstance(proj, _sme_Path) and proj.exists():
+            roots.append(proj)
+        # env root
+        env_root = _sme_os.getenv("SARAPHINA_PROJECT_ROOT", "D:/Saraphina Root")
+        try:
+            envp = _sme_Path(env_root)
+            if envp.exists():
+                roots.append(envp)
+        except Exception:
+            pass
+        eng = getattr(self, "engine_dir", None) or getattr(self, "root", None)
+        if isinstance(eng, _sme_Path) and eng.exists():
+            roots.append(eng)
+        # direct lookups
+        for r in roots:
+            p = (r / base).resolve()
+            if p.exists():
+                return p
+        # last resort: rglob under first root
+        if roots:
+            for p in roots[0].rglob(base):
+                return p.resolve()
+    except Exception:
+        pass
+    return None
+
+# Monkey patch SelfModificationEngine
+try:
+    _SME = SelfModificationEngine  # provided above
+except NameError as _e:
+    raise RuntimeError("SelfModificationEngine not found for patching") from _e
+
+# Autowire owner token from .env after original __init__
+if not getattr(_SME, "_sme_init_wrapped", False):
+    _orig_init = _SME.__init__
+    def __init__patched(self, *args, **kwargs):
+        _orig_init(self, *args, **kwargs)
+        try:
+            tok = _sme_os.getenv("SELF_MOD_OWNER_TOKEN", "").strip()
+            if tok:
+                try:
+                    self.enable_operator_token(tok)
+                except Exception:
+                    setattr(self, "_operator_token", tok)
+        except Exception:
+            pass
+        # ensure backup dir exists if missing
+        if not hasattr(self, "_backup_dir") or getattr(self, "_backup_dir") is None:
+            try:
+                base = getattr(self, "engine_dir", None) or _sme_Path(__file__).parent
+                bdir = _sme_Path(base) / "backups" / "self_mod"
+                bdir.mkdir(parents=True, exist_ok=True)
+                setattr(self, "_backup_dir", bdir)
+            except Exception:
+                pass
+    _SME.__init__ = __init__patched
+    _SME._sme_init_wrapped = True
+
+# Provide accept_spec_and_propose if missing (GUI expects this)
+if not hasattr(_SME, "accept_spec_and_propose"):
+    def _accept_spec_and_propose(self, spec: dict, actor: str="gui") -> dict:
+        try:
+            # candidates from spec
+            candidates = []
+            if isinstance(spec, dict):
+                t = spec.get("targets") or spec.get("target") or []
+                if isinstance(t, str):
+                    candidates = [t]
+                elif isinstance(t, list):
+                    candidates = [x for x in t if isinstance(x, str)]
+            if not candidates:
+                candidates = ["saraphina_gui.py"]
+            chosen = None
+            for c in candidates:
+                p = _sme_resolve_target(self, c)
+                if p:
+                    chosen = p; break
+            if not chosen:
+                # try basename fallback
+                name = _sme_os.path.basename(candidates[0])
+                chosen = _sme_resolve_target(self, name)
+                if not chosen:
+                    return {"success": False, "error": f"Target not found: {name}"}
+            # build human spec
+            safety = (spec.get("safety_level") if isinstance(spec, dict) else None) or "high"
+            text = ""
+            if isinstance(spec, dict):
+                text = spec.get("improvement_spec") or spec.get("summary") or spec.get("request") or ""
+                desired = spec.get("desired_changes")
+                if isinstance(desired, list) and desired:
+                    text += "\nDesired changes:\n" + "\n".join([json.dumps(x, ensure_ascii=False) for x in desired])
+            if not text.strip():
+                text = "Implement the requested improvement inferred from user intent and context."
+            return self.propose_improvement(str(chosen), text, safety_level=safety)
+        except Exception as e:
+            try:
+                import logging as _lg
+                _lg.getLogger("SelfModificationEngine").exception("accept_spec_and_propose failed")
+            except Exception:
+                pass
+            return {"success": False, "error": str(e)}
+    setattr(_SME, "accept_spec_and_propose", _accept_spec_and_propose)
+
+# Provide attach_to to satisfy callers expecting .self_mod_api
+if not hasattr(_SME, "attach_to"):
+    def _attach_to(self, obj) -> bool:
+        try:
+            setattr(obj, "self_mod_api", self)
+            return True
+        except Exception:
+            return False
+    setattr(_SME, "attach_to", _attach_to)
+
+# try_autowire_into_gui passthrough if missing
+if not hasattr(_SME, "try_autowire_into_gui"):
+    def _try_autowire_into_gui(self, gui_root_object):
+        try:
+            if not gui_root_object:
+                return False
+            if hasattr(self, "on"):
+                def _on_created(rec):
+                    try:
+                        msg = f"[SelfMod] Proposal created: {rec.get('proposal_id')} -> {(rec.get('metadata') or {}).get('target_file','?')}"
+                        if hasattr(gui_root_object, "add_system_message"):
+                            gui_root_object.add_system_message(msg)
+                    except Exception:
+                        pass
+                def _on_applied(info):
+                    try:
+                        msg = f"[SelfMod] Proposal applied: {info.get('proposal_id')} -> {info.get('target')}"
+                        if hasattr(gui_root_object, "add_system_message"):
+                            gui_root_object.add_system_message(msg)
+                    except Exception:
+                        pass
+                self.on("proposal_created", _on_created)
+                self.on("proposal_applied", _on_applied)
+            return True
+        except Exception:
+            return False
+    setattr(_SME, "try_autowire_into_gui", _try_autowire_into_gui)
+
+# ===========================
+# End APPEND-ONLY PATCH
+# ===========================

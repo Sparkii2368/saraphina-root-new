@@ -1,0 +1,77 @@
+[
+  {
+    "description": "Respond intellectually to: hi",
+    "priority": 0.5,
+    "steps": [],
+    "completed": false
+  },
+  {
+    "description": "Respond intellectually to: hi",
+    "priority": 0.5,
+    "steps": [
+      {
+        "step": "Analyze goal",
+        "done": false
+      },
+      {
+        "step": "Plan required steps",
+        "done": false
+      },
+      {
+        "step": "Execute or explain steps",
+        "done": false
+      }
+    ],
+    "completed": false
+  },
+  {
+    "description": "Respond intellectually to: so scan you search the web?",
+    "priority": 0.5,
+    "steps": [
+      {
+        "step": "Analyze goal",
+        "done": false
+      },
+      {
+        "step": "Plan required steps",
+        "done": false
+      },
+      {
+        "step": "Execute or explain steps",
+        "done": false
+      }
+    ],
+    "completed": false
+  },
+  {
+    "description": "Respond intellectually to: hi",
+    "priority": 0.5,
+    "steps": [
+      {
+        "step": "Analyze goal",
+        "done": false
+      },
+      {
+        "step": "Plan required steps",
+        "done": false
+      },
+      {
+        "step": "Execute or explain steps",
+        "done": false
+      }
+    ],
+    "completed": false
+  },
+  {
+    "description": "Assist with: pip install pyaudio",
+    "priority": 0.7,
+    "steps": [],
+    "completed": false
+  },
+  {
+    "description": "Respond intellectually to: hi",
+    "priority": 0.5,
+    "steps": [],
+    "completed": false
+  }
+]

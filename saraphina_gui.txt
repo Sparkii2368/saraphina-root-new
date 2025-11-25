@@ -1,0 +1,1923 @@
+#!/usr/bin/env python3
+"""
+Saraphina — Final Form GUI (Windows, Smart-Hybrid Voice)
+Hardened + improved playback and robustness (refactor for clarity)
+Author: Curated upgrade for Jacques Schutte
+Date: 2025-11-12 (upgraded)
+"""
+from __future__ import annotations
+
+# ===== Back-compat core alias helper =====
+def _sara_patch_core_aliases(core):
+    """Ensure UltraAICore exposes .ultra, .core, and .ai for legacy paths."""
+    try:
+        core.ultra = core
+    except Exception:
+        pass
+    try:
+        if not hasattr(core, "core"):
+            core.core = core
+    except Exception:
+        pass
+    try:
+        core.ai = core
+    except Exception:
+        pass
+    return core
+# ===== /helper =====
+
+
+# ==== Early .env loader (hard-wired to D:\Saraphina Root\.env) ====
+def _sara_apply_env():
+    import os
+    from pathlib import Path
+    p = Path(r"D:\Saraphina Root\.env")
+    if not p.exists():
+        return
+    allow = {
+        "ELEVENLABS_API_KEY", "ELEVEN_API_KEY", "ELEVEN_VOICE_ID",
+        "OPENAI_API_KEY", "SARA_THEME_ACCENT",
+        "SELF_MOD_ENABLE", "SELF_MOD_OWNER_TOKEN", "SELF_MOD_DEPLOY_TOKEN", "SELF_MOD_SECRET"
+    }
+    for line in p.read_text(encoding="utf-8", errors="ignore").splitlines():
+        if not line or line.strip().startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        k = k.strip(); v = v.strip().strip("'").strip('"')
+        if k in allow and v:
+            os.environ[k] = v
+_sara_apply_env()
+# ==== /env loader ====
+
+# ==== Saraphina hardwired launch & logging (D:\Saraphina Root) ====
+try:
+    import os as _os, ctypes as _ctypes, logging as _logging, datetime as _dt
+    from pathlib import Path as _Path
+    _PROJECT_ROOT = _Path(r"D:\Saraphina Root")
+    _SRC_DIR = _PROJECT_ROOT / "src"
+    if _SRC_DIR.exists():
+        _os.chdir(str(_SRC_DIR))
+    _LOG_DIR = _PROJECT_ROOT / "logs"
+    _LOG_DIR.mkdir(parents=True, exist_ok=True)
+    _LOG_FILE = _LOG_DIR / "saraphina_gui.log"
+    _root = _logging.getLogger()
+    for _h in list(_root.handlers):
+        _root.removeHandler(_h)
+    _root.setLevel(_logging.DEBUG)
+    _fmt = _logging.Formatter("%(asctime)s | %(levelname)s | %(name)s | %(message)s")
+    _fh = _logging.FileHandler(str(_LOG_FILE), encoding="utf-8")
+    _fh.setLevel(_logging.DEBUG)
+    _fh.setFormatter(_fmt)
+    _root.addHandler(_fh)
+    _logging.getLogger("SaraphinaBoot").info(">>> Boot sequence started (forced log path %s)", _LOG_FILE)
+    _BOOT_MARKER = _LOG_DIR / "BOOT_MARKER.txt"
+    try:
+        _BOOT_MARKER.write_text("Booted at " + _dt.datetime.now().isoformat() + "\n", encoding="utf-8")
+    except Exception:
+        pass
+    _temp_pref = _PROJECT_ROOT / "temp_real"
+    try:
+        if _temp_pref.exists() and _temp_pref.is_symlink():
+            raise RuntimeError("symlink temp")
+        _temp_pref.mkdir(parents=True, exist_ok=True)
+    except Exception:
+        from tempfile import gettempdir as _gettempdir
+        _temp_pref = _Path(_gettempdir()).resolve()
+    _os.environ["SARAPHINA_TEMP_DIR"] = str(_temp_pref)
+    _os.environ["TEMP"] = str(_temp_pref)
+    _os.environ["TMP"]  = str(_temp_pref)
+    _logging.getLogger("SaraphinaBoot").info("TEMP=%s", _temp_pref)
+    if not _os.getenv("ELEVEN_VOICE_ID"):
+        _os.environ["ELEVEN_VOICE_ID"] = "9FVjbo4C2Q6BidfZSeno"
+    def _sara_msgbox(_text, _title="Saraphina"):
+        try:
+            _ctypes.windll.user32.MessageBoxW(0, str(_text), str(_title), 0x10)
+        except Exception:
+            pass
+except Exception as _early_e:
+    try:
+        _ctypes.windll.user32.MessageBoxW(0, str(_early_e), "Saraphina (early error)", 0x10)
+    except Exception:
+        pass
+# ==== / hardwired block ====
+import sys
+import os
+import threading
+import queue
+import time
+import re
+import logging
+import hashlib
+import hmac
+import json
+import random
+import io
+import wave
+import traceback  # ← NEW: for full tracebacks in upgrade errors
+from pathlib import Path
+from datetime import datetime
+from typing import Optional, Any, Callable
+
+# ------------------------
+# NEW: Upgrade System Imports
+# ------------------------
+try:
+    from code_forge import CodeForge
+    from sandbox_validator import SandboxValidator
+    from upgrade_learning_journal import UpgradeLearningJournal
+    from spec_generator import SpecGenerator
+    UPGRADE_SYSTEM_AVAILABLE = True
+except Exception as e:
+    logging.getLogger("SaraphinaGUI").warning(f"Upgrade system modules failed to import: {e}")
+    UPGRADE_SYSTEM_AVAILABLE = False
+    CodeForge = SandboxValidator = UpgradeLearningJournal = SpecGenerator = None
+
+# ------------------------
+# Logging: production-safe default
+# ------------------------
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s | %(levelname)-8s | %(name)s | %(message)s',
+    datefmt='%H:%M:%S'
+)
+logger = logging.getLogger("SaraphinaGUI")
+if os.getenv("SARAPHINA_DEBUG", "0").lower() in ("1", "true", "yes"):
+    logger.setLevel(logging.DEBUG)
+else:
+    logger.setLevel(logging.INFO)
+
+# ------------------------
+# Platform / App paths (Windows-focused)
+# ------------------------
+IS_WINDOWS = sys.platform.startswith("win")
+REPO_ROOT = Path(__file__).parent.resolve()
+# Respect environment override for appdata / config base
+BASE_APPDATA = Path(os.getenv("APPDATA", "")) if os.getenv("APPDATA") else REPO_ROOT
+CONFIG_DIR = BASE_APPDATA / "Saraphina"
+CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+CONFIG_FILE = CONFIG_DIR / "config.json"
+
+# ------------------------
+# Temp dir selection (safer)
+# ------------------------
+env_temp = os.getenv("SARAPHINA_TEMP_DIR", "").strip()
+if env_temp:
+    SARAPHINA_TEMP_DIR = Path(env_temp).resolve()
+else:
+    # prefer D drive layout if present (legacy), otherwise repo-local temp
+    candidate = Path("D:/Saraphina Root/temp")
+    if IS_WINDOWS and candidate.exists():
+        SARAPHINA_TEMP_DIR = candidate.resolve()
+    else:
+        SARAPHINA_TEMP_DIR = (REPO_ROOT / "temp").resolve()
+SARAPHINA_TEMP_DIR.mkdir(parents=True, exist_ok=True)
+
+if SARAPHINA_TEMP_DIR.exists() and SARAPHINA_TEMP_DIR.is_symlink():
+    logger.critical("Temp dir must not be a symlink. Aborting startup.")
+    raise RuntimeError("Temp dir must not be a symlink")
+
+try:
+    # best-effort permission tightening (may be no-op on Windows)
+    os.chmod(SARAPHINA_TEMP_DIR, 0o700)
+except Exception:
+    logger.debug("Could not chmod temp dir (likely Windows). Ensure ACLs restrict access.")
+
+# set system temp to our folder for subprocesses that rely on TEMP/TMP
+tempfile_env_vars = {"TEMP": str(SARAPHINA_TEMP_DIR), "TMP": str(SARAPHINA_TEMP_DIR)}
+os.environ.update(tempfile_env_vars)
+logger.info(f"[TEMP] Temporary files -> {SARAPHINA_TEMP_DIR}")
+
+# ------------------------
+# .env enforcement with allowlist & optional HMAC
+# ------------------------
+DOTENV_ENFORCED_PATH = Path(os.getenv("SARAPHINA_ENV_PATH",
+                                      ("D:/Saraphina Root/.env" if IS_WINDOWS else (REPO_ROOT / ".env")))).resolve()
+ENV_ALLOWLIST = {
+    "OPENAI_API_KEY",
+    "SELF_MOD_OWNER_TOKEN",
+    "SELF_MOD_DEPLOY_TOKEN",
+    "SELF_MOD_SECRET",
+    "SARAPHINA_SMOKE_TEST_CMD",
+    "SELF_MOD_REQUIRE_INTEGRITY",
+    "AUTO_LISTEN",
+    "SELF_MOD_ENABLE",
+    "ELEVENLABS_API_KEY",
+    "ELEVEN_API_KEY",
+    "SARA_THEME_ACCENT",
+    "ELEVEN_VOICE_ID",  # --- PATCH: allow explicit voice id in .env
+}
+
+def _mask_key(k: Optional[str]) -> Optional[str]:
+    if not k:
+        return None
+    s = str(k).strip()
+    return s if len(s) <= 12 else (s[:6] + "..." + s[-4:])
+
+def _check_env_file_permissions(env_path: Path) -> bool:
+    try:
+        st = env_path.stat()
+        # refuse if world-writable (POSIX check); Windows will not provide same bits but it's fine
+        if bool(st.st_mode & 0o022):
+            logger.error(".env has insecure permissions (world-writable). Refusing to apply.")
+            return False
+        return True
+    except Exception as e:
+        logger.warning(f"Could not stat .env: {e}")
+        return False
+
+def _verify_env_hmac(env_path: Path, secret: str) -> bool:
+    try:
+        hmac_path = env_path.with_name(env_path.name + ".hmac")
+        if not hmac_path.exists():
+            logger.error(".env.hmac missing")
+            return False
+        expected = hmac_path.read_text().strip()
+        data = env_path.read_bytes()
+        calc = hmac.new(secret.encode('utf-8'), data, hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(calc, expected):
+            logger.error(".env HMAC mismatch")
+            return False
+        return True
+    except Exception as e:
+        logger.exception(f".env HMAC verify error: {e}")
+        return False
+
+# load dotenv if present but keep allowlist strict
+try:
+    from dotenv import dotenv_values  # type: ignore
+    if DOTENV_ENFORCED_PATH.exists():
+        if _check_env_file_permissions(DOTENV_ENFORCED_PATH):
+            loaded = dotenv_values(DOTENV_ENFORCED_PATH)
+            require_integrity = str(loaded.get('SELF_MOD_REQUIRE_INTEGRITY', '')).lower() in ('1', 'true', 'yes')
+            if require_integrity:
+                secret = os.getenv('SELF_MOD_SECRET', '')
+                if secret and _verify_env_hmac(DOTENV_ENFORCED_PATH, secret):
+                    applied, ignored = {}, []
+                    for k, v in loaded.items():
+                        if v is None:
+                            continue
+                        if k not in ENV_ALLOWLIST:
+                            ignored.append(k)
+                            continue
+                        val = str(v).strip().strip('"').strip("'")
+                        os.environ[k] = val
+                        applied[k] = _mask_key(val)
+                    logger.info(f"[ENV] Applied keys: {list(applied.keys())}")
+                    if ignored:
+                        logger.warning(f"[ENV] Ignored: {ignored}")
+                else:
+                    logger.error("Integrity required but secret missing or validation failed; skipping .env apply.")
+            else:
+                applied, ignored = {}, []
+                for k, v in loaded.items():
+                    if v is None:
+                        continue
+                    if k not in ENV_ALLOWLIST:
+                        ignored.append(k)
+                        continue
+                    val = str(v).strip().strip('"').strip("'")
+                    os.environ[k] = val
+                    applied[k] = _mask_key(val)
+                logger.info(f"[ENV] Applied keys: {list(applied.keys())}")
+                if ignored:
+                    logger.warning(f"[ENV] Ignored: {ignored}")
+        else:
+            logger.error(".env failed permission checks; not applied.")
+    else:
+        logger.info(f"No enforced .env at: {DOTENV_ENFORCED_PATH}")
+except Exception as e:
+    logger.warning(f"Could not load dotenv utilities: {e}")
+
+# ------------------------
+# DB helper stubs (preserve API)
+# ------------------------
+def _db_get_preference_fallback(conn_or_key=None, key=None):
+    try:
+        if key is None:
+            key = conn_or_key
+        return None
+    except Exception:
+        return None
+
+def _db_set_preference_fallback(*args, **kwargs): return None
+def _db_init_fallback(*args, **kwargs): raise RuntimeError("init_db not available")
+get_preference = _db_get_preference_fallback
+set_preference = _db_set_preference_fallback
+init_db = _db_init_fallback
+write_audit_log = lambda *a, **k: None
+DB_FILE = None
+
+# ------------------------
+# GUI toolkit (tkinter)
+# ------------------------
+try:
+    import tkinter as tk  # type: ignore
+    from tkinter import ttk, scrolledtext, font, messagebox  # type: ignore
+    GUI_AVAILABLE = True
+except Exception as e:
+    logger.critical("Tkinter not available. GUI requires tkinter.")
+    raise
+
+# preserve external processor if present
+try:
+    from saraphina.gui_ultra_processor import GUIUltraProcessor, parse_and_prepare_proposal  # type: ignore
+except Exception:
+    GUIUltraProcessor = None
+    parse_and_prepare_proposal = None
+
+# ------------------------
+# ElevenLabs Voice: Smart Hybrid Manager
+# ------------------------
+VOICE_AVAILABLE = False
+VOICE_IMPORT_ERROR = None
+
+# --- PATCH: Force ElevenLabs voice ID (no substitutes)
+ELEVEN_VOICE_ID = (os.getenv('ELEVEN_VOICE_ID') or '9FVjbo4C2Q6BidfZSeno').strip()
+if not ELEVEN_VOICE_ID:
+    ELEVEN_VOICE_ID = "9FVjbo4C2Q6BidfZSeno"  # Jacques' fixed voice
+
+def _noop_speak(text: str):
+    logger.debug("[TTS NOOP] " + (text[:120] + "..." if len(text) > 120 else text))
+
+class _NoopVoiceManager:
+    def stop_playback(self): pass
+    def cleanup(self): pass
+
+# VoiceQueueItem structure
+class _VoiceRequest:
+    def __init__(self, text: str, voice_id: Optional[str] = None, priority: int = 5, truncate_length: int = 600):
+        self.text = text
+        self.voice_id = voice_id
+        self.priority = priority
+        self.truncate_length = truncate_length
+        self.timestamp = time.time()
+        self.attempts = 0
+
+# Actual manager
+class ElevenHybridVoiceManager:
+    """
+    Manages a queue of TTS requests, generates audio via ElevenLabs SDK,
+    and plays audio using simpleaudio (if available) for interruptible playback.
+    """
+    def __init__(self, api_key: str):
+        self._api_key = api_key
+        self._queue = queue.PriorityQueue()
+        self._worker = threading.Thread(target=self._worker_loop, daemon=True, name="ElevenVoiceWorker")
+        self._stop_event = threading.Event()
+        self._current_playback = None
+        self._playback_lock = threading.Lock()
+        self._simpleaudio = None
+        self._eleven_generate = None
+        self._eleven_play = None
+        self._eleven_set_key = None
+        self._setup_success = False
+        self._init_sdk()
+        if self._setup_success:
+            self._worker.start()
+
+    def _init_sdk(self):
+        try:
+            from elevenlabs import set_api_key, generate, play  # type: ignore
+            try:
+                set_api_key(self._api_key)
+            except Exception as e:
+                logger.warning(f"ElevenLabs:set_api_key failed: {e}")
+            self._eleven_generate = generate
+            self._eleven_play = play
+            self._eleven_set_key = set_api_key
+            try:
+                import simpleaudio as sa  # type: ignore
+                self._simpleaudio = sa
+                logger.debug("simpleaudio available — will use interruptible PCM playback.")
+            except Exception:
+                self._simpleaudio = None
+                logger.debug("simpleaudio unavailable — using official SDK.play fallback (may be non-interruptible).")
+            self._setup_success = True
+            logger.info("ElevenHybridVoiceManager initialized.")
+        except Exception as e:
+            logger.exception(f"ElevenLabs SDK init error: {e}")
+            self._setup_success = False
+
+    def stop_playback(self):
+        with self._playback_lock:
+            self._stop_event.set()
+            play_obj = self._current_playback
+            if play_obj and self._simpleaudio:
+                try:
+                    play_obj.stop()
+                except Exception:
+                    logger.debug("Failed to stop simpleaudio playback (ignored).")
+
+    def cleanup(self):
+        self.stop_playback()
+        self._stop_event.set()
+        # wake worker by sending sentinel
+        try:
+            self._queue.put((9999, time.time(), None))
+        except Exception:
+            pass
+        logger.debug("ElevenHybridVoiceManager cleanup requested.")
+
+    def enqueue(self, req: _VoiceRequest):
+        # priority queue by (priority, timestamp)
+        self._queue.put((req.priority, req.timestamp, req))
+        logger.debug("Enqueued TTS request (priority=%s, len=%s)", req.priority, len(req.text))
+
+    def _truncate_text(self, text: str, length: int) -> str:
+        if not text:
+            return ""
+        if len(text) <= length:
+            return text
+        # try to cut at sentence boundary
+        cut = text[:length].rsplit('.', 1)[0]
+        if not cut.strip():
+            cut = text[:length]
+        return cut.strip() + " ... (truncated for speech)"
+
+    def _worker_loop(self):
+        logger.debug("Eleven voice worker started.")
+        backoff_base = 1.2
+        while not self._stop_event.is_set():
+            try:
+                prio, ts, item = self._queue.get(timeout=0.5)
+            except queue.Empty:
+                continue
+            if item is None:
+                break
+            if not isinstance(item, _VoiceRequest):
+                continue
+            item.attempts += 1
+            try:
+                text = item.text.strip()
+                if not text:
+                    continue
+                text = self._truncate_text(text, item.truncate_length)
+                try:
+                    if self._eleven_generate:
+                        # --- PATCH: lock voice to ELEVEN_VOICE_ID (no alloy fallback)
+                        audio_obj = self._eleven_generate(
+                            text=text,
+                            voice=(item.voice_id or ELEVEN_VOICE_ID),
+                            model="eleven_monolingual_v1"
+                        )
+                    else:
+                        raise RuntimeError("ElevenLabs generate unavailable")
+                except Exception as e:
+                    logger.warning("TTS generate failed (attempt %s): %s", item.attempts, e)
+                    if item.attempts < 4:
+                        delay = (backoff_base ** item.attempts) + random.uniform(0, 0.5)
+                        time.sleep(delay)
+                        self._queue.put((item.priority + 1, time.time(), item))
+                        continue
+                    else:
+                        logger.error("TTS generate permanently failed after attempts: %s", e)
+                        continue
+
+                if self._stop_event.is_set():
+                    logger.debug("TTS worker interrupted before playback start.")
+                    continue
+
+                played = False
+                # Attempt to extract raw bytes
+                raw_bytes = None
+                if isinstance(audio_obj, (bytes, bytearray)):
+                    raw_bytes = bytes(audio_obj)
+                else:
+                    for attr in ("content", "audio", "raw", "read"):
+                        if hasattr(audio_obj, attr):
+                            try:
+                                candidate = getattr(audio_obj, attr)
+                                raw_bytes = candidate() if callable(candidate) else candidate
+                                break
+                            except Exception:
+                                continue
+                    if raw_bytes is None and hasattr(audio_obj, "read"):
+                        try:
+                            raw_bytes = audio_obj.read()
+                        except Exception:
+                            raw_bytes = None
+
+                # If we have simpleaudio and raw bytes, try to parse WAV and play via play_buffer
+                if self._simpleaudio and raw_bytes:
+                    try:
+                        # check for WAV header
+                        if raw_bytes[:4] == b'RIFF' and b'WAVE' in raw_bytes[:12]:
+                            bio = io.BytesIO(raw_bytes)
+                            try:
+                                with wave.open(bio, 'rb') as w:
+                                    nchannels = w.getnchannels()
+                                    sampwidth = w.getsampwidth()
+                                    framerate = w.getframerate()
+                                    frames = w.readframes(w.getnframes())
+                                # simpleaudio expects: audio_data, num_channels, bytes_per_sample, sample_rate
+                                play_obj = self._simpleaudio.play_buffer(frames, nchannels, sampwidth, framerate)
+                                with self._playback_lock:
+                                    self._current_playback = play_obj
+                                    self._stop_event.clear()
+                                while play_obj.is_playing() and not self._stop_event.is_set():
+                                    time.sleep(0.05)
+                                if self._stop_event.is_set():
+                                    try:
+                                        play_obj.stop()
+                                    except Exception:
+                                        pass
+                                with self._playback_lock:
+                                    self._current_playback = None
+                                played = True
+                            except Exception as e:
+                                logger.debug("WAV parse/play failed: %s", e)
+                                played = False
+                        else:
+                            # not a WAV; attempt to play as raw assuming standard params
+                            try:
+                                # guess: stereo 16-bit 44100
+                                play_obj = self._simpleaudio.play_buffer(raw_bytes, 2, 2, 44100)
+                                with self._playback_lock:
+                                    self._current_playback = play_obj
+                                    self._stop_event.clear()
+                                while play_obj.is_playing() and not self._stop_event.is_set():
+                                    time.sleep(0.05)
+                                if self._stop_event.is_set():
+                                    try:
+                                        play_obj.stop()
+                                    except Exception:
+                                        pass
+                                with self._playback_lock:
+                                    self._current_playback = None
+                                played = True
+                            except Exception as e:
+                                logger.debug("simpleaudio fallback play_buffer failed: %s", e)
+                                played = False
+                    except Exception as e:
+                        logger.debug("Interrupted simpleaudio playback path: %s", e)
+                        played = False
+
+                if not played:
+                    # fallback to SDK's play (blocking)
+                    try:
+                        with self._playback_lock:
+                            self._current_playback = "sdk_play"
+                            self._stop_event.clear()
+                        if self._eleven_play:
+                            try:
+                                self._eleven_play(audio_obj)
+                            except Exception as e:
+                                logger.exception("ElevenLabs play failed: %s", e)
+                        with self._playback_lock:
+                            self._current_playback = None
+                    except Exception as e:
+                        logger.debug("Fallback SDK play path failed: %s", e)
+            except Exception as e:
+                logger.exception("Voice worker unexpected error: %s", e)
+        logger.debug("Eleven voice worker exited.")
+
+# initialize voice manager if possible
+try:
+    eleven_key = os.getenv('ELEVENLABS_API_KEY') or os.getenv('ELEVEN_API_KEY')
+    if eleven_key:
+        try:
+            _voice_manager = ElevenHybridVoiceManager(eleven_key)
+            if not _voice_manager._setup_success:
+                raise RuntimeError("ElevenHybridVoiceManager failed init")
+            VOICE_AVAILABLE = True
+            VOICE_IMPORT_ERROR = None
+            def speak_text(text: str):
+                try:
+                    cleaned = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
+                    cleaned = re.sub(r'\*(.+?)\*', r'\1', cleaned)
+                    cleaned = re.sub(r'```.*?```', '', cleaned, flags=re.DOTALL)
+                    cleaned = re.sub(r'`(.+?)`', r'\1', cleaned)
+                    cleaned = re.sub(r"\[[^\]]+\]", " ", cleaned)
+                    cleaned = cleaned.replace('=', ' ')
+                    cleaned = re.sub(r"[_]{1,}", ' ', cleaned)
+                    cleaned = re.sub(r'\s{2,}', ' ', cleaned).strip()
+                    # --- PATCH: every request uses the fixed Eleven voice
+                    req = _VoiceRequest(cleaned, voice_id=ELEVEN_VOICE_ID, priority=5, truncate_length=900)
+                    _voice_manager.enqueue(req)
+                except Exception:
+                    logger.exception("speak_text enqueue failed")
+            def get_voice():
+                return _voice_manager
+            logger.info("Voice manager configured: ElevenLabs (hybrid).")
+        except Exception as e:
+            VOICE_AVAILABLE = False
+            VOICE_IMPORT_ERROR = f"Voice init error: {e}"
+            speak_text = _noop_speak
+            get_voice = lambda: _NoopVoiceManager()
+            logger.exception("Failed to initialize ElevenLabs hybrid manager.")
+    else:
+        VOICE_AVAILABLE = False
+        VOICE_IMPORT_ERROR = "No ElevenLabs API key found in environment."
+        speak_text = _noop_speak
+        get_voice = lambda: _NoopVoiceManager()
+        logger.info("ElevenLabs API key not present; voice disabled.")
+except Exception as e:
+    VOICE_AVAILABLE = False
+    VOICE_IMPORT_ERROR = f"Voice initialization unexpected error: {e}"
+    speak_text = _noop_speak
+    get_voice = lambda: _NoopVoiceManager()
+    logger.exception("Unexpected voice initialization error.")
+
+# ------------------------
+# NEW: AgentUpgrader Class (Integrated for Dynamic Upgrades)
+# ------------------------
+import json as _json  # For spec dumping
+import os as _os  # For file operations
+from typing import Dict, Any
+
+class AgentUpgrader:
+    def __init__(self, agent):
+        self.agent = agent
+        self.hot_reload_manager = None  # Will be set externally if available
+
+    def set_hot_reload_manager(self, manager):
+        """Allow external injection of HotReloadManager"""
+        self.hot_reload_manager = manager
+
+    def apply_upgrade(self, upgrade_spec: Dict[str, Any]) -> bool:
+        """
+        Applies an upgrade to the agent based on the provided spec.
+        Now includes hot reloading, XP rewards, and spec logging.
+        """
+        spec = upgrade_spec.copy()
+        upgrade_type = spec.get("type", "unknown")
+        self.ui_log(f"Applying upgrade: {upgrade_type}")
+
+        # Show spec in GUI for transparency
+        self.ui_log("Upgrade Spec:")
+        self.ui_log(_json.dumps(spec, indent=2))
+
+        success = False
+
+        try:
+            if upgrade_type == "skill_patch":
+                success = self._apply_skill_patch(spec)
+            elif upgrade_type == "behavior_mod":
+                success = self._apply_behavior_mod(spec)
+            elif upgrade_type == "tool_add":
+                success = self._add_tool(spec)
+            else:
+                self.ui_log(f"Unknown upgrade type: {upgrade_type}")
+                return False
+
+            if success:
+                # Track XP / rewards
+                xp_reward = spec.get("xp_reward", 100)
+                self.agent.xp += xp_reward
+                self.ui_log(f"🏆 +{xp_reward} XP awarded for successful upgrade.")
+
+                # Integrate hot reloading
+                if self.hot_reload_manager:
+                    code_artifact = spec.get("code_artifact")
+                    if code_artifact:
+                        self.hot_reload_manager.apply_artifact(code_artifact)
+                        self.ui_log("Hot-reloaded new code artifact.")
+                    else:
+                        self.ui_log("No code artifact to hot-reload.")
+                else:
+                    # Fallback: write to file if no hot reloader
+                    filepath = spec.get("target_file")
+                    code = spec.get("code_artifact")
+                    if filepath and code:
+                        _os.makedirs(_os.path.dirname(filepath), exist_ok=True)
+                        with open(filepath, 'w') as f:
+                            f.write(code)
+                        self.ui_log(f"Upgrade written to {filepath}")
+
+            return success
+
+        except Exception as e:
+            self.ui_log(f"Upgrade failed: {str(e)}")
+            return False
+
+    def _apply_skill_patch(self, spec: Dict) -> bool:
+        skill_name = spec["skill"]
+        patch = spec["patch"]
+        if hasattr(self.agent, skill_name):
+            original = getattr(self.agent, skill_name)
+            if callable(original):
+                new_func = self._patch_function(original, patch)
+                setattr(self.agent, skill_name, new_func)
+                self.ui_log(f"Patched skill: {skill_name}")
+                return True
+        return False
+
+    def _apply_behavior_mod(self, spec: Dict) -> bool:
+        key = spec["key"]
+        value = spec["value"]
+        if hasattr(self.agent, key):
+            setattr(self.agent, key, value)
+            self.ui_log(f"Modified behavior: {key} = {value}")
+            return True
+        return False
+
+    def _add_tool(self, spec: Dict) -> bool:
+        tool_name = spec["name"]
+        tool_code = spec["code"]
+        # Simulate dynamic tool registration
+        exec(tool_code, globals())
+        tool_func = globals().get(tool_name)
+        if tool_func:
+            self.agent.tools[tool_name] = tool_func
+            self.ui_log(f"Added new tool: {tool_name}")
+            return True
+        return False
+
+    def _patch_function(self, original, patch):
+        """Simple string-based function patching (for demo)"""
+        # In real use, compile patch and merge
+        # This is a stub — real patching would use AST or bytecode
+        exec(patch, globals())
+        return globals()[original.__name__]
+
+    def ui_log(self, message: str):
+        """Centralized logging to UI"""
+        if hasattr(self.agent, 'ui_log'):
+            self.agent.ui_log(message)
+        else:
+            print(f"[Upgrade] {message}")
+
+# ------------------------
+# Core session & GUI
+# ------------------------
+class SaraphinaSession:
+    def __init__(self):
+        self.ai = None
+        self.ultra = None
+        self.ke = None
+        self.stt = None
+        self.mm = None
+        self.emotion = None
+        self.sec = None
+        self.trust = None
+        self.beliefs = None
+        self.reasoner = None
+        self.planner = None
+        self.risk = None
+        self.reviews = None
+        self.persona = None
+        self.intuition = None
+        self.graph_explorer = None
+        self.research = None
+        self.toolsmith = None
+        self.sentience = None
+        self.safety_gate = None
+        self.journal = None
+        self.metaopt = None
+        self.shadow = None
+        self.recovery = None
+        self.code_kb = None
+        self.code_research = None
+        self.code_miner = None
+        self.code_factory = None
+        self.test_harness = None
+        self.code_proposals = None
+        self.refinement = None
+        self.self_mod = None
+        self.hot_reload = None
+        self.rollback = None
+        self.improvement_loop = None
+        self.improvement_db = None
+        self.meta_architect = None
+        self.simulation = None
+        self.arch_db = None
+        self.device = None
+        self.voice_enabled = VOICE_AVAILABLE
+        self.api_proc = None
+        self.self_healing = None
+        self.self_mod_api = None
+        self._pending_spec: Optional[dict] = None
+
+        # NEW: Upgrade system components
+        self.codeforge = None
+        self.validator = None
+        self.upgrade_journal = None
+
+        # UPGRADE: Add XP and tools attributes for AgentUpgrader compatibility
+        self.xp = 0
+        self.tools = {}
+
+class SaraphinaBeingGUI:
+    def __init__(self, root: tk.Tk):
+        self.root = root
+        self._load_config()
+        self._apply_theme_overrides()
+        self.root.title("Saraphina — I'm here")
+        self.root.geometry(self._config.get("window_geometry", "1400x900"))
+        self.root.minsize(1100, 700)
+        self.colors = {
+            'bg': '#0a0e1a',
+            'panel': '#0f1729',
+            'border': '#1a2744',
+            'accent': os.getenv('SARA_THEME_ACCENT', '#00d9ff'),
+            'accent2': '#ff00ff',
+            'text': '#e0e6f0',
+            'dim': '#6b7c9e',
+            'success': '#00ff88',
+            'warning': '#ffaa00',
+            'error': '#ff3366',
+        }
+        self.root.configure(bg=self.colors['bg'])
+        self.sess = SaraphinaSession()
+        self.message_queue = queue.Queue()
+        self.is_speaking = False
+        self.is_listening = False
+        self.is_typing = False
+        self.animation_running = True
+        self.ultra_processor = None
+        self._mainthread_lock = threading.Lock()
+        self._register_shortcuts()
+        self._autoscroll = True
+        self._build_ui()
+        self._defer_init_saraphina()
+        self._schedule_periodic_updates()
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+
+        # NEW: Upgrade system initialization
+        if UPGRADE_SYSTEM_AVAILABLE:
+            self.api_key = os.getenv('OPENAI_API_KEY')
+            if self.api_key:
+                self.sess.codeforge = CodeForge(self.api_key)
+                self.sess.validator = SandboxValidator()
+                self.sess.upgrade_journal = UpgradeLearningJournal()
+                logger.info("Upgrade system (CodeForge, Validator, Journal) initialized.")
+            else:
+                logger.warning("OPENAI_API_KEY missing — upgrade system disabled.")
+        else:
+            logger.info("Upgrade system modules not available — running in safe mode.")
+
+        # UPGRADE: Initialize AgentUpgrader and integrate with session
+        self.agent_upgrader = AgentUpgrader(self.sess)
+        if self.sess.hot_reload:
+            self.agent_upgrader.set_hot_reload_manager(self.sess.hot_reload)
+        # UPGRADE: Add ui_log method for AgentUpgrader
+        self.ui_log = self._safe_add_system
+
+    # ------------------------
+    # config helpers
+    # ------------------------
+    def _load_config(self):
+        try:
+            if CONFIG_FILE.exists():
+                with CONFIG_FILE.open('r', encoding='utf-8') as fh:
+                    self._config = json.load(fh)
+            else:
+                self._config = {}
+        except Exception:
+            self._config = {}
+
+    def _save_config(self):
+        try:
+            self._config['window_geometry'] = self.root.winfo_geometry()
+            CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+            with CONFIG_FILE.open('w', encoding='utf-8') as fh:
+                json.dump(self._config, fh, indent=2)
+        except Exception:
+            logger.debug("Failed to save GUI config (ignored).")
+
+    def _apply_theme_overrides(self):
+        accent = os.getenv('SARA_THEME_ACCENT', '')
+        if accent:
+            try:
+                if re.match(r'^#(?:[0-9a-fA-F]{3}){1,2}$', accent):
+                    self.colors = getattr(self, 'colors', {})
+                    self.colors['accent'] = accent
+            except Exception:
+                pass
+
+    # ------------------------
+    # UI construction
+    # ------------------------
+    def _build_ui(self):
+        style = ttk.Style()
+        try:
+            style.theme_use('clam')
+        except Exception:
+            pass
+        main_frame = tk.Frame(self.root, bg=self.colors['bg'])
+        main_frame.pack(fill=tk.BOTH, expand=True, padx=18, pady=18)
+
+        header_frame = tk.Frame(main_frame, bg=self.colors['panel'], highlightbackground=self.colors['accent'], highlightthickness=2)
+        header_frame.pack(fill=tk.X, pady=(0, 16))
+        title_font = font.Font(family="Segoe UI", size=24, weight="bold")
+        tk.Label(header_frame, text="SARAPHINA", font=title_font, fg=self.colors['accent'], bg=self.colors['panel']).pack(side=tk.LEFT, padx=18, pady=12)
+        self.status_label = tk.Label(header_frame, text="● AWAKE", font=("Segoe UI", 10), fg=self.colors['success'], bg=self.colors['panel'])
+        self.status_label.pack(side=tk.RIGHT, padx=18, pady=12)
+
+        content = tk.Frame(main_frame, bg=self.colors['bg'])
+        content.pack(fill=tk.BOTH, expand=True)
+
+        conv_frame = tk.Frame(content, bg=self.colors['panel'], highlightbackground=self.colors['border'], highlightthickness=1)
+        conv_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 12))
+        tk.Label(conv_frame, text="CHATS WITH ME", font=("Segoe UI", 11, "bold"), fg=self.colors['dim'], bg=self.colors['panel']).pack(anchor=tk.W, padx=14, pady=(12, 6))
+        self.conversation = scrolledtext.ScrolledText(conv_frame, wrap=tk.WORD, font=("Consolas", 11), bg=self.colors['bg'], fg=self.colors['text'],
+                                                      insertbackground=self.colors['accent'], selectbackground=self.colors['accent'],
+                                                      selectforeground=self.colors['bg'], borderwidth=0, highlightthickness=0, padx=14, pady=10)
+        self.conversation.pack(fill=tk.BOTH, expand=True, padx=12, pady=(0, 12))
+        self.conversation.config(state=tk.DISABLED)
+        self.conversation.tag_config("user", foreground=self.colors['accent'], font=("Consolas", 11, "bold"))
+        self.conversation.tag_config("saraphina", foreground=self.colors['accent2'], font=("Consolas", 11, "bold"))
+        self.conversation.tag_config("system", foreground=self.colors['dim'], font=("Consolas", 9, "italic"))
+        self.conversation.tag_config("typing", foreground=self.colors['accent'], font=("Consolas", 10, "italic"))
+
+        status_frame = tk.Frame(content, bg=self.colors['panel'], highlightbackground=self.colors['border'], highlightthickness=1, width=360)
+        status_frame.pack(side=tk.RIGHT, fill=tk.Y)
+        status_frame.pack_propagate(False)
+        header_status = tk.Frame(status_frame, bg=self.colors['panel'])
+        header_status.pack(fill=tk.X, padx=16, pady=(12, 12))
+        tk.Label(header_status, text="MY STATUS", font=("Segoe UI", 11, "bold"), fg=self.colors['dim'], bg=self.colors['panel']).pack(side=tk.LEFT)
+        tk.Button(header_status, text="⚙ Settings", font=("Segoe UI", 9), bg=self.colors['border'], fg=self.colors['text'], borderwidth=0, cursor="hand2", command=self.show_settings).pack(side=tk.RIGHT)
+
+        self.level_label = tk.Label(status_frame, text="MIND: --", font=("Segoe UI", 10), fg=self.colors['text'], bg=self.colors['panel'], anchor=tk.W)
+        self.level_label.pack(fill=tk.X, padx=16, pady=4)
+        self.xp_label = tk.Label(status_frame, text="EXP: --", font=("Segoe UI", 10), fg=self.colors['text'], bg=self.colors['panel'], anchor=tk.W)
+        self.xp_label.pack(fill=tk.X, padx=16, pady=4)
+        self.conv_label = tk.Label(status_frame, text="Dialogues: --", font=("Segoe UI", 10), fg=self.colors['text'], bg=self.colors['panel'], anchor=tk.W)
+        self.conv_label.pack(fill=tk.X, padx=16, pady=4)
+        tk.Frame(status_frame, height=1, bg=self.colors['border']).pack(fill=tk.X, padx=16, pady=14)
+        self.voice_label = tk.Label(status_frame, text="I am silent", font=("Segoe UI", 10), fg=self.colors['dim'], bg=self.colors['panel'], anchor=tk.W)
+        self.voice_label.pack(fill=tk.X, padx=16, pady=4)
+        self.kb_label = tk.Label(status_frame, text="Knowledge: -- facts", font=("Segoe UI", 10), fg=self.colors['text'], bg=self.colors['panel'], anchor=tk.W)
+        self.kb_label.pack(fill=tk.X, padx=16, pady=4)
+        tk.Frame(status_frame, height=1, bg=self.colors['border']).pack(fill=tk.X, padx=16, pady=14)
+        tk.Button(status_frame, text="My Memory", font=("Segoe UI", 10), bg=self.colors['border'], fg=self.colors['text'], borderwidth=0, cursor="hand2", command=self.show_history).pack(fill=tk.X, padx=16, pady=6)
+
+        # input
+        input_frame = tk.Frame(main_frame, bg=self.colors['panel'], highlightbackground=self.colors['accent'], highlightthickness=2)
+        input_frame.pack(fill=tk.X, pady=(12, 0))
+        self.input_field = tk.Entry(input_frame, font=("Segoe UI", 12), bg=self.colors['bg'], fg=self.colors['text'], insertbackground=self.colors['accent'], borderwidth=0, highlightthickness=0)
+        self.input_field.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=14, pady=12)
+        self.input_field.bind('<Return>', self.send_message)
+        self.input_field.focus()
+        self.send_button = tk.Button(input_frame, text="ASK", font=("Segoe UI", 11, "bold"), bg=self.colors['accent'], fg=self.colors['bg'], activebackground=self.colors['accent2'], activeforeground=self.colors['bg'], borderwidth=0, padx=28, pady=8, cursor="hand2", command=self.send_message)
+        self.send_button.pack(side=tk.RIGHT, padx=12, pady=8)
+
+    # ------------------------
+    # initialization (lazy & background)
+    # ------------------------
+    def _defer_init_saraphina(self):
+        threading.Thread(target=self.init_saraphina, daemon=True, name="SaraphinaInit").start()
+
+    def init_saraphina(self):
+        # lazy load DB and core modules with robust fallbacks
+        try:
+            from saraphina.db import init_db as _init_db, get_preference as _get_pref, set_preference as _set_pref, write_audit_log as _waudit, DB_FILE as _DB_FILE  # type: ignore
+            globals()['init_db'] = _init_db
+            globals()['get_preference'] = _get_pref
+            globals()['set_preference'] = _set_pref
+            globals()['write_audit_log'] = _waudit
+            globals()['DB_FILE'] = _DB_FILE
+        except Exception as e:
+            logger.debug("DB lazy import failed (continuing): %s", e)
+
+        def _lazy_import(name):
+            try:
+                module = __import__(name, fromlist=['*'])
+                return module
+            except Exception as e:
+                logger.debug("Deferred import failed for %s: %s", name, e)
+                return None
+
+        KnowledgeEngine = getattr(_lazy_import('saraphina.knowledge_engine'), 'KnowledgeEngine', None)
+        SaraphinaAIEnhanced = getattr(_lazy_import('saraphina.ai_core_enhanced'), 'SaraphinaAIEnhanced', None)
+        UltraAICore = getattr(_lazy_import('saraphina.ultra_ai_core'), 'UltraAICore', None)
+        STT = getattr(_lazy_import('saraphina.stt'), 'STT', None)
+        MemoryManager = getattr(_lazy_import('saraphina.memory_manager'), 'MemoryManager', None)
+        EmotionEngine = getattr(_lazy_import('saraphina.emotion_engine'), 'EmotionEngine', None)
+        SecurityManager = getattr(_lazy_import('saraphina.security'), 'SecurityManager', None)
+        TrustFirewall = getattr(_lazy_import('saraphina.trust_firewall'), 'TrustFirewall', None)
+        BeliefStore = getattr(_lazy_import('saraphina.ethics'), 'BeliefStore', None)
+        EthicalReasoner = getattr(_lazy_import('saraphina.ethics'), 'EthicalReasoner', None)
+        Planner = getattr(_lazy_import('saraphina.planner'), 'Planner', None)
+        RiskModel = getattr(_lazy_import('saraphina.risk_model'), 'RiskModel', None)
+        ReviewManager = getattr(_lazy_import('saraphina.review_manager'), 'ReviewManager', None)
+        PersonaManager = getattr(_lazy_import('saraphina.persona'), 'PersonaManager', None)
+        IntuitionEngine = getattr(_lazy_import('saraphina.intuition'), 'IntuitionEngine', None)
+        KnowledgeGraphExplorer = getattr(_lazy_import('saraphina.knowledge_graph'), 'KnowledgeGraphExplorer', None)
+        ResearchAgent = getattr(_lazy_import('saraphina.research_agent'), 'ResearchAgent', None)
+        CodeKnowledgeDB = getattr(_lazy_import('saraphina.code_knowledge_db'), 'CodeKnowledgeDB', None)
+        CodeResearchAgent = getattr(_lazy_import('saraphina.code_research_agent'), 'CodeResearchAgent', None)
+        RecursiveCodeMiner = getattr(_lazy_import('saraphina.recursive_code_miner'), 'RecursiveCodeMiner', None)
+        CodeFactory = getattr(_lazy_import('saraphina.code_factory'), 'CodeFactory', None)
+        TestHarness = getattr(_lazy_import('saraphina.test_harness'), 'TestHarness', None)
+        CodeProposalDB = getattr(_lazy_import('saraphina.code_proposal_db'), 'CodeProposalDB', None)
+        RefinementEngine = getattr(_lazy_import('saraphina.refinement_engine'), 'RefinementEngine', None)
+        ImprovementDB = getattr(_lazy_import('saraphina.improvement_db'), 'ImprovementDB', None)
+        ImprovementLoop = getattr(_lazy_import('saraphina.improvement_loop'), 'ImprovementLoop', None)
+        HotReloadManager = getattr(_lazy_import('saraphina.hot_reload_manager'), 'HotReloadManager', None)
+        RollbackEngine = getattr(_lazy_import('saraphina.rollback_engine'), 'RollbackEngine', None)
+        MetaArchitect = getattr(_lazy_import('saraphina.meta_architect'), 'MetaArchitect', None)
+        SimulationSandbox = getattr(_lazy_import('saraphina.simulation_sandbox'), 'SimulationSandbox', None)
+        ArchitectureDB = getattr(_lazy_import('saraphina.architecture_db'), 'ArchitectureDB', None)
+        DeviceAgent = getattr(_lazy_import('saraphina.device_agent'), 'DeviceAgent', None)
+        SelfHealingManager = getattr(_lazy_import('saraphina.self_healing_manager'), 'SelfHealingManager', None)
+        SelfModificationAPI = getattr(_lazy_import('saraphina.self_modification_api'), 'SelfModificationAPI', None)
+
+        # boot messages & DB init
+        self._safe_add_system("I am booting my systems...")
+        DB_FILE_LOCAL = globals().get('DB_FILE', REPO_ROOT / "ai_data" / "saraphina_knowledge.db")
+        try:
+            conn = init_db()
+        except Exception as e:
+            logger.debug("init_db not available or failed: %s", e)
+            conn = None
+
+        # Knowledge engine
+        try:
+            if KnowledgeEngine and DB_FILE_LOCAL:
+                self.sess.ke = KnowledgeEngine(DB_FILE_LOCAL)
+            elif KnowledgeEngine and conn:
+                self.sess.ke = KnowledgeEngine(conn)
+            else:
+                self.sess.ke = None
+        except Exception as e:
+            self._safe_add_system(f"I couldn't start my knowledge engine: {e}")
+            self.sess.ke = None
+
+        # core AI
+        try:
+            if SaraphinaAIEnhanced:
+                self.sess.ai = SaraphinaAIEnhanced(Path("ai_data"))
+            else:
+                self.sess.ai = None
+        except Exception as e:
+            self._safe_add_system(f"I couldn't start my core mind: {e}")
+            self.sess.ai = None
+
+        try:
+            if UltraAICore:
+
+                # ---- UltraAICore init (compat-safe) ----
+                try:
+                    from saraphina.ultra_ai_core import UltraAICore  # type: ignore
+                except Exception as e:
+                    UltraAICore = None  # type: ignore
+                    try:
+                        self._sys(f"[SYSTEM] (Core module not available: {e})")
+                    except Exception:
+                        pass
+                
+                if UltraAICore:
+                    try:
+                        core = _sara_patch_core_aliases(UltraAICore())
+                        try:
+                            setattr(core, "ultra", core)
+                        except Exception:
+                            pass
+                        if not hasattr(core, "core"):
+                            try:
+                                setattr(core, "core", core)
+                            except Exception:
+                                pass
+                        self.sess.ultra = core
+                        self.sess.core = core
+                        try:
+                            self._sys("[SYSTEM] ✓ My core is active and wired (compat shim enabled).")
+                        except Exception:
+                            pass
+                    except Exception as e:
+                        try:
+                            self._sys(f"[SYSTEM] Core failed to start: {e}")
+                        except Exception:
+                            pass
+                else:
+                    try:
+                        self._sys("[SYSTEM] (Core module not found; GUI will still run.)")
+                    except Exception:
+                        pass
+                # ----------------------------------------
+
+                if GUIUltraProcessor and self.sess.ultra:
+                    self.ultra_processor = GUIUltraProcessor(self.sess.ultra)
+                # --- PATCH: attach SelfModificationEngine immediately after UltraAICore init
+                try:
+                    from saraphina.self_modification_engine import SelfModificationEngine  # type: ignore
+                    if not getattr(self.sess, "self_mod", None):
+                        self.sess.self_mod = SelfModificationEngine()
+                    if self.sess.ultra and self.sess.self_mod:
+                        self.sess.self_mod.attach_to(self.sess.ultra)  # gives UltraAICore.self_mod_api
+                        self.sess.self_mod.try_autowire_into_gui(self)   # GUI event messages
+                except Exception as e:
+                    self._safe_add_system(f"Self-mod engine autowire failed: {e}")
+            else:
+                self.sess.ultra = None
+        except Exception as e:
+            logger.debug("UltraAICore or GUIUltraProcessor failed: %s", e)
+            self.sess.ultra = None
+
+        if self.sess.ai:
+            try:
+                self._safe_add_system(f"✓ My core is active: Level {self.sess.ai.intelligence_level} | {self.sess.ai.experience_points} XP")
+            except Exception:
+                self._safe_add_system("✓ My core is active")
+        else:
+            self._safe_add_system("My core is not fully initialized")
+
+        # load many optional subsystems
+        systems_loaded = 0
+        try:
+            ke_conn = getattr(self.sess.ke, 'conn', conn)
+            if MemoryManager and ke_conn:
+                self.sess.mm = MemoryManager(ke_conn); self.sess.mem = self.sess.mm
+            if EmotionEngine and ke_conn:
+                self.sess.emotion = EmotionEngine(ke_conn)
+            if SecurityManager:
+                self.sess.sec = SecurityManager(Path("ai_data"))
+            if TrustFirewall and ke_conn:
+                self.sess.trust = TrustFirewall(ke_conn)
+            if BeliefStore and ke_conn:
+                self.sess.beliefs = BeliefStore(ke_conn)
+            if EthicalReasoner:
+                try:
+                    self.sess.reasoner = EthicalReasoner(self.sess.beliefs)
+                except Exception:
+                    self.sess.reasoner = None
+            if Planner:
+                self.sess.planner = Planner()
+            if RiskModel:
+                self.sess.risk = RiskModel()
+            systems_loaded += 9
+        except Exception as e:
+            self._safe_add_system(f"Some core helpers failed to start: {e}")
+
+        # additional helpers (best-effort)
+        try:
+            if ReviewManager and DB_FILE_LOCAL:
+                self.sess.reviews = ReviewManager(DB_FILE_LOCAL); systems_loaded += 1
+        except Exception:
+            pass
+        try:
+            if PersonaManager and ke_conn:
+                self.sess.persona = PersonaManager(ke_conn); systems_loaded += 1
+        except Exception:
+            pass
+        try:
+            if IntuitionEngine and ke_conn:
+                self.sess.intuition = IntuitionEngine(ke_conn); systems_loaded += 1
+        except Exception:
+            pass
+        try:
+            if KnowledgeGraphExplorer and ke_conn:
+                self.sess.graph_explorer = KnowledgeGraphExplorer(ke_conn); systems_loaded += 1
+        except Exception:
+            pass
+        try:
+            if ResearchAgent and self.sess.ke:
+                self.sess.research = ResearchAgent(self.sess.ke); systems_loaded += 1
+        except Exception:
+            pass
+        try:
+            if CodeKnowledgeDB and ke_conn:
+                self.sess.code_kb = CodeKnowledgeDB(ke_conn)
+            if CodeResearchAgent and self.sess.code_kb:
+                self.sess.code_research = CodeResearchAgent(self.sess.code_kb)
+            if RecursiveCodeMiner and self.sess.code_kb:
+                self.sess.code_miner = RecursiveCodeMiner(self.sess.code_kb)
+            if CodeFactory and self.sess.code_kb:
+                self.sess.code_factory = CodeFactory(self.sess.code_kb)
+            if TestHarness:
+                self.sess.test_harness = TestHarness()
+            systems_loaded += 4
+        except Exception:
+            pass
+        try:
+            if CodeProposalDB and getattr(self.sess, 'ke', None):
+                self.sess.code_proposals = CodeProposalDB(getattr(self.sess.ke, 'conn', None))
+            if RefinementEngine and self.sess.code_factory and self.sess.test_harness:
+                self.sess.refinement = RefinementEngine(self.sess.code_factory, self.sess.test_harness)
+            if ImprovementDB and getattr(self.sess, 'ke', None):
+                self.sess.improvement_db = ImprovementDB(getattr(self.sess.ke, 'conn', None))
+            if ImprovementLoop and self.sess.improvement_db and self.sess.refinement:
+                self.sess.improvement_loop = ImprovementLoop(self.sess.improvement_db, self.sess.refinement)
+            systems_loaded += 4
+        except Exception:
+            pass
+        try:
+            if HotReloadManager:
+                self.sess.hot_reload = HotReloadManager(REPO_ROOT)
+            if RollbackEngine:
+                self.sess.rollback = RollbackEngine(Path("ai_data/backups"))
+            try:
+                from saraphina.self_modification_engine import SelfModificationEngine as SME  # type: ignore
+                if SME:
+                    try:
+                        self.sess.self_mod = SME(self.sess.code_factory, self.sess.code_proposals, getattr(self.sess, 'sec', None), getattr(self.sess, 'ke', None).conn if getattr(self.sess, 'ke', None) else None)
+                    except Exception:
+                        try:
+                            self.sess.self_mod = SME(self.sess.code_factory, self.sess.code_proposals, getattr(self.sess, 'sec', None), None)
+                        except Exception:
+                            self.sess.self_mod = None
+                # --- PATCH: ensure attachment persists even if engine re-created here
+                if self.sess.self_mod and self.sess.ultra:
+                    try:
+                        self.sess.self_mod.attach_to(self.sess.ultra)
+                        self.sess.self_mod.try_autowire_into_gui(self)
+                    except Exception as e:
+                        self._safe_add_system(f"Self-mod reattach failed: {e}")
+            except Exception:
+                self.sess.self_mod = None
+            systems_loaded += 1
+        except Exception:
+            pass
+        try:
+            if MetaArchitect and ke_conn:
+                self.sess.meta_architect = MetaArchitect(ke_conn)
+            if SimulationSandbox:
+                self.sess.simulation = SimulationSandbox()
+            if ArchitectureDB and ke_conn:
+                self.sess.arch_db = ArchitectureDB(ke_conn)
+            systems_loaded += 3
+        except Exception:
+            pass
+        try:
+            if DeviceAgent:
+                self.sess.device = DeviceAgent(); systems_loaded += 1
+        except Exception:
+            pass
+
+        self._safe_add_system(f"✓ I loaded {systems_loaded} advanced subsystems.")
+
+        # STT & voice initialization
+        try:
+            try:
+                from saraphina.stt import STT  # type: ignore
+                self.sess.stt = STT()
+            except Exception:
+                self.sess.stt = None
+            if VOICE_AVAILABLE:
+                self.sess.voice_enabled = True
+                self._safe_add_system("✓ My voice is active. I can speak responses aloud.")
+            else:
+                self.sess.voice_enabled = False
+                if VOICE_IMPORT_ERROR:
+                    self._safe_add_system(f"Voice output unavailable: {VOICE_IMPORT_ERROR}")
+                else:
+                    self._safe_add_system("Voice output unavailable: backend not present")
+            auto_listen_env = os.getenv('AUTO_LISTEN', 'false').lower() in ('1','true','yes')
+            db_auto_listen = False
+            try:
+                if conn:
+                    db_auto_listen = (get_preference(conn, 'auto_listen') == 'true')
+            except Exception:
+                db_auto_listen = False
+            if auto_listen_env or db_auto_listen:
+                if self.sess.stt and getattr(self.sess.stt, 'available', False):
+                    self._safe_add_system("✓ I've enabled voice listening (opt-in). Say my wake word to talk.")
+                    self.start_voice_listening()
+                else:
+                    self._safe_add_system("STT backend missing; voice listening unavailable.")
+            else:
+                self._safe_add_system("I will not listen by default. Enable AUTO_LISTEN to allow voice listening.")
+        except Exception:
+            self._safe_add_system("Voice/STT initialization failed unexpectedly")
+
+        # default preferences
+        try:
+            if conn:
+                if not get_preference(conn, 'auto_listen'):
+                    set_preference(conn, 'auto_listen', 'false')
+                if not get_preference(conn, 'wake_word'):
+                    set_preference(conn, 'wake_word', 'saraphina')
+        except Exception:
+            pass
+
+        # final greeting
+        self.update_status()
+        try:
+            owner = get_preference(conn, 'owner_name') or ''
+        except Exception:
+            owner = ''
+        owner_label = owner if owner and owner.lower() != 'there' else ''
+        owner_prefix = f" {owner_label}" if owner_label else ""
+        if self.sess.voice_enabled:
+            greeting = f"Hello{owner_prefix}. I am Saraphina — listening and learning. How can I help you today?"
+        else:
+            greeting = f"Hello{owner_prefix}. I am Saraphina. How can I help you today?"
+        self.add_message("Saraphina", greeting)
+        if self.sess.voice_enabled:
+            speak_text(greeting)
+
+        # start background loops
+        self.start_background_learning()
+
+    # ------------------------
+    # UI helpers (thread-safe)
+    # ------------------------
+    def _safe_call(self, fn: Callable, *a, **kw):
+        try:
+            if threading.current_thread() is threading.main_thread():
+                return fn(*a, **kw)
+            else:
+                self.root.after(0, lambda: fn(*a, **kw))
+        except Exception:
+            logger.exception("Safe call failed")
+
+    def _safe_add_system(self, message: str):
+        self._safe_call(self.add_system_message, message)
+
+    def add_message(self, speaker: str, message: str):
+        def _insert():
+            try:
+                self.conversation.config(state=tk.NORMAL)
+                timestamp = datetime.now().strftime("%H:%M")
+                if speaker == "Saraphina":
+                    self.conversation.insert(tk.END, f"[{timestamp}] ", "system")
+                    self.conversation.insert(tk.END, f"{speaker}: ", "saraphina")
+                    self.conversation.insert(tk.END, f"{message}\n\n")
+                else:
+                    self.conversation.insert(tk.END, f"[{timestamp}] ", "system")
+                    self.conversation.insert(tk.END, f"{speaker}: ", "user")
+                    self.conversation.insert(tk.END, f"{message}\n\n")
+                if self._autoscroll:
+                    self.conversation.see(tk.END)
+                self.conversation.config(state=tk.DISABLED)
+            except Exception:
+                logger.debug("add_message failed", exc_info=True)
+        self._safe_call(_insert)
+
+    def add_system_message(self, message: str):
+        def _insert():
+            try:
+                self.conversation.config(state=tk.NORMAL)
+                self.conversation.insert(tk.END, f"[SYSTEM] {message}\n", "system")
+                if self._autoscroll:
+                    self.conversation.see(tk.END)
+                self.conversation.config(state=tk.DISABLED)
+            except Exception:
+                logger.debug("add_system_message failed", exc_info=True)
+        self._safe_call(_insert)
+
+    # ------------------------
+    # NEW: Upgrade Execution (Replaces old _execute_pending_upgrade)
+    # ------------------------
+    def _execute_pending_upgrade(self, user_request: str):
+        """
+        Full self-upgrade pipeline:
+        1. Generate structured spec
+        2. Generate code via CodeForge
+        3. Validate in sandbox
+        4. Log success/failure to learning journal
+        5. Write preview file
+        6. UPGRADE: Apply dynamic upgrades via AgentUpgrader if possible
+        """
+        try:
+            self.ui_log("Generating structured specification...")
+            if not SpecGenerator:
+                self.ui_log("SpecGenerator not available.")
+                return
+            spec_gen = SpecGenerator(self.api_key)
+            spec = spec_gen.create(user_request)
+            self.ui_log(f"Spec created: {spec.get('feature_name', 'Unnamed feature')}")
+
+            self.ui_log("Invoking CodeForge...")
+            if not self.sess.codeforge:
+                self.ui_log("CodeForge not initialized.")
+                return
+            result = self.sess.codeforge.generate_from_spec(spec)
+
+            if not result.get("success", False):
+                errors = result.get("errors", [])
+                for err in errors:
+                    self.ui_log(f"{err}")
+                self.ui_log("Logging failure to learning journal...")
+                if self.sess.upgrade_journal:
+                    self.sess.upgrade_journal.log_failure(spec, result.get("code", ""), {"passed": False, "errors": errors})
+                return
+
+            self.ui_log("Running sandbox validation...")
+            if not self.sess.validator:
+                self.ui_log("SandboxValidator not available.")
+                return
+            validation = self.sess.validator.test(result["code"], spec)
+            if not validation.passed:
+                self.ui_log("Post-validation caught issues:")
+                for err in validation.errors:
+                    self.ui_log(f"  • {err}")
+                if self.sess.upgrade_journal:
+                    self.sess.upgrade_journal.log_failure(spec, result["code"], validation.to_dict())
+                return
+            else:
+                self.ui_log("Code passed sandbox validation.")
+
+            # UPGRADE: Attempt dynamic application via AgentUpgrader
+            try:
+                upgrade_spec = {
+                    "type": spec.get("upgrade_type", "code_patch"),  # Assume type from spec
+                    "code_artifact": result["code"],
+                    "target_file": f"upgrades/{spec.get('feature_name', 'feature')}.py",
+                    "xp_reward": 150,  # Increased reward for complex upgrades
+                    # Add more fields as needed from spec
+                }
+                if self.agent_upgrader.apply_upgrade(upgrade_spec):
+                    self.ui_log("Dynamic upgrade applied successfully via AgentUpgrader.")
+                else:
+                    self.ui_log("Dynamic upgrade failed; falling back to preview file.")
+                    raise Exception("Dynamic apply failed")
+            except Exception:
+                # Fallback: Write preview file
+                try:
+                    safe_name = re.sub(r'[^\w\-]', '_', spec.get('feature_name', 'upgrade'))
+                    file_name = f"upgrade_preview_{safe_name}.py"
+                    with open(file_name, "w", encoding="utf-8") as f:
+                        f.write(result["code"])
+                    self.ui_log(f"Code written to {file_name}")
+                except Exception as write_err:
+                    self.ui_log(f"Failed to write preview: {write_err}")
+
+            if self.sess.upgrade_journal:
+                self.sess.upgrade_journal.log_success(spec, result["code"])
+            self.ui_log("Upgrade logged successfully.")
+            self.ui_log("Self-upgrade complete!")
+
+        except Exception as e:
+            self.ui_log(f"Error during upgrade: {e}")
+            traceback.print_exc()
+
+    def ui_log(self, msg: str):
+        """Convenient alias for system messages during upgrades."""
+        self._safe_add_system(msg)
+
+    # ------------------------
+    # send / process input
+    # ------------------------
+    def send_message(self, event=None):
+        user_input = self.input_field.get().strip()
+        if not user_input:
+            return
+        self.input_field.delete(0, tk.END)
+        try:
+            if self.sess.ai:
+                try:
+                    self.sess.ai.increment_conversation_count()
+                    self.conv_label.config(text=f"Dialogues: {self.sess.ai.total_conversations}")
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        owner = "You"
+        try:
+            if self.sess.ke:
+                owner = get_preference(self.sess.ke.conn, 'owner_name') or "You"
+        except Exception:
+            pass
+        self.add_message(owner, user_input)
+        try:
+            if self.sess.voice_enabled and VOICE_AVAILABLE:
+                try:
+                    vm = get_voice()
+                    vm.stop_playback()
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+        # NEW: Detect upgrade commands
+        low = user_input.lower().strip()
+        if low.startswith("upgrade:") or low.startswith("add feature:") or low.startswith("improve:"):
+            threading.Thread(target=self._execute_pending_upgrade, args=(user_input,), daemon=True).start()
+            return
+
+        threading.Thread(target=self.process_input, args=(user_input,), daemon=True, name="ProcessInput").start()
+
+    def _handle_pending_spec_confirmation(self, user_input: str, ui_log) -> Optional[str]:
+        low = user_input.lower().strip()
+        if not self.sess._pending_spec:
+            return None
+        if low.startswith('apply'):
+            parts = low.split()
+            token = parts[1] if len(parts) > 1 else None
+            safety = self.sess._pending_spec.get('safety_level', 'high')
+            if safety != 'low':
+                owner_token = os.getenv('SELF_MOD_OWNER_TOKEN')
+                if not token or not owner_token or token != owner_token:
+                    return "This proposal requires owner authorization. Use: apply <OWNER_TOKEN>"
+            ui_log("I will create a proposal now...")
+            try:
+                if not self.sess.self_mod:
+                    ui_log("I cannot modify my code here; self-mod engine is unavailable.")
+                    self.sess._pending_spec = None
+                    return "Self-modification engine not available."
+                res = self.sess.self_mod.accept_spec_and_propose(self.sess._pending_spec, actor='user')
+                self.sess._pending_spec = None
+                return f"I created a proposal: {res}"
+            except Exception as e:
+                self.sess._pending_spec = None
+                return f"I failed to create a proposal: {e}"
+        if low in ['cancel', 'abort', 'nevermind', 'stop']:
+            self.sess._pending_spec = None
+            return "I cancelled the pending request."
+        return None
+
+    def process_input(self, user_input: str):
+        try:
+            if not self.sess.ai or not self.ultra_processor:
+                self._safe_add_system("I'm not ready yet — my core is still starting.")
+                return
+
+            def _show_typing():
+                try:
+                    self.conversation.config(state=tk.NORMAL)
+                    self.conversation.insert(tk.END, "Saraphina is thinking...\n", "typing")
+                    if self._autoscroll:
+                        self.conversation.see(tk.END)
+                    self.conversation.config(state=tk.DISABLED)
+                except Exception:
+                    pass
+            self._safe_call(_show_typing)
+            time.sleep(0.6 + random.uniform(0.0, 0.6))
+
+            def ui_log(msg):
+                self.add_system_message(msg)
+            pending_resp = self._handle_pending_spec_confirmation(user_input, ui_log)
+            if pending_resp:
+                self._remove_last_line_if_typing()
+                self.add_message("Saraphina", pending_resp)
+                return
+
+            try:
+                if parse_and_prepare_proposal:
+                    parse_result = parse_and_prepare_proposal(self.sess, user_input, dry_run=True)
+                else:
+                    parse_result = {}
+                spec = parse_result.get("spec") if isinstance(parse_result, dict) else None
+                if spec and spec.get("intent"):
+                    if spec.get("clarifying_questions"):
+                        for q in spec["clarifying_questions"]:
+                            self.add_system_message(f"I need more info: {q}")
+                        self.sess._pending_spec = spec
+                        self._remove_last_line_if_typing()
+                        return
+                    else:
+                        summary = parse_result.get("improvement_spec", "")[:2000]
+                        self.add_system_message("I can propose this change:\n" + summary)
+                        self.add_system_message("Type 'apply <OWNER_TOKEN>' to create a proposal (owner token required for non-low-risk), or 'cancel' to ignore.")
+                        self.sess._pending_spec = spec
+                        self._remove_last_line_if_typing()
+                        return
+            except Exception:
+                logger.debug("parse_and_prepare_proposal failure; continuing")
+
+            response = self.ultra_processor.process_query_with_ultra(user_input, ui_callback=ui_log)
+            self._remove_last_line_if_typing()
+            self.add_message("Saraphina", response)
+            if self.sess.voice_enabled:
+                speak_text(response)
+            self.update_status()
+        except Exception as e:
+            logger.exception("Processing error: %s", e)
+            self._safe_add_system(f"I encountered an error while processing: {e}")
+
+    def _remove_last_line_if_typing(self):
+        def _remove():
+            try:
+                self.conversation.config(state=tk.NORMAL)
+                full = self.conversation.get("1.0", tk.END)
+                marker = "Saraphina is thinking...\n"
+                idx = full.rfind(marker)
+                if idx != -1:
+                    pre = full[:idx]
+                    line_no = pre.count('\n') + 1
+                    last_newline = pre.rfind('\n')
+                    if last_newline == -1:
+                        char_no = idx
+                    else:
+                        char_no = idx - last_newline - 1
+                    start_index = f"{line_no}.{char_no}"
+                    try:
+                        found_index = self.conversation.search(marker, "1.0", tk.END, backwards=True)
+                        if found_index:
+                            end_pos = f"{found_index} + {len(marker)}c"
+                            self.conversation.delete(found_index, end_pos)
+                    except Exception:
+                        new_text = full[:idx] + full[idx + len(marker):]
+                        self.conversation.delete("1.0", tk.END)
+                        self.conversation.insert(tk.END, new_text)
+                self.conversation.config(state=tk.DISABLED)
+            except Exception as e:
+                logger.debug("Failed to remove typing indicator: %s", e)
+        self._safe_call(_remove)
+
+    # ------------------------
+    # periodic & status updates
+    # ------------------------
+    def _schedule_periodic_updates(self):
+        self.root.after(600, self._periodic_update)
+
+    def _periodic_update(self):
+        try:
+            self.update_status()
+        except Exception:
+            pass
+        if self.animation_running:
+            self.root.after(600, self._periodic_update)
+
+    def update_status(self):
+        def _update():
+            try:
+                if self.sess.ai:
+                    try:
+                        self.level_label.config(text=f"MIND: {self.sess.ai.intelligence_level}")
+                        self.xp_label.config(text=f"EXP: {self.sess.ai.experience_points}")
+                        self.conv_label.config(text=f"Dialogues: {self.sess.ai.total_conversations}")
+                    except Exception:
+                        pass
+                if getattr(self, 'kb_label', None) and self.sess.ke:
+                    try:
+                        cur = self.sess.ke.conn.cursor()
+                        cur.execute("SELECT COUNT(*) FROM facts")
+                        fact_count = cur.fetchone()[0]
+                        self.kb_label.config(text=f"Knowledge: {fact_count} facts")
+                    except Exception:
+                        pass
+                if self.sess.voice_enabled:
+                    if self.is_speaking:
+                        self.voice_label.config(text="I am speaking...", fg=self.colors['accent2'])
+                    elif self.is_listening:
+                        self.voice_label.config(text="I am listening...", fg=self.colors['accent'])
+                    else:
+                        self.voice_label.config(text="I am ready", fg=self.colors['success'])
+                else:
+                    self.voice_label.config(text="I am silent", fg=self.colors['dim'])
+            except Exception:
+                pass
+        self._safe_call(_update)
+
+    # ------------------------
+    # voice listening (STT)
+    # ------------------------
+    def start_voice_listening(self):
+        if not self.sess.stt or not getattr(self.sess.stt, 'available', False):
+            return
+        try:
+            wake_word = get_preference(self.sess.ke.conn, 'wake_word') or 'saraphina'
+        except Exception:
+            wake_word = 'saraphina'
+
+        def voice_handler(text: str):
+            try:
+                self.is_listening = True
+                self.update_status()
+                if VOICE_AVAILABLE:
+                    try:
+                        get_voice().stop_playback()
+                    except Exception:
+                        pass
+                try:
+                    owner = get_preference(self.sess.ke.conn, 'owner_name') or 'You'
+                except Exception:
+                    owner = 'You'
+                self.add_message(f"{owner} (voice)", text)
+                if text.lower().startswith(('remind me', 'set a reminder')):
+                    m = re.search(r"remind me to (.+) at (\d{1,2}:\d{2})", text, re.IGNORECASE)
+                    if m and self.sess.mm:
+                        what, when = m.group(1), m.group(2)
+                        try:
+                            self.sess.mm.add_reminder(what.strip(), datetime.now().strftime('%Y-%m-%d ') + when)
+                            response = f"I will remind you to {what} at {when}."
+                            self.add_message("Saraphina", response)
+                            if self.sess.voice_enabled:
+                                speak_text(response)
+                        except Exception:
+                            self._safe_add_system("I failed to schedule your reminder.")
+                        self.is_listening = False
+                        self.update_status()
+                        return
+                if self.sess._pending_spec:
+                    low = text.lower().strip()
+                    if any(word in low for word in ['apply','yes','proceed','do it','go ahead','confirm','okay','ok']):
+                        safety = self.sess._pending_spec.get('safety_level', 'high')
+                        if safety == 'low':
+                            pending_resp = self._handle_pending_spec_confirmation('apply', lambda m: self._safe_add_system(m))
+                            if pending_resp:
+                                self.add_message("Saraphina", pending_resp)
+                                self.is_listening = False
+                                self.update_status()
+                                return
+                        else:
+                            self._safe_add_system("I cannot accept voice approval for high-risk changes. Please authorize with your owner token in chat.")
+                            self.is_listening = False
+                            self.update_status()
+                            return
+                    elif any(word in low for word in ['cancel','abort','stop','nevermind']):
+                        self.sess._pending_spec = None
+                        self.add_message("Saraphina", "I cancelled the pending request.")
+                        self.is_listening = False
+                        self.update_status()
+                        return
+                if getattr(self, 'ultra_processor', None):
+                    response = self.ultra_processor.process_query_with_ultra(text, ui_callback=lambda m: self._safe_add_system(m))
+                    self.add_message("Saraphina", response)
+                    if self.sess.voice_enabled:
+                        speak_text(response)
+                self.is_listening = False
+                self.update_status()
+            except Exception as e:
+                logger.exception("Voice handler error: %s", e)
+                self.is_listening = False
+                self.update_status()
+
+        try:
+            self.sess.stt.start_background(voice_handler, engine='whisper', wake_word=wake_word)
+            self._safe_add_system(f"I will listen for '{wake_word}' when I'm allowed.")
+        except Exception as e:
+            self._safe_add_system(f"I couldn't start background listening: {e}")
+
+    # ------------------------
+    # speak wrapper for UI-level notifications
+    # ------------------------
+    def speak(self, text: str):
+        if not VOICE_AVAILABLE:
+            if not hasattr(self, '_voice_error_logged'):
+                self._voice_error_logged = True
+                if VOICE_IMPORT_ERROR:
+                    self._safe_add_system(f"I can't speak: {VOICE_IMPORT_ERROR}")
+                else:
+                    self._safe_add_system("I can't speak: voice backend unavailable")
+            return
+        try:
+            self.is_speaking = True
+            self.update_status()
+            speak_text(text)
+            def _clear_speaking():
+                self.is_speaking = False
+                self.update_status()
+            self.root.after(1000, _clear_speaking)
+        except Exception:
+            logger.exception("speak wrapper error")
+            self.is_speaking = False
+            self.update_status()
+
+    # ------------------------
+    # UX utilities: settings, history
+    # ------------------------
+    def show_settings(self):
+        settings_win = tk.Toplevel(self.root)
+        settings_win.title("My Settings")
+        settings_win.geometry("520x380")
+        settings_win.configure(bg=self.colors['bg'])
+        header = tk.Label(settings_win, text="MY SETTINGS", font=("Segoe UI", 16, "bold"), fg=self.colors['accent'], bg=self.colors['bg'])
+        header.pack(pady=20)
+        settings_frame = tk.Frame(settings_win, bg=self.colors['panel'])
+        settings_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=(0, 20))
+        info = tk.Label(settings_frame, text="I keep my preferences in the main database.\nRestart me to apply some changes.", font=("Segoe UI", 9), fg=self.colors['dim'], bg=self.colors['panel'], justify=tk.LEFT)
+        info.pack(padx=15, pady=15)
+        status_text = f"""Status:
+Mind: {self.sess.ai.intelligence_level if self.sess.ai else '--'}
+Experience: {self.sess.ai.experience_points if self.sess.ai else '--'}
+Voice: {'Enabled' if self.sess.voice_enabled else 'Disabled'}
+Model: GPT-4o (via OpenAI)
+Upgrade System: {'Active' if UPGRADE_SYSTEM_AVAILABLE and self.api_key else 'Inactive'}"""
+        status_label = tk.Label(settings_frame, text=status_text, font=("Consolas", 9), fg=self.colors['text'], bg=self.colors['bg'], justify=tk.LEFT)
+        status_label.pack(fill=tk.BOTH, expand=True, padx=15, pady=15)
+        close_btn = tk.Button(settings_frame, text="CLOSE", font=("Segoe UI", 10, "bold"), bg=self.colors['border'], fg=self.colors['text'], borderwidth=0, padx=30, pady=10, cursor="hand2", command=settings_win.destroy)
+        close_btn.pack(pady=20)
+
+    def show_history(self):
+        history_win = tk.Toplevel(self.root)
+        history_win.title("My Conversation History")
+        history_win.geometry("800x600")
+        history_win.configure(bg=self.colors['bg'])
+        header = tk.Label(history_win, text="CONVERSATION HISTORY", font=("Segoe UI", 16, "bold"), fg=self.colors['accent'], bg=self.colors['bg'])
+        header.pack(pady=16)
+        history_frame = tk.Frame(history_win, bg=self.colors['panel'])
+        history_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=(0, 20))
+        history_text = scrolledtext.ScrolledText(history_frame, wrap=tk.WORD, font=("Consolas", 10), bg=self.colors['bg'], fg=self.colors['text'], borderwidth=0, highlightthickness=0, padx=12, pady=10)
+        history_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        try:
+            conv_content = self.conversation.get("1.0", tk.END)
+            history_text.insert(tk.END, conv_content)
+        except Exception:
+            history_text.insert(tk.END, "[No conversation available]\n")
+        history_text.config(state=tk.DISABLED)
+        close_btn = tk.Button(history_win, text="CLOSE", font=("Segoe UI", 10, "bold"), bg=self.colors['border'], fg=self.colors['text'], borderwidth=0, padx=20, pady=8, cursor="hand2", command=history_win.destroy)
+        close_btn.pack(pady=(0, 16))
+
+    # ------------------------
+    # lifecycle & shutdown
+    # ------------------------
+    def on_closing(self):
+        try:
+            self.animation_running = False
+            if self.sess.stt and getattr(self.sess.stt, 'available', False):
+                try:
+                    self.sess.stt.stop_background()
+                except Exception:
+                    pass
+            if VOICE_AVAILABLE:
+                try:
+                    vm = get_voice()
+                    vm.stop_playback()
+                    vm.cleanup()
+                except Exception:
+                    pass
+            if self.sess.ai:
+                try:
+                    self.sess.ai._save_state()
+                except Exception:
+                    pass
+            self._save_config()
+            logger.info("I am shutting down. Goodbye.")
+        except Exception as e:
+            logger.exception("Shutdown error: %s", e)
+        try:
+            time.sleep(0.05)
+            self.root.destroy()
+        except Exception:
+            pass
+
+    # ------------------------
+    # background learning loops
+    # ------------------------
+    def start_background_learning(self):
+        def learning_loop():
+            while self.animation_running:
+                try:
+                    sleep_time = 300 + random.uniform(-30, 30)
+                    time.sleep(max(10, sleep_time))
+                    if self.sess.metaopt:
+                        health = self.sess.metaopt.analyze_learning_health()
+                        if health.get('overall_health') == 'poor':
+                            self._safe_add_system("I'm analyzing learning patterns to improve myself.")
+                        proposals = self.sess.metaopt.propose_optimizations()
+                        if proposals:
+                            self._safe_add_system(f"I found {len(proposals)} opportunities to improve.")
+                except Exception as e:
+                    logger.debug("Learning loop error: %s", e)
+        def memory_consolidation():
+            while self.animation_running:
+                try:
+                    sleep_time = 3600 + random.uniform(-60, 60)
+                    time.sleep(max(60, sleep_time))
+                    if self.sess.mm:
+                        try:
+                            added = self.sess.mm.consolidate_daily()
+                            if added > 0:
+                                self._safe_add_system(f"I consolidated {added} memories into knowledge.")
+                        except Exception:
+                            pass
+                except Exception as e:
+                    logger.debug("Memory consolidation error: %s", e)
+        def health_monitor():
+            while self.animation_running:
+                try:
+                    sleep_time = 1800 + random.uniform(-30, 30)
+                    time.sleep(max(30, sleep_time))
+                    if self.sess.ke:
+                        try:
+                            cur = self.sess.ke.conn.cursor()
+                            cur.execute("SELECT COUNT(*) FROM facts")
+                            fact_count = cur.fetchone()[0]
+                            if fact_count < 100:
+                                self._safe_add_system("I'm still learning; I need more conversations to grow.")
+                            elif fact_count % 100 == 0:
+                                self._safe_add_system(f"Milestone reached: {fact_count} facts learned!")
+                        except Exception:
+                            pass
+                except Exception as e:
+                    logger.debug("Health monitor error: %s", e)
+        threading.Thread(target=learning_loop, daemon=True).start()
+        threading.Thread(target=memory_consolidation, daemon=True).start()
+        threading.Thread(target=health_monitor, daemon=True).start()
+        self._safe_add_system("My background learning is active — I'm continuously improving.")
+
+    # ------------------------
+    # small UX helpers
+    # ------------------------
+    def _register_shortcuts(self):
+        try:
+            self.root.bind("<Escape>", lambda e: self._on_escape())
+            self.root.bind("<Control-s>", lambda e: self._toggle_autoscroll())
+        except Exception:
+            pass
+
+    def _on_escape(self):
+        try:
+            if VOICE_AVAILABLE:
+                get_voice().stop_playback()
+                self._safe_add_system("Playback interrupted.")
+        except Exception:
+            pass
+
+    def _toggle_autoscroll(self):
+        self._autoscroll = not self._autoscroll
+        self._safe_add_system(f"Autoscroll {'enabled' if self._autoscroll else 'disabled'}.")
+
+# ------------------------
+# main entry
+# ------------------------
+def main():
+    root = tk.Tk()
+    try:
+        icon_path = Path("assets/icon.ico")
+        if icon_path.exists():
+            try:
+                root.iconbitmap(str(icon_path))
+            except Exception:
+                logger.debug("Icon set failed (ignored).")
+    except Exception:
+        logger.debug("Icon assign skipped.")
+    app = SaraphinaBeingGUI(root)
+    root.mainloop()
+
+if __name__ == '__main__':
+    main()
